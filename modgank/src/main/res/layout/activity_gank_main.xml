@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.sjl.gank.GankMainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/gankMainColor">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="标题"
+            android:textColor="@color/gankWhite"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleX="0.6"
+            android:scaleY="0.6"
+            android:src="@drawable/ic_search_white" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/vpContent"
+        android:layout_weight="1"></android.support.v4.view.ViewPager>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            style="@style/GankTabRadioButton"
+            android:drawableTop="@drawable/ic_home"
+            android:text="首页"
+            android:checked="true"
+            android:textColor="@color/normal_selected_color" />
+
+        <RadioButton
+            style="@style/GankTabRadioButton"
+            android:drawableTop="@drawable/ic_person"
+            android:text="我的"
+            android:textColor="@color/normal_selected_color" />
+    </RadioGroup>
+</LinearLayout>

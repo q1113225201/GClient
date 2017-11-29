@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gankMainColor">#3385FF</color>
+    <color name="gankWhite">#FFFFFF</color>
+
+    <color name="gankNormalColor">#888888</color>
+    <color name="gankSelectedColor">#3385FF</color>
+
+</resources>
