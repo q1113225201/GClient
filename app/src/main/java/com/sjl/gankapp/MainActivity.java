@@ -1,4 +1,4 @@
-package com.sjl.app;
+package com.sjl.gankapp;
 
 import android.app.Activity;
 import android.os.Bundle;

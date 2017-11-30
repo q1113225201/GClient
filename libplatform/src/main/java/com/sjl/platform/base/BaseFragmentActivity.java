@@ -1,10 +1,10 @@
-package com.sjl.platform;
+package com.sjl.platform.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.Window;
 
 import com.sjl.platform.util.PermisstionUtil;
@@ -16,7 +16,7 @@ import com.sjl.platform.util.PermisstionUtil;
  * @date 2017/11/29
  */
 
-public class BaseActivity extends Activity {
+public class BaseFragmentActivity extends FragmentActivity {
     protected Context mContext;
 
     @Override

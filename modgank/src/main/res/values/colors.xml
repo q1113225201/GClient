@@ -2,6 +2,7 @@
 <resources>
     <color name="gankMainColor">#3385FF</color>
     <color name="gankWhite">#FFFFFF</color>
+    <color name="gankTabBottom">#F5F5F5</color>
 
     <color name="gankNormalColor">#888888</color>
     <color name="gankSelectedColor">#3385FF</color>
