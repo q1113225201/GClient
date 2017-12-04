@@ -14,12 +14,12 @@ import com.sjl.platform.base.BaseFragment;
  * @author SJL
  * @date 2017/11/30
  */
-public class SortFragment extends BaseFragment {
+public class HistoryFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_sort, container, false);
+        view = inflater.inflate(R.layout.fragment_history, container, false);
         return view;
     }
 }

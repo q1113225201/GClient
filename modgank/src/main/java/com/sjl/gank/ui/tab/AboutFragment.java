@@ -17,19 +17,19 @@ import com.sjl.platform.util.LogUtil;
  * @author SJL
  * @date 2017/11/30
  */
-public class MineFragment extends BaseFragment {
-    private static final String TAG = "MineFragment";
+public class AboutFragment extends BaseFragment {
+    private static final String TAG = "AboutFragment";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_mine, container, false);
+        view = inflater.inflate(R.layout.fragment_about, container, false);
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LogUtil.i(TAG,"MineFragment onViewCreated");
+        LogUtil.i(TAG,"AboutFragment onViewCreated");
 
     }
 }

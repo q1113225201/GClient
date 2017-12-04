@@ -43,21 +43,21 @@
             android:id="@+id/rbIndex"
             style="@style/GankTabRadioButton"
             android:drawableTop="@drawable/ic_home"
-            android:text="首页"
+            android:text="最新"
             android:textColor="@color/normal_selected_color" />
 
         <RadioButton
             android:id="@+id/rbSort"
             style="@style/GankTabRadioButton"
             android:drawableTop="@drawable/ic_sort"
-            android:text="分类"
+            android:text="历史"
             android:textColor="@color/normal_selected_color" />
 
         <RadioButton
             android:id="@+id/rbMine"
             style="@style/GankTabRadioButton"
             android:drawableTop="@drawable/ic_person"
-            android:text="我的"
+            android:text="关于"
             android:textColor="@color/normal_selected_color" />
     </RadioGroup>
 
