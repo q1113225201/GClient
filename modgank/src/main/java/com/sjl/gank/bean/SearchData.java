@@ -1,5 +1,8 @@
 package com.sjl.gank.bean;
 
+import net.tsz.afinal.annotation.sqlite.Id;
+import net.tsz.afinal.annotation.sqlite.Table;
+
 /**
  * SearchData
  *
@@ -16,27 +19,6 @@ public class SearchData extends BaseData {
 
     public void setCount(Integer count) {
         this.count = count;
-    }
-
-    public class SearchDataResult{
-        public String desc;
-        public String ganhuo_id;
-        public String publishedAt;
-        public String type;
-        public String url;
-        public String who;
-
-        @Override
-        public String toString() {
-            return "SearchDataResult{" +
-                    "desc='" + desc + '\'' +
-                    ", ganhuo_id='" + ganhuo_id + '\'' +
-                    ", publishedAt='" + publishedAt + '\'' +
-                    ", type='" + type + '\'' +
-                    ", url='" + url + '\'' +
-                    ", who='" + who + '\'' +
-                    '}';
-        }
     }
 
     @Override

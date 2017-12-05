@@ -25,8 +25,6 @@ public interface GankAPI {
      */
     @GET("day/history")
     Call<HistoryDate> getHistory();
-    @GET("day/history")
-    Observable<HistoryDate> getHistorys();
 
     /**
      * 根据日期获取网页数据

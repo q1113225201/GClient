@@ -1,5 +1,8 @@
 package com.sjl.gank.bean;
 
+import net.tsz.afinal.annotation.sqlite.Id;
+import net.tsz.afinal.annotation.sqlite.Table;
+
 /**
  * HistoryDate
  *
@@ -7,35 +10,7 @@ package com.sjl.gank.bean;
  * @date 2017/12/1
  */
 
-public class HistoryDate extends BaseData<HistoryDate.HistoryDateResult> {
-    public class HistoryDateResult{
-        public Integer id;
-        public String date;
-
-        public Integer getId() {
-            return id;
-        }
-
-        public void setId(Integer id) {
-            this.id = id;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public void setDate(String date) {
-            this.date = date;
-        }
-
-        @Override
-        public String toString() {
-            return "DBHistoryDate{" +
-                    "id=" + id +
-                    ", date='" + date + '\'' +
-                    '}';
-        }
-    }
+public class HistoryDate extends BaseData<String> {
     @Override
     public String toString() {
         return "HistoryDate{" +

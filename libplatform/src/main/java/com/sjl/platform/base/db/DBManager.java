@@ -2,6 +2,8 @@ package com.sjl.platform.base.db;
 
 import android.text.TextUtils;
 
+import com.sjl.platform.util.LogUtil;
+
 import net.tsz.afinal.FinalDb;
 
 import java.util.ArrayList;
@@ -70,6 +72,23 @@ public class DBManager {
     public <T> void save(List<T> list) {
         for (T item : list) {
             save(item);
+        }
+    }
+
+    public <T> void update(T model){
+        finalDb.update(model);
+    }
+
+    public <T> void update(T model,String where){
+        finalDb.update(model,where);
+    }
+
+    public <T> void merger(T model,String where){
+        List<T> list = (List<T>) getList(model.getClass(),where,"");
+        if(list.size()==0){
+            save(model);
+        }else{
+            update(model,where);
         }
     }
 
