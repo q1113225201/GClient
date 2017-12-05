@@ -1,5 +1,7 @@
 package com.sjl.platform.base.db;
 
+import android.text.TextUtils;
+
 import net.tsz.afinal.FinalDb;
 
 import java.util.ArrayList;
@@ -41,7 +43,12 @@ public class DBManager {
      * @return
      */
     public <T> List<T> getList(Class<T> clazz, String where, String orderBy) {
-        List<T> list = finalDb.findAllByWhere(clazz, where, orderBy);
+        List<T> list = null;
+        if(!TextUtils.isEmpty(orderBy)) {
+            list = finalDb.findAllByWhere(clazz, where, orderBy);
+        }else{
+            list = finalDb.findAllByWhere(clazz, where);
+        }
         list = list == null ? new ArrayList<T>() : list;
         return list;
     }
