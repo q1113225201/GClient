@@ -5,32 +5,6 @@
     android:layout_height="match_parent"
     tools:context="com.sjl.gank.ui.GankMainActivity">
 
-    <RelativeLayout
-        android:id="@+id/rlTitle"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@color/gankMainColor">
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="标题"
-            android:textColor="@color/gankWhite"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/ivSearch"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:scaleX="0.6"
-            android:scaleY="0.6"
-            android:src="@drawable/ic_search_white" />
-    </RelativeLayout>
-
     <RadioGroup
         android:id="@+id/rgTab"
         android:layout_width="match_parent"
@@ -43,14 +17,14 @@
             android:id="@+id/rbIndex"
             style="@style/GankTabRadioButton"
             android:drawableTop="@drawable/ic_home"
-            android:text="最新"
+            android:text="镇楼"
             android:textColor="@color/normal_selected_color" />
 
         <RadioButton
             android:id="@+id/rbSort"
             style="@style/GankTabRadioButton"
             android:drawableTop="@drawable/ic_sort"
-            android:text="历史"
+            android:text="分类"
             android:textColor="@color/normal_selected_color" />
 
         <RadioButton
@@ -65,7 +39,6 @@
         android:id="@+id/vpContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/rgTab"
-        android:layout_below="@+id/rlTitle"></android.support.v4.view.ViewPager>
+        android:layout_above="@+id/rgTab"></android.support.v4.view.ViewPager>
 
 </RelativeLayout>

@@ -25,6 +25,13 @@ public interface GankAPI {
      */
     @GET("day/history")
     Call<HistoryDate> getHistory();
+    /**
+     * 获取已发布日期列表
+     *
+     * @return
+     */
+    @GET("day/history")
+    Observable<HistoryDate> getHistoryDates();
 
     /**
      * 根据日期获取网页数据
@@ -55,6 +62,16 @@ public interface GankAPI {
      */
     @GET("data/{type}/{num}/{page}")
     Call<GankData> getSortDataByPage(@Path("type") String type, @Path("num") int num, @Path("page") int page);
+    /**
+     * 根据类别分页获取数据
+     *
+     * @param type
+     * @param num
+     * @param page
+     * @return
+     */
+    @GET("data/{type}/{num}/{page}")
+    Observable<GankData> getSortDataByPages(@Path("type") String type, @Path("num") int num, @Path("page") int page);
 
     /**
      * 获取随机分类数据

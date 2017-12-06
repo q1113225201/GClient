@@ -2,8 +2,6 @@ package com.sjl.platform.base.db;
 
 import android.text.TextUtils;
 
-import com.sjl.platform.util.LogUtil;
-
 import net.tsz.afinal.FinalDb;
 
 import java.util.ArrayList;
@@ -38,6 +36,7 @@ public class DBManager {
 
     /**
      * 获取列表
+     *
      * @param clazz
      * @param where
      * @param orderBy
@@ -46,9 +45,9 @@ public class DBManager {
      */
     public <T> List<T> getList(Class<T> clazz, String where, String orderBy) {
         List<T> list = null;
-        if(!TextUtils.isEmpty(orderBy)) {
+        if (!TextUtils.isEmpty(orderBy)) {
             list = finalDb.findAllByWhere(clazz, where, orderBy);
-        }else{
+        } else {
             list = finalDb.findAllByWhere(clazz, where);
         }
         list = list == null ? new ArrayList<T>() : list;
@@ -57,6 +56,7 @@ public class DBManager {
 
     /**
      * 保存数据
+     *
      * @param model
      * @param <T>
      */
@@ -66,6 +66,7 @@ public class DBManager {
 
     /**
      * 保存列表
+     *
      * @param list
      * @param <T>
      */
@@ -75,25 +76,26 @@ public class DBManager {
         }
     }
 
-    public <T> void update(T model){
+    public <T> void update(T model) {
         finalDb.update(model);
     }
 
-    public <T> void update(T model,String where){
-        finalDb.update(model,where);
+    public <T> void update(T model, String where) {
+        finalDb.update(model, where);
     }
 
-    public <T> void merger(T model,String where){
-        List<T> list = (List<T>) getList(model.getClass(),where,"");
-        if(list.size()==0){
+    public <T> void merger(T model, String where) {
+        List<T> list = (List<T>) getList(model.getClass(), where, "");
+        if (list.size() == 0) {
             save(model);
-        }else{
-            update(model,where);
+        } else {
+            update(model, where);
         }
     }
 
     /**
      * 获取最后一条数据
+     *
      * @param clazz
      * @param <T>
      * @return

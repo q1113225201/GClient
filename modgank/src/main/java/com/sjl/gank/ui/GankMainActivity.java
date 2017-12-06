@@ -4,15 +4,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.sjl.gank.R;
-import com.sjl.gank.ui.tab.IndexFragment;
 import com.sjl.gank.ui.tab.AboutFragment;
 import com.sjl.gank.ui.tab.HistoryFragment;
+import com.sjl.gank.ui.tab.IndexFragment;
 import com.sjl.platform.base.BaseFragmentActivity;
 import com.sjl.platform.util.LogUtil;
 
@@ -21,8 +19,6 @@ import java.util.List;
 
 public class GankMainActivity extends BaseFragmentActivity {
     private static final String TAG = "GankMainActivity";
-    TextView tvTitle;
-    ImageView ivSearch;
     RadioGroup rgTab;
     RadioButton rbIndex;
     RadioButton rbSort;
@@ -41,8 +37,6 @@ public class GankMainActivity extends BaseFragmentActivity {
     private List<Fragment> tabContentList = new ArrayList<>();
 
     private void initView() {
-        tvTitle = findViewById(R.id.tvTitle);
-        ivSearch = findViewById(R.id.ivSearch);
         rgTab = findViewById(R.id.rgTab);
         rbIndex = findViewById(R.id.rbIndex);
         rbSort = findViewById(R.id.rbSort);
@@ -72,7 +66,6 @@ public class GankMainActivity extends BaseFragmentActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 LogUtil.i(TAG,"checkedId="+checkedId);
                 vpContent.setCurrentItem(tabList.indexOf(checkedId));
-                tvTitle.setText(((RadioButton)findViewById(tabList.get(vpContent.getCurrentItem()))).getText());
             }
         });
         vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
