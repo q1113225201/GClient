@@ -1,5 +1,6 @@
 package com.sjl.platform.util;
 
+import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
@@ -18,16 +19,23 @@ import java.util.Locale;
  */
 public class LogUtil {
     private static String tag = "LogUtil";
-    public static Boolean LOG_SWITCH = true; // 日志控制总开关 true 在开发工具后台打印日志 false 不打印日志
-    public static Boolean LOG_WRITE_TO_FILE = true;// 日志写入文件开关
+    private static Boolean LOG_SWITCH = true; // 日志控制总开关 true 在开发工具后台打印日志 false 不打印日志
+    private static Boolean LOG_WRITE_TO_FILE = true;// 日志写入文件开关
     private static char LOG_TYPE = 'v';// 输入日志类型，w代表只输出告警信息等，v代表输出所有信息
-    public static String LOG_FILEPATH = Environment.getExternalStorageDirectory() + "/LogUtil/";// 本类输出的日志文件名称
-    public static String LOG_FILEPATH_RELEASE = "/data/data/com.sjl.lbox/cache/LogUtil/";// 本类输出的日志文件名称
+    private static String LOG_FILEPATH = Environment.getExternalStorageDirectory() + "/LogUtil/";// 本类输出的日志文件名称
+    private static String LOG_FILEPATH_RELEASE = "/data/data/com.sjl.libplatform/cache/LogUtil/";// 本类输出的日志文件名称
     private static String LOG_FILENAME = "log.txt";// 本类输出的日志文件名称
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS", Locale.US);// 日志的输出格式
     private static SimpleDateFormat log_sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);// 日志文件的输出格式
 
-    public static void w(Object msg) { // 警告信息  
+    public static void init(Context context,boolean debug) {
+        LOG_FILEPATH = String.format("%s/%s/", Environment.getExternalStorageDirectory(), context.getPackageName());
+        LOG_FILEPATH_RELEASE = String.format("/data/data/%s/cache/LogUtil/",context.getPackageName());
+        LOG_SWITCH = debug;
+        LOG_WRITE_TO_FILE = debug;
+    }
+
+    public static void w(Object msg) { // 警告信息
         log(tag, msg.toString(), 'w');
     }
 
@@ -119,7 +127,7 @@ public class LogUtil {
     private static void log(String tag, String msg, char level) {
         if (LOG_SWITCH) {
             for (int i = 0; i < msg.length(); i += 2000) {
-                String str = msg.substring(i,i+2000>msg.length()?msg.length():i+2000);
+                String str = msg.substring(i, i + 2000 > msg.length() ? msg.length() : i + 2000);
                 if ('e' == level && ('e' == LOG_TYPE || 'v' == LOG_TYPE)) { // 输出错误信息
                     Log.e(tag, str);
                 } else if ('w' == level && ('w' == LOG_TYPE || 'v' == LOG_TYPE)) {

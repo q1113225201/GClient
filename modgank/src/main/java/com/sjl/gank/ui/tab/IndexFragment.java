@@ -1,7 +1,10 @@
 package com.sjl.gank.ui.tab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -17,6 +20,7 @@ import com.sjl.gank.bean.GankData;
 import com.sjl.gank.bean.GankDataResult;
 import com.sjl.gank.config.GankConfig;
 import com.sjl.gank.service.ServiceClient;
+import com.sjl.gank.ui.GankDetailActivity;
 import com.sjl.platform.base.BaseFragment;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
 import com.sjl.platform.base.db.DBManager;
@@ -105,15 +109,32 @@ public class IndexFragment extends BaseFragment {
             }
 
             @Override
-            protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, GankDataResult item, List<GankDataResult> list) {
+            protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, final GankDataResult item, List<GankDataResult> list) {
                 try {
-                    ImageView ivItemImg = (ImageView) viewHolder.findViewById(R.id.ivItemImg);
+                    final ImageView ivItemImg = (ImageView) viewHolder.findViewById(R.id.ivItemImg);
+                    final TextView tvItemTime = ((TextView) viewHolder.findViewById(R.id.tvItemTime));
                     Glide.with(getActivity()).load(item.getUrl()).into(ivItemImg);
-                    Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(item.getPublishedAt());
-                    ((TextView) viewHolder.findViewById(R.id.tvItemTime)).setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
+                    final Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(item.getPublishedAt());
+                    tvItemTime.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
+
+                    ivItemImg.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = GankDetailActivity.newIntent(getContext(),item.getUrl(), new SimpleDateFormat("yyyy-MM-dd").format(date));
+                            try {
+                                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                        getActivity(), tvItemTime, GankDetailActivity.TRANSFORM);
+                                ActivityCompat.startActivity(getActivity(), intent, optionsCompat.toBundle());
+                            } catch (IllegalArgumentException e) {
+                                e.printStackTrace();
+                                startActivity(intent);
+                            }
+                        }
+                    });
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+
             }
         };
         rv.setAdapter(adapter);

@@ -3,7 +3,8 @@
     package="com.sjl.gank">
 
     <application>
-        <activity android:name="com.sjl.gank.ui.GankMainActivity"></activity>
+        <activity android:name=".ui.GankMainActivity" />
+        <activity android:name=".ui.GankDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -31,4 +31,10 @@ public class BaseActivity extends Activity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermisstionUtil.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mContext = null;
+    }
 }
