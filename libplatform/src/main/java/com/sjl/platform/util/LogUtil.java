@@ -2,6 +2,7 @@ package com.sjl.platform.util;
 
 import android.content.Context;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.IOException;
@@ -125,6 +126,9 @@ public class LogUtil {
      * @since v 1.0
      */
     private static void log(String tag, String msg, char level) {
+        if(TextUtils.isEmpty(msg)){
+            return;
+        }
         if (LOG_SWITCH) {
             for (int i = 0; i < msg.length(); i += 2000) {
                 String str = msg.substring(i, i + 2000 > msg.length() ? msg.length() : i + 2000);

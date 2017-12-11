@@ -1,6 +1,7 @@
 package com.sjl.gank.service;
 
 import com.sjl.gank.bean.GankData;
+import com.sjl.gank.bean.GankDayData;
 import com.sjl.gank.bean.GankWebData;
 import com.sjl.gank.bean.HistoryDate;
 import com.sjl.gank.bean.SearchData;
@@ -93,4 +94,11 @@ public interface GankAPI {
      */
     @GET("search/query/listview/category/{type}/count/{num}/page/{page}")
     Call<SearchData> getSearchData(@Path("type")String type, @Path("num") int num, @Path("page") int page);
+
+    /**
+     * 每日数据
+     * @return
+     */
+    @GET("day/{date}")
+    Observable<GankDayData> getDayData(@Path("date")String date);
 }

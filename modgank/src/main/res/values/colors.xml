@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="gankMainColor">#3385FF</color>
+    <color name="gankTransparentMainColor">#333385FF</color>
     <color name="gankWhite">#FFFFFF</color>
     <color name="gankTabBottom">#F5F5F5</color>
 

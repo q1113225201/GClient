@@ -32,6 +32,15 @@ public class BaseActivity extends Activity {
         PermisstionUtil.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    public void toast(String msg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

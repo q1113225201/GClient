@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -115,12 +116,12 @@ public class IndexFragment extends BaseFragment {
                     final TextView tvItemTime = ((TextView) viewHolder.findViewById(R.id.tvItemTime));
                     Glide.with(getActivity()).load(item.getUrl()).into(ivItemImg);
                     final Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(item.getPublishedAt());
-                    tvItemTime.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
+                    tvItemTime.setText(new SimpleDateFormat("yyyy/MM/dd").format(date));
 
                     ivItemImg.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = GankDetailActivity.newIntent(getContext(),item.getUrl(), new SimpleDateFormat("yyyy-MM-dd").format(date));
+                            Intent intent = GankDetailActivity.newIntent(getContext(),item.getUrl(), new SimpleDateFormat("yyyy/MM/dd").format(date));
                             try {
                                 ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                                         getActivity(), tvItemTime, GankDetailActivity.TRANSFORM);
