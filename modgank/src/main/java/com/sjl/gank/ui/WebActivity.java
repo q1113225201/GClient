@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,9 +23,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sjl.gank.R;
+import com.sjl.gank.view.MenuPopWindow;
 import com.sjl.platform.base.BaseActivity;
+import com.sjl.platform.util.LogUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WebActivity extends BaseActivity implements View.OnClickListener {
+    private static final String TAG = "WebActivity";
     public static final String TITLE = "title";
     public static final String URL = "url";
     private String title;
@@ -42,7 +49,6 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         url = getIntent().getStringExtra(URL);
     }
 
-    private Toolbar toolBar;
     private ImageView ivBack;
     private ImageView ivSetting;
     private TextView tvTtile;
@@ -60,7 +66,6 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
-        toolBar = findViewById(R.id.toolBar);
         ivBack = findViewById(R.id.ivBack);
         ivSetting = findViewById(R.id.ivSetting);
         tvTtile = findViewById(R.id.tvTitle);
@@ -79,7 +84,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
                 }
             }
         });
-        toolBar.setTitle(title);
+        initMenu();
     }
 
     private void initWebView() {
@@ -200,35 +205,32 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         if (id == R.id.ivBack) {
             finish();
         } else if (id == R.id.ivSetting) {
-
+            menuPopWindow.show();
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_webview,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id==R.id.menuRefresh){
-            webView.reload();
-            return true;
-        }else if(id==R.id.menuCopy){
-            ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-            clipboardManager.setPrimaryClip(ClipData.newPlainText("text", webView.getUrl()));
-            toast("链接已复制");
-            return true;
-        }else if(id==R.id.menuShare){
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, "链接分享");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    MenuPopWindow menuPopWindow;
+    private void initMenu() {
+        List<String> list = new ArrayList<>();
+        list.add("刷新");
+        list.add("复制");
+        list.add("分享");
+        menuPopWindow = new MenuPopWindow(mContext,ivSetting, list, new MenuPopWindow.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                if(position==0){
+                    webView.reload();
+                }else if(position==1){
+                    ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                    clipboardManager.setPrimaryClip(ClipData.newPlainText("text", webView.getUrl()));
+                    toast("链接已复制");
+                }else if(position==2){
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plain");
+                    intent.putExtra(Intent.EXTRA_TEXT, webView.getUrl());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }
