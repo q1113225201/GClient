@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -53,9 +54,8 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
         imageUrl = getIntent().getStringExtra(IMAGE_URL);
     }
 
+    private Toolbar toolBar;
     private TextView tvDate;
-    private ImageView ivLeft;
-    private ImageView ivRight;
     private ImageView ivGirl;
     private RecyclerView rvDayData;
 
@@ -66,15 +66,13 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gank_detail);
-
         initView();
     }
 
     private void initView() {
         parseIntent();
+        toolBar = findViewById(R.id.toolBar);
         tvDate = findViewById(R.id.tvDate);
-        ivLeft = findViewById(R.id.ivLeft);
-        ivRight = findViewById(R.id.ivRight);
         ivGirl = findViewById(R.id.ivGirl);
         rvDayData = findViewById(R.id.rvDayData);
 
@@ -83,10 +81,15 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
         tvDate.setText(date);
         Glide.with(mContext).load(imageUrl).into(ivGirl);
         tvDate.setOnClickListener(this);
-        ivLeft.setOnClickListener(this);
-        ivRight.setOnClickListener(this);
         initDayData();
         getDayData(date);
+        toolBar.setNavigationIcon(R.drawable.ic_arrow_left);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initDayData() {
@@ -181,10 +184,6 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tvDate) {
-
-        } else if (id == R.id.ivLeft) {
-
-        } else if (id == R.id.ivRight) {
 
         }
     }

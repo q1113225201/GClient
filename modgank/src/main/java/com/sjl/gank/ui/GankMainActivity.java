@@ -9,7 +9,7 @@ import android.widget.RadioGroup;
 
 import com.sjl.gank.R;
 import com.sjl.gank.ui.tab.AboutFragment;
-import com.sjl.gank.ui.tab.HistoryFragment;
+import com.sjl.gank.ui.tab.SortFragment;
 import com.sjl.gank.ui.tab.IndexFragment;
 import com.sjl.platform.base.BaseFragmentActivity;
 import com.sjl.platform.util.LogUtil;
@@ -48,7 +48,7 @@ public class GankMainActivity extends BaseFragmentActivity {
         tabList.add(R.id.rbMine);
 
         tabContentList.add(new IndexFragment());
-        tabContentList.add(new HistoryFragment());
+        tabContentList.add(new SortFragment());
         tabContentList.add(new AboutFragment());
         vpContent.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

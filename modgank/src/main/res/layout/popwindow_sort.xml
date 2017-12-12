@@ -3,16 +3,11 @@
     android:id="@+id/llParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="right"
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvMenu"
-        android:layout_width="wrap_content"
+        android:id="@+id/rvSort"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/popwindow_bg"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp"></android.support.v7.widget.RecyclerView>
+        android:background="@color/gankWhite"></android.support.v7.widget.RecyclerView>
 </LinearLayout>

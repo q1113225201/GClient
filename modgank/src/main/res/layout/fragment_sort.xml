@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.sjl.gank.ui.tab.HistoryFragment">
+    tools:context="com.sjl.gank.ui.tab.SortFragment">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="" />
+        android:layout_height="wrap_content"
+        android:id="@+id/rvSort"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

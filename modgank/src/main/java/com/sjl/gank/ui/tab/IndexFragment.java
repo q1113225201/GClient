@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -52,6 +51,11 @@ public class IndexFragment extends BaseFragment {
     private CommonRVAdapter<GankDataResult> adapter;
     private List<GankDataResult> gankDataResultList = new ArrayList<>();
 
+    private int currentPage = 1;
+    private final static int LOADING = 1;
+    private final static int NOLOAD = 2;
+    private final static int LOAD_NO_MORE = 3;
+    private int loadState = NOLOAD;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,7 +79,7 @@ public class IndexFragment extends BaseFragment {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                LogUtil.i(TAG,"onRefresh");
+                LogUtil.i(TAG, "onRefresh");
                 currentPage = 1;
                 loadState = NOLOAD;
                 getGirls(currentPage);
@@ -97,13 +101,13 @@ public class IndexFragment extends BaseFragment {
 //                super.onScrolled(recyclerView, dx, dy);
                 StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
                 int[] positions = layoutManager.findLastCompletelyVisibleItemPositions(new int[SPAN_COUNT]);
-                if(positions[positions.length-1]>=adapter.getItemCount()-GankConfig.PAGE_SIZE/2&&loadState==NOLOAD){
+                if (positions[positions.length - 1] >= adapter.getItemCount() - GankConfig.PAGE_SIZE / 2 && loadState == NOLOAD) {
                     getGirls(currentPage);
                 }
             }
         });
         rv.setLayoutManager(new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));
-        adapter = new CommonRVAdapter<GankDataResult>(getActivity(), gankDataResultList, R.layout.item_girls, R.layout.item_girls_empty) {
+        adapter = new CommonRVAdapter<GankDataResult>(mContext, gankDataResultList, R.layout.item_girls, R.layout.item_girls_empty) {
             @Override
             protected void onBindNullViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, GankDataResult item, List<GankDataResult> list) {
 
@@ -114,18 +118,18 @@ public class IndexFragment extends BaseFragment {
                 try {
                     final ImageView ivItemImg = (ImageView) viewHolder.findViewById(R.id.ivItemImg);
                     final TextView tvItemTime = ((TextView) viewHolder.findViewById(R.id.tvItemTime));
-                    Glide.with(getActivity()).load(item.getUrl()).into(ivItemImg);
+                    Glide.with(mContext).load(item.getUrl()).into(ivItemImg);
                     final Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(item.getPublishedAt());
                     tvItemTime.setText(new SimpleDateFormat("yyyy/MM/dd").format(date));
 
                     ivItemImg.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = GankDetailActivity.newIntent(getContext(),item.getUrl(), new SimpleDateFormat("yyyy/MM/dd").format(date));
+                            Intent intent = GankDetailActivity.newIntent(getContext(), item.getUrl(), new SimpleDateFormat("yyyy/MM/dd").format(date));
                             try {
                                 ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                                         getActivity(), tvItemTime, GankDetailActivity.TRANSFORM);
-                                ActivityCompat.startActivity(getActivity(), intent, optionsCompat.toBundle());
+                                ActivityCompat.startActivity(mContext, intent, optionsCompat.toBundle());
                             } catch (IllegalArgumentException e) {
                                 e.printStackTrace();
                                 startActivity(intent);
@@ -146,12 +150,6 @@ public class IndexFragment extends BaseFragment {
         adapter.flush(list);
     }
 
-    private int currentPage = 1;
-    private final static int LOADING = 1;
-    private final static int NOLOAD = 2;
-    private final static int LOAD_NO_MORE = 3;
-    private int loadState = NOLOAD;
-
     private void getGirls(final int page) {
         if (loadState == LOAD_NO_MORE) {
             LogUtil.i(TAG, "没有更多数据");
@@ -159,7 +157,7 @@ public class IndexFragment extends BaseFragment {
         }
         if (loadState == NOLOAD) {
             loadState = LOADING;
-        }else{
+        } else {
             return;
         }
         ServiceClient.getGankAPI().getSortDataByPages("福利", GankConfig.PAGE_SIZE, page)
@@ -168,19 +166,19 @@ public class IndexFragment extends BaseFragment {
                 .subscribe(new Consumer<GankData>() {
                     @Override
                     public void accept(GankData gankData) throws Exception {
-                        LogUtil.i(TAG,gankData.toString());
+                        LogUtil.i(TAG, gankData.toString());
                         if (gankData.getResults().size() == GankConfig.PAGE_SIZE) {
                             currentPage++;
                             loadState = NOLOAD;
                         } else {
                             loadState = LOAD_NO_MORE;
                         }
-                        if(page==1){
-                            if (DBManager.getInstance().getList(GankDataResult.class,String.format("_id='%s'",gankData.getResults().get(0).get_id()),"publishedAt desc").size()==0) {
+                        if (page == 1) {
+                            if (DBManager.getInstance().getList(GankDataResult.class, String.format("_id='%s'", gankData.getResults().get(0).get_id()), "publishedAt desc").size() == 0) {
                                 adapter.flush(gankData.getResults());
                                 saveGirls(gankData.getResults());
                             }
-                        }else{
+                        } else {
                             adapter.addList(gankData.getResults());
                         }
                         srl.setRefreshing(false);
@@ -189,15 +187,15 @@ public class IndexFragment extends BaseFragment {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         LogUtil.e(TAG, "accept---:" + throwable.getMessage());
-                        loadState =loadState==LOADING?NOLOAD:loadState;
+                        loadState = loadState == LOADING ? NOLOAD : loadState;
                         srl.setRefreshing(false);
                     }
                 });
     }
 
     private void saveGirls(List<GankDataResult> results) {
-        for (GankDataResult item:results){
-            DBManager.getInstance().merger(item,String.format("_id='%s'",item.get_id()));
+        for (GankDataResult item : results) {
+            DBManager.getInstance().merger(item, String.format("_id='%s'", item.get_id()));
         }
     }
 

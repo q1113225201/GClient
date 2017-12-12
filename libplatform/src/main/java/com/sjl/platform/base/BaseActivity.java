@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.Window;
 
 import com.sjl.platform.util.PermisstionUtil;
+import com.sjl.platform.util.ToastUtil;
 
 /**
  * BaseActivity
@@ -32,11 +33,11 @@ public class BaseActivity extends Activity {
         PermisstionUtil.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    public void toast(String msg) {
+    public void toast(final String msg) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
+                ToastUtil.showToast(mContext,msg);
             }
         });
     }

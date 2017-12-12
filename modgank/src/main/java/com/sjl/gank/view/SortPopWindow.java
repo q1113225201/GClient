@@ -3,7 +3,7 @@ package com.sjl.gank.view;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,18 +19,18 @@ import com.sjl.platform.base.adapter.CommonRVAdapter;
 import java.util.List;
 
 /**
- * MenuPopWindow
+ * SortPopWindow
  *
  * @author SJL
- * @date 2017/12/11 21:45
+ * @date 2017/12/12 19:02
  */
 
-public class MenuPopWindow implements View.OnClickListener {
+public class SortPopWindow implements View.OnClickListener {
     private Context context;
     private View parentView;
     public PopupWindow popupWindow;
     private LinearLayout llParent;
-    private RecyclerView rvMenu;
+    private RecyclerView rvSort;
     private CommonRVAdapter<String> adapter;
     private List<String> list;
     private boolean isShow;
@@ -41,7 +41,7 @@ public class MenuPopWindow implements View.OnClickListener {
 
     private OnItemClickListener onItemClickListener;
 
-    public MenuPopWindow(Context context, View parentView, List<String> list, OnItemClickListener onItemClickListener) {
+    public SortPopWindow(Context context, View parentView, List<String> list, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.parentView = parentView;
         this.list = list;
@@ -58,14 +58,14 @@ public class MenuPopWindow implements View.OnClickListener {
         if (popupWindow != null && !isShow) {
 //            popupWindow.showAtLocation(parentView, Gravity.TOP, (int) parentView.getX(), (int) (parentView.getY()));
             popupWindow.showAsDropDown(parentView);
-//            changeAlpha(0.3f);
+            changeAlpha(0.3f);
             isShow = true;
         }
     }
 
     private void setDefaultLayout() {
-        View popupView = LayoutInflater.from(context).inflate(R.layout.popwindow_menu, null);
-        popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        View popupView = LayoutInflater.from(context).inflate(R.layout.popwindow_sort, null);
+        popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -74,8 +74,8 @@ public class MenuPopWindow implements View.OnClickListener {
             }
         });
         llParent = popupView.findViewById(R.id.llParent);
-        rvMenu = popupView.findViewById(R.id.rvMenu);
-        adapter = new CommonRVAdapter<String>(context, list, R.layout.item_menu, R.layout.item_menu_empty) {
+        rvSort = popupView.findViewById(R.id.rvSort);
+        adapter = new CommonRVAdapter<String>(context, list, R.layout.item_sort, R.layout.item_sort_empty) {
             @Override
             protected void onBindNullViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, String item, List<String> list) {
 
@@ -83,7 +83,6 @@ public class MenuPopWindow implements View.OnClickListener {
 
             @Override
             protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, final int position, String item, List<String> list) {
-                viewHolder.findViewById(R.id.viewDevide).setVisibility(position == 0 ? View.GONE : View.VISIBLE);
                 ((TextView) viewHolder.findViewById(R.id.tvItemName)).setText(item);
                 viewHolder.findViewById(R.id.tvItemName).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -96,8 +95,8 @@ public class MenuPopWindow implements View.OnClickListener {
                 });
             }
         };
-        rvMenu.setAdapter(adapter);
-        rvMenu.setLayoutManager(new LinearLayoutManager(context));
+        rvSort.setAdapter(adapter);
+        rvSort.setLayoutManager(new GridLayoutManager(context, 3));
         llParent.setOnClickListener(this);
     }
 
@@ -107,7 +106,7 @@ public class MenuPopWindow implements View.OnClickListener {
     public void dismiss() {
         if (popupWindow != null && isShow) {
             popupWindow.dismiss();
-//            changeAlpha(1f);
+            changeAlpha(1f);
             isShow = false;
         }
     }
@@ -116,7 +115,7 @@ public class MenuPopWindow implements View.OnClickListener {
     private void changeAlpha(float alpha) {
         WindowManager.LayoutParams params = ((Activity) context).getWindow().getAttributes();
         params.alpha = alpha;
-        ((Activity) context).getWindow().setAttributes(params);
+//        ((Activity) context).getWindow().setAttributes(params);
     }
 
     @Override

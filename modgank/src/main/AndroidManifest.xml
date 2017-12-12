@@ -5,7 +5,8 @@
     <application>
         <activity android:name=".ui.GankMainActivity" />
         <activity android:name=".ui.GankDetailActivity" />
-        <activity android:name=".ui.WebActivity"></activity>
+        <activity android:name=".ui.WebActivity" />
+        <activity android:name=".ui.SortListActivity"></activity>
     </application>
 
 </manifest>
