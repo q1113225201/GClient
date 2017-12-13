@@ -4,14 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sjl.gank.R;
+import com.sjl.gank.bean.GankData;
 import com.sjl.gank.bean.GankDataResult;
+import com.sjl.gank.config.GankConfig;
+import com.sjl.gank.service.ServiceClient;
+import com.sjl.gank.util.GankUtil;
 import com.sjl.gank.view.SortPopWindow;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
@@ -19,6 +25,10 @@ import com.sjl.platform.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class SortListActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "SortListActivity";
@@ -119,13 +129,61 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, GankDataResult item, List<GankDataResult> list) {
-
+                if ("福利".equalsIgnoreCase(sort)) {
+                    viewHolder.findViewById(R.id.llItemType).setVisibility(View.VISIBLE);
+                    viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
+                    ((TextView) viewHolder.findViewById(R.id.tvItemType)).setText(GankUtil.parseDate(item.getPublishedAt()));
+                    viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
+                    Glide.with(mContext).load(item.getUrl()).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                } else {
+                    viewHolder.findViewById(R.id.llItemType).setVisibility("all".equalsIgnoreCase(sort) ? View.VISIBLE : View.GONE);
+                    viewHolder.findViewById(R.id.llItemContent).setVisibility(View.VISIBLE);
+                    ((TextView) viewHolder.findViewById(R.id.tvItemType)).setText(item.getType());
+                    ((TextView) viewHolder.findViewById(R.id.tvItemDesc)).setText(item.getDesc());
+                    ((TextView) viewHolder.findViewById(R.id.tvItemTimeAuth)).setText(String.format("%s\n%s", GankUtil.parseDate(item.getPublishedAt()), item.getWho()));
+                    if (item.getImages() == null || item.getImages().size() == 0) {
+                        viewHolder.findViewById(R.id.llItemImg).setVisibility(View.GONE);
+                    } else {
+                        viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
+                        Glide.with(mContext).load(item.getImages().get(0)).placeholder(R.drawable.loading).placeholder(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                    }
+                    if("福利".equalsIgnoreCase(item.getType())) {
+                        viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
+                        viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
+                        Glide.with(mContext).load(item.getUrl()).placeholder(R.drawable.loading).placeholder(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                    }
+                }
             }
         };
+        rvSort.setAdapter(adapter);
+        rvSort.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void getSortList(int page, String sort) {
-
+        ServiceClient.getGankAPI().getSortDataByPages(sort, 10, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<GankData>() {
+                    @Override
+                    public void accept(GankData gankData) throws Exception {
+                        LogUtil.i(TAG, gankData.toString());
+                        if (gankData.getResults().size() == GankConfig.PAGE_SIZE) {
+                            currentPage++;
+                            loadState = NOLOAD;
+                        } else {
+                            loadState = LOAD_NO_MORE;
+                        }
+                        adapter.addList(gankData.getResults());
+                        srl.setRefreshing(false);
+                    }
+                },new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        LogUtil.e(TAG, "accept---:" + throwable.getMessage());
+                        loadState = loadState == LOADING ? NOLOAD : loadState;
+                        srl.setRefreshing(false);
+                    }
+                });
     }
 
     @Override

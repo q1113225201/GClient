@@ -75,7 +75,7 @@ public class SortPopWindow implements View.OnClickListener {
         });
         llParent = popupView.findViewById(R.id.llParent);
         rvSort = popupView.findViewById(R.id.rvSort);
-        adapter = new CommonRVAdapter<String>(context, list, R.layout.item_sort, R.layout.item_sort_empty) {
+        adapter = new CommonRVAdapter<String>(context, list, R.layout.item_sort_type, R.layout.item_sort_type_empty) {
             @Override
             protected void onBindNullViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, String item, List<String> list) {
 
