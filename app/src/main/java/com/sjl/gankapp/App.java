@@ -3,6 +3,8 @@ package com.sjl.gankapp;
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.sjl.gank.GankInit;
+import com.sjl.platform.PlatformInit;
 import com.sjl.platform.base.db.DBManager;
 
 import net.tsz.afinal.FinalDb;
@@ -24,6 +26,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        PlatformInit.init(this).setDebug(true);
+        GankInit.init(this);
         FinalDb finalDb = FinalDb.create(this,"gank.db",BuildConfig.DEBUG,BuildConfig.VERSION_CODE,dbUpdateListener);
         DBManager.init(finalDb);
     }

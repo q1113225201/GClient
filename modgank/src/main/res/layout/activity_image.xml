@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="每日妹子"
+            android:text="漂亮妹子"
             android:textColor="@color/gankWhite"
             android:layout_toRightOf="@+id/ivBack"
             android:layout_toLeftOf="@+id/ivSetting"

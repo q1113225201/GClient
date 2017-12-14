@@ -106,16 +106,7 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
     private SortPopWindow sortPopWindow;
 
     private void initPopWindow() {
-        final List<String> list = new ArrayList<>();
-        list.add("all");
-        list.add("Android");
-        list.add("iOS");
-        list.add("休息视频");
-        list.add("福利");
-        list.add("拓展资源");
-        list.add("前端");
-        list.add("瞎推荐");
-        list.add("App");
+        final List<String> list = GankConfig.sortList;
         sortPopWindow = new SortPopWindow(mContext, llSort, list, new SortPopWindow.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -139,14 +130,14 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, final GankDataResult item, List<GankDataResult> list) {
-                if ("福利".equalsIgnoreCase(sort)) {
+                if (GankConfig.WELFARE.equalsIgnoreCase(sort)) {
                     viewHolder.findViewById(R.id.llItemType).setVisibility(View.VISIBLE);
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
                     ((TextView) viewHolder.findViewById(R.id.tvItemType)).setText(GankUtil.parseDate(item.getPublishedAt()));
                     viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
                     Glide.with(mContext).load(item.getUrl()).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                 } else {
-                    viewHolder.findViewById(R.id.llItemType).setVisibility("all".equalsIgnoreCase(sort) ? View.VISIBLE : View.GONE);
+                    viewHolder.findViewById(R.id.llItemType).setVisibility(GankConfig.ALL.equalsIgnoreCase(sort) ? View.VISIBLE : View.GONE);
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.VISIBLE);
                     ((TextView) viewHolder.findViewById(R.id.tvItemType)).setText(item.getType());
                     ((TextView) viewHolder.findViewById(R.id.tvItemDesc)).setText(item.getDesc());
@@ -157,7 +148,7 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
                         viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
                         Glide.with(mContext).load(item.getImages().get(0)).placeholder(R.drawable.loading).error(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                     }
-                    if ("福利".equalsIgnoreCase(item.getType())) {
+                    if (GankConfig.WELFARE.equalsIgnoreCase(item.getType())) {
                         viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
                         viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
                         Glide.with(mContext).load(item.getUrl()).placeholder(R.drawable.loading).error(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));

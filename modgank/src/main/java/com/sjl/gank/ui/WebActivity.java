@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.sjl.gank.R;
 import com.sjl.gank.view.MenuPopWindow;
 import com.sjl.platform.base.BaseActivity;
+import com.sjl.platform.util.ShareUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -224,11 +225,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
                     clipboardManager.setPrimaryClip(ClipData.newPlainText("text", webView.getUrl()));
                     toast("链接已复制");
                 }else if(position==2){
-                    Intent intent = new Intent(Intent.ACTION_SEND);
-                    intent.setType("text/plain");
-                    intent.putExtra(Intent.EXTRA_TEXT, webView.getUrl());
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    ShareUtil.shareMsg(mContext,webView.getUrl());
                 }
             }
         });

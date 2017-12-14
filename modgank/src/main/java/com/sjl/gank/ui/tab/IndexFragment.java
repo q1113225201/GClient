@@ -153,7 +153,7 @@ public class IndexFragment extends BaseFragment {
         } else {
             return;
         }
-        ServiceClient.getGankAPI().getSortDataByPages("福利", GankConfig.PAGE_SIZE, page)
+        ServiceClient.getGankAPI().getSortDataByPages(GankConfig.WELFARE, GankConfig.PAGE_SIZE, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<GankData>() {

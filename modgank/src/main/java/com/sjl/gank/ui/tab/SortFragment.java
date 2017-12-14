@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sjl.gank.R;
+import com.sjl.gank.config.GankConfig;
 import com.sjl.gank.ui.SortListActivity;
 import com.sjl.platform.base.BaseFragment;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
@@ -50,16 +51,7 @@ public class SortFragment extends BaseFragment {
     }
 
     private void initSort() {
-        list = new ArrayList<>();
-        list.add("all");
-        list.add("Android");
-        list.add("iOS");
-        list.add("休息视频");
-        list.add("福利");
-        list.add("拓展资源");
-        list.add("前端");
-        list.add("瞎推荐");
-        list.add("App");
+        list = GankConfig.sortList;
         adapter = new CommonRVAdapter<String>(mContext, list, R.layout.item_menu, R.layout.item_menu_empty) {
             @Override
             protected void onBindNullViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, String item, List<String> list) {
