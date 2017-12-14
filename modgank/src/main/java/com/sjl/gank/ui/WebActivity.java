@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -25,7 +24,12 @@ import com.sjl.platform.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 网页
+ *
+ * @author SJL
+ * @date 2017/12/14
+ */
 public class WebActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "WebActivity";
     public static final String TITLE = "title";

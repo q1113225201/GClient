@@ -29,7 +29,12 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
+/**
+ * 分类列表页面
+ * 
+ * @author SJL
+ * @date 2017/12/14
+ */
 public class SortListActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "SortListActivity";
     private static final String SORT = "sort";
@@ -52,7 +57,7 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
     private SwipeRefreshLayout srl;
     private RecyclerView rvSort;
     private CommonRVAdapter<GankDataResult> adapter;
-    private List<GankDataResult> list;
+    private List<GankDataResult> gankDataResultList;
 
     private int currentPage = 1;
     private final static int LOADING = 1;
@@ -115,20 +120,25 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onItemClick(View view, int position) {
                 tvSort.setText(list.get(position));
+                sort = list.get(position);
+                currentPage = 1;
+                gankDataResultList.clear();
+                adapter.flush(gankDataResultList);
+                getSortList(currentPage, sort);
             }
         });
     }
 
     private void initSortList() {
-        list = new ArrayList<>();
-        adapter = new CommonRVAdapter<GankDataResult>(mContext, list, R.layout.item_sort, R.layout.item_sort_empty) {
+        gankDataResultList = new ArrayList<>();
+        adapter = new CommonRVAdapter<GankDataResult>(mContext, gankDataResultList, R.layout.item_sort, R.layout.item_sort_empty) {
             @Override
             protected void onBindNullViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, GankDataResult item, List<GankDataResult> list) {
 
             }
 
             @Override
-            protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, GankDataResult item, List<GankDataResult> list) {
+            protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, final GankDataResult item, List<GankDataResult> list) {
                 if ("福利".equalsIgnoreCase(sort)) {
                     viewHolder.findViewById(R.id.llItemType).setVisibility(View.VISIBLE);
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
@@ -145,22 +155,54 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
                         viewHolder.findViewById(R.id.llItemImg).setVisibility(View.GONE);
                     } else {
                         viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                        Glide.with(mContext).load(item.getImages().get(0)).placeholder(R.drawable.loading).placeholder(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                        Glide.with(mContext).load(item.getImages().get(0)).placeholder(R.drawable.loading).error(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                     }
-                    if("福利".equalsIgnoreCase(item.getType())) {
+                    if ("福利".equalsIgnoreCase(item.getType())) {
                         viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
                         viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                        Glide.with(mContext).load(item.getUrl()).placeholder(R.drawable.loading).placeholder(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                        Glide.with(mContext).load(item.getUrl()).placeholder(R.drawable.loading).error(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                     }
                 }
+                viewHolder.findViewById(R.id.cvItemSort).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if("福利".equalsIgnoreCase(item.getType())){
+                            startActivity(ImageActivity.newIntent(mContext,item.getUrl()));
+                        }else{
+                            startActivity(WebActivity.newIntent(mContext,item.getDesc(),item.getUrl()));
+                        }
+                    }
+                });
             }
         };
         rvSort.setAdapter(adapter);
         rvSort.setLayoutManager(new LinearLayoutManager(this));
+        rvSort.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager.findLastVisibleItemPosition() >= adapter.getItemCount() - GankConfig.PAGE_SIZE / 2 && loadState == NOLOAD) {
+                    getSortList(currentPage, sort);
+                }
+            }
+        });
     }
 
-    private void getSortList(int page, String sort) {
-        ServiceClient.getGankAPI().getSortDataByPages(sort, 10, page)
+    private synchronized void getSortList(int page, String sort) {
+        if (loadState == LOAD_NO_MORE && currentPage != 1) {
+            LogUtil.i(TAG, "没有更多数据");
+            return;
+        }
+        if (loadState == NOLOAD) {
+            loadState = LOADING;
+        } else {
+            return;
+        }
+        if(currentPage==1&&!srl.isRefreshing()){
+            srl.setRefreshing(true);
+        }
+        ServiceClient.getGankAPI().getSortDataByPages(sort, GankConfig.PAGE_SIZE, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<GankData>() {
@@ -176,11 +218,11 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
                         adapter.addList(gankData.getResults());
                         srl.setRefreshing(false);
                     }
-                },new Consumer<Throwable>() {
+                }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         LogUtil.e(TAG, "accept---:" + throwable.getMessage());
-                        loadState = loadState == LOADING ? NOLOAD : loadState;
+                        loadState = NOLOAD;
                         srl.setRefreshing(false);
                     }
                 });

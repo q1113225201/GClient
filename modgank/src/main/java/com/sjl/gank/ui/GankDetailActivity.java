@@ -32,7 +32,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-
+/**
+ * 每日数据页面
+ *
+ * @author SJL
+ * @date 2017/12/14
+ */
 public class GankDetailActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "GankDetailActivity";
     public static String TRANSFORM = "transform";
@@ -80,7 +85,7 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
 
         tvDate.setText(date);
         Glide.with(mContext).load(imageUrl).into(ivGirl);
-        tvDate.setOnClickListener(this);
+        ivGirl.setOnClickListener(this);
         initDayData();
         getDayData(date);
         toolBar.setNavigationIcon(R.drawable.ic_arrow_left);
@@ -183,8 +188,8 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.tvDate) {
-
+        if (id == R.id.ivGirl) {
+            startActivity(ImageActivity.newIntent(mContext,imageUrl));
         }
     }
 }

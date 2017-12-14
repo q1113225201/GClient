@@ -17,6 +17,12 @@ import com.sjl.platform.util.LogUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 首页
+ *
+ * @author SJL
+ * @date 2017/12/14
+ */
 public class GankMainActivity extends BaseFragmentActivity {
     private static final String TAG = "GankMainActivity";
     RadioGroup rgTab;
