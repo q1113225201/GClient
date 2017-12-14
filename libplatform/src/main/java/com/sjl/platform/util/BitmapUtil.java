@@ -188,6 +188,11 @@ public class BitmapUtil {
         return resultBmp;
     }
 
+    /**
+     * Drawable转Bitmap
+     * @param drawable
+     * @return
+     */
     public static Bitmap toBitmap(Drawable drawable) {
         if (drawable == null) {
             return null;
