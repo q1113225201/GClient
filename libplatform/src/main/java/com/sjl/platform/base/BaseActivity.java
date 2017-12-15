@@ -1,10 +1,10 @@
 package com.sjl.platform.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
 import com.sjl.platform.util.PermisstionUtil;
@@ -17,7 +17,7 @@ import com.sjl.platform.util.ToastUtil;
  * @date 2017/11/29
  */
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
     protected Context mContext;
 
     @Override

@@ -11,6 +11,7 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -191,5 +192,11 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
         if (id == R.id.ivGirl) {
             startActivity(ImageActivity.newIntent(mContext,imageUrl));
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail,menu);
+        return true;
     }
 }

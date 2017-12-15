@@ -2,8 +2,6 @@ package com.sjl.gank.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -81,6 +79,7 @@ public class ImageActivity extends BaseActivity implements View.OnClickListener 
                 } else if (position == 1) {
                     saveImage();
                     ShareUtil.shareImage(mContext,new File(path));
+//                    ShareUtil.shareImage(mContext,path);
                 }
             }
         });

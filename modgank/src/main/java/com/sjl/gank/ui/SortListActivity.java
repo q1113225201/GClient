@@ -135,7 +135,7 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
                     ((TextView) viewHolder.findViewById(R.id.tvItemType)).setText(GankUtil.parseDate(item.getPublishedAt()));
                     viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                    Glide.with(mContext).load(item.getUrl()).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                    Glide.with(mContext).load(item.getUrl()).centerCrop().placeholder(R.drawable.loading).error(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                 } else {
                     viewHolder.findViewById(R.id.llItemType).setVisibility(GankConfig.ALL.equalsIgnoreCase(sort) ? View.VISIBLE : View.GONE);
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.VISIBLE);
@@ -151,7 +151,7 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
                     if (GankConfig.WELFARE.equalsIgnoreCase(item.getType())) {
                         viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
                         viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                        Glide.with(mContext).load(item.getUrl()).placeholder(R.drawable.loading).error(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                        Glide.with(mContext).load(item.getUrl()).centerCrop().placeholder(R.drawable.loading).error(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                     }
                 }
                 viewHolder.findViewById(R.id.cvItemSort).setOnClickListener(new View.OnClickListener() {

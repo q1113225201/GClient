@@ -116,7 +116,7 @@ public class IndexFragment extends BaseFragment {
             protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, final GankDataResult item, List<GankDataResult> list) {
                 final ImageView ivItemImg = (ImageView) viewHolder.findViewById(R.id.ivItemImg);
                 final TextView tvItemTime = ((TextView) viewHolder.findViewById(R.id.tvItemTime));
-                Glide.with(mContext).load(item.getUrl()).into(ivItemImg);
+                Glide.with(mContext).load(item.getUrl()).centerCrop().placeholder(R.drawable.loading).error(R.drawable.ic_launcher).into(ivItemImg);
                 tvItemTime.setText(GankUtil.parseDate(item.getPublishedAt()));
 
                 ivItemImg.setOnClickListener(new View.OnClickListener() {
