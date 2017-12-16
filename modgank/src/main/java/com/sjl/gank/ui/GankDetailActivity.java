@@ -12,6 +12,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+
 /**
  * 每日数据页面
  *
@@ -77,23 +79,37 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
 
     private void initView() {
         parseIntent();
-        toolBar = findViewById(R.id.toolBar);
+        initToolBar();
         tvDate = findViewById(R.id.tvDate);
         ivGirl = findViewById(R.id.ivGirl);
         rvDayData = findViewById(R.id.rvDayData);
 
         ViewCompat.setTransitionName(tvDate, TRANSFORM);
-
         tvDate.setText(date);
         Glide.with(mContext).load(imageUrl).into(ivGirl);
         ivGirl.setOnClickListener(this);
         initDayData();
         getDayData(date);
-        toolBar.setNavigationIcon(R.drawable.ic_arrow_left);
+    }
+
+    private void initToolBar() {
+        toolBar = findViewById(R.id.toolBar);
+        toolBar.setTitle("");
+        setSupportActionBar(toolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.menuOpen) {
+                    startActivity(WebActivity.newIntent(mContext, date, "http://gank.io/" + date));
+                }
+                return false;
             }
         });
     }
@@ -108,24 +124,24 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
 
             @Override
             protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, final GankDataResult item, List<GankDataResult> list) {
-                if(position==0||!list.get(position).getType().equalsIgnoreCase(list.get(position-1).getType())){
+                if (position == 0 || !list.get(position).getType().equalsIgnoreCase(list.get(position - 1).getType())) {
                     viewHolder.findViewById(R.id.tvCategory).setVisibility(View.VISIBLE);
-                    ((TextView)viewHolder.findViewById(R.id.tvCategory)).setText(item.getType());
-                }else{
+                    ((TextView) viewHolder.findViewById(R.id.tvCategory)).setText(item.getType());
+                } else {
                     viewHolder.findViewById(R.id.tvCategory).setVisibility(View.GONE);
                 }
                 SpannableStringBuilder builder = new SpannableStringBuilder();
                 SpannableString spannableString = new SpannableString(item.getDesc());
-                spannableString.setSpan(new TextAppearanceSpan(mContext,R.style.TextLink),0,spannableString.length(),0);
+                spannableString.setSpan(new TextAppearanceSpan(mContext, R.style.TextLink), 0, spannableString.length(), 0);
                 builder.append(spannableString);
-                spannableString = new SpannableString(TextUtils.isEmpty(item.getWho())?"":item.getWho());
-                spannableString.setSpan(new TextAppearanceSpan(mContext,R.style.TextAuth),0,spannableString.length(),0);
+                spannableString = new SpannableString(TextUtils.isEmpty(item.getWho()) ? "" : item.getWho());
+                spannableString.setSpan(new TextAppearanceSpan(mContext, R.style.TextAuth), 0, spannableString.length(), 0);
                 builder.append(spannableString);
-                ((TextView)viewHolder.findViewById(R.id.tvContent)).setText(builder.subSequence(0,builder.length()));
+                ((TextView) viewHolder.findViewById(R.id.tvContent)).setText(builder.subSequence(0, builder.length()));
                 viewHolder.findViewById(R.id.tvContent).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = WebActivity.newIntent(mContext,item.getDesc(),item.getUrl());
+                        Intent intent = WebActivity.newIntent(mContext, item.getDesc(), item.getUrl());
                         startActivity(intent);
                     }
                 });
@@ -141,32 +157,32 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
      * @param date
      */
     private void getDayData(String date) {
-        LogUtil.i(TAG,date);
+        LogUtil.i(TAG, date);
         ServiceClient.getGankAPI().getDayData(date)
                 .map(new Function<GankDayData, List<GankDataResult>>() {
                     @Override
                     public List<GankDataResult> apply(GankDayData gankDayData) throws Exception {
-                        LogUtil.i(TAG,gankDayData);
+                        LogUtil.i(TAG, gankDayData);
                         //将获取到的数据添加到一个列表中
                         GankDayDataResult gankDayDataResult = gankDayData.getResults();
                         List<GankDataResult> results = new ArrayList<>();
-                        if(gankDayDataResult.getAndroid()!=null) {
+                        if (gankDayDataResult.getAndroid() != null) {
                             results.addAll(gankDayDataResult.getAndroid());
                         }
-                        if(gankDayDataResult.getiOS()!=null) {
-                        results.addAll(gankDayDataResult.getiOS());
+                        if (gankDayDataResult.getiOS() != null) {
+                            results.addAll(gankDayDataResult.getiOS());
                         }
-                        if(gankDayDataResult.get前端()!=null) {
-                        results.addAll(gankDayDataResult.get前端());
+                        if (gankDayDataResult.get前端() != null) {
+                            results.addAll(gankDayDataResult.get前端());
                         }
-                        if(gankDayDataResult.get拓展资源()!=null) {
-                        results.addAll(gankDayDataResult.get拓展资源());
+                        if (gankDayDataResult.get拓展资源() != null) {
+                            results.addAll(gankDayDataResult.get拓展资源());
                         }
-                        if(gankDayDataResult.get瞎推荐()!=null) {
-                        results.addAll(gankDayDataResult.get瞎推荐());
+                        if (gankDayDataResult.get瞎推荐() != null) {
+                            results.addAll(gankDayDataResult.get瞎推荐());
                         }
-                        if(gankDayDataResult.get休息视频()!=null) {
-                        results.addAll(gankDayDataResult.get休息视频());
+                        if (gankDayDataResult.get休息视频() != null) {
+                            results.addAll(gankDayDataResult.get休息视频());
                         }
                         return results;
                     }
@@ -190,13 +206,13 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.ivGirl) {
-            startActivity(ImageActivity.newIntent(mContext,imageUrl));
+            startActivity(ImageActivity.newIntent(mContext, imageUrl));
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_detail,menu);
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
         return true;
     }
 }

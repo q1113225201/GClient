@@ -1,11 +1,15 @@
 package com.sjl.gank.ui;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +26,7 @@ import com.sjl.gank.view.SortPopWindow;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
 import com.sjl.platform.util.LogUtil;
+import com.sjl.platform.util.ShareUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +55,7 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
         sort = getIntent().getStringExtra(SORT);
     }
 
-    private ImageView ivBack;
+    private Toolbar toolBar;
     private TextView tvSort;
     private ImageView ivDropdown;
     private LinearLayout llSort;
@@ -76,7 +81,7 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
 
 
     private void initView() {
-        ivBack = findViewById(R.id.ivBack);
+        initToolBar();
         llSort = findViewById(R.id.llSort);
         tvSort = findViewById(R.id.tvSort);
         ivDropdown = findViewById(R.id.ivDropdown);
@@ -94,13 +99,33 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
                 getSortList(currentPage, sort);
             }
         });
-        ivBack.setOnClickListener(this);
         llSort.setOnClickListener(this);
 
         tvSort.setText(sort);
         initSortList();
         getSortList(currentPage, sort);
         initPopWindow();
+    }
+
+    private void initToolBar() {
+        toolBar = findViewById(R.id.toolBar);
+        toolBar.setTitle("");
+        setSupportActionBar(toolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+
+                return false;
+            }
+        });
     }
 
     private SortPopWindow sortPopWindow;
@@ -222,9 +247,7 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.ivBack) {
-            finish();
-        } else if (id == R.id.llSort) {
+        if (id == R.id.llSort) {
             sortPopWindow.show();
         }
     }
