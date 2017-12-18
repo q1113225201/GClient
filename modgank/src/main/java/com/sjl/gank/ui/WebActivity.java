@@ -107,7 +107,7 @@ public class WebActivity extends BaseActivity {
                 } else if (id == R.id.menuCopy) {
                     ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                     clipboardManager.setPrimaryClip(ClipData.newPlainText("text", webView.getUrl()));
-                    toast("链接已复制");
+                    toast(getString(R.string.gank_copy_success));
                 } else if (id == R.id.menuShare) {
                     ShareUtil.shareMsg(mContext, webView.getUrl());
                 }

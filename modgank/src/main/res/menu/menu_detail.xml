@@ -2,5 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menuOpen"
-        android:title="打开链接" />
+        android:title="@string/gank_menu_open_url" />
 </menu>

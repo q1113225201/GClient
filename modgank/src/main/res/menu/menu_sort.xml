@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuAll"
+        android:title="@string/gank_menu_all" />
+    <item
+        android:id="@+id/menuAndroid"
+        android:title="@string/gank_menu_android" />
+    <item
+        android:id="@+id/menuIOS"
+        android:title="@string/gank_menu_ios" />
+    <item
+        android:id="@+id/menuRest"
+        android:title="@string/gank_menu_rest" />
+    <item
+        android:id="@+id/menuWelfare"
+        android:title="@string/gank_menu_welfare" />
+    <item
+        android:id="@+id/menuExtra"
+        android:title="@string/gank_menu_extra" />
+    <item
+        android:id="@+id/menuWeb"
+        android:title="@string/gank_menu_web" />
+    <item
+        android:id="@+id/menuRecommand"
+        android:title="@string/gank_menu_recommand" />
+    <item
+        android:id="@+id/menuApp"
+        android:title="@string/gank_menu_app" />
+</menu>

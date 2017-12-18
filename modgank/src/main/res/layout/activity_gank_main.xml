@@ -17,21 +17,21 @@
             android:id="@+id/rbIndex"
             style="@style/GankTabRadioButton"
             android:drawableTop="@drawable/ic_home"
-            android:text="镇楼"
+            android:text="@string/gank_tab_index"
             android:textColor="@color/normal_selected_color" />
 
         <RadioButton
             android:id="@+id/rbSort"
             style="@style/GankTabRadioButton"
             android:drawableTop="@drawable/ic_sort"
-            android:text="分类"
+            android:text="@string/gank_tab_sort"
             android:textColor="@color/normal_selected_color" />
 
         <RadioButton
             android:id="@+id/rbMine"
             style="@style/GankTabRadioButton"
             android:drawableTop="@drawable/ic_person"
-            android:text="关于"
+            android:text="@string/gank_tab_about"
             android:textColor="@color/normal_selected_color" />
     </RadioGroup>
 

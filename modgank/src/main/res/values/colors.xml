@@ -4,6 +4,7 @@
     <color name="gankTransparentMainColor">#333385FF</color>
     <color name="gankWhite">#FFFFFF</color>
     <color name="gankBlank">#000000</color>
+    <color name="gankBlankTransparent">#33000000</color>
     <color name="gankTabBottom">#F5F5F5</color>
 
     <color name="gankNormalColor">#888888</color>

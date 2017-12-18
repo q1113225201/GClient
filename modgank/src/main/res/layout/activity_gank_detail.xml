@@ -40,10 +40,10 @@
                     android:id="@+id/tvDate"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="@dimen/margin_common"
                     android:gravity="center_vertical"
                     android:textColor="@color/gankWhite"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/text_big" />
 
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>

@@ -1,7 +1,5 @@
 package com.sjl.gank.ui;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,10 +7,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,11 +20,10 @@ import com.sjl.gank.bean.GankDataResult;
 import com.sjl.gank.config.GankConfig;
 import com.sjl.gank.service.ServiceClient;
 import com.sjl.gank.util.GankUtil;
-import com.sjl.gank.view.SortPopWindow;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
 import com.sjl.platform.util.LogUtil;
-import com.sjl.platform.util.ShareUtil;
+import com.sjl.platform.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author SJL
  * @date 2017/12/14
  */
-public class SortListActivity extends BaseActivity implements View.OnClickListener {
+public class SortListActivity extends BaseActivity{
     private static final String TAG = "SortListActivity";
     private static final String SORT = "sort";
     private String sort;
@@ -56,9 +53,6 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
     }
 
     private Toolbar toolBar;
-    private TextView tvSort;
-    private ImageView ivDropdown;
-    private LinearLayout llSort;
     private SwipeRefreshLayout srl;
     private RecyclerView rvSort;
     private CommonRVAdapter<GankDataResult> adapter;
@@ -82,9 +76,6 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
 
     private void initView() {
         initToolBar();
-        llSort = findViewById(R.id.llSort);
-        tvSort = findViewById(R.id.tvSort);
-        ivDropdown = findViewById(R.id.ivDropdown);
         srl = findViewById(R.id.srl);
         rvSort = findViewById(R.id.rvSort);
 
@@ -99,17 +90,14 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
                 getSortList(currentPage, sort);
             }
         });
-        llSort.setOnClickListener(this);
 
-        tvSort.setText(sort);
         initSortList();
         getSortList(currentPage, sort);
-        initPopWindow();
     }
 
     private void initToolBar() {
         toolBar = findViewById(R.id.toolBar);
-        toolBar.setTitle("");
+        toolBar.setTitle(sort);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -121,26 +109,12 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
         toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                int id = item.getItemId();
-
-                return false;
-            }
-        });
-    }
-
-    private SortPopWindow sortPopWindow;
-
-    private void initPopWindow() {
-        final List<String> list = GankConfig.sortList;
-        sortPopWindow = new SortPopWindow(mContext, llSort, list, new SortPopWindow.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                tvSort.setText(list.get(position));
-                sort = list.get(position);
+                sort = item.getTitle().toString();
+                toolBar.setTitle(sort);
                 currentPage = 1;
-                gankDataResultList.clear();
-                adapter.flush(gankDataResultList);
+                adapter.removeAll();
                 getSortList(currentPage, sort);
+                return false;
             }
         });
     }
@@ -160,7 +134,7 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
                     ((TextView) viewHolder.findViewById(R.id.tvItemType)).setText(GankUtil.parseDate(item.getPublishedAt()));
                     viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                    Glide.with(mContext).load(item.getUrl()).centerCrop().placeholder(R.drawable.loading).error(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                    Glide.with(mContext).load(item.getUrl()).centerCrop().error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                 } else {
                     viewHolder.findViewById(R.id.llItemType).setVisibility(GankConfig.ALL.equalsIgnoreCase(sort) ? View.VISIBLE : View.GONE);
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.VISIBLE);
@@ -171,18 +145,18 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
                         viewHolder.findViewById(R.id.llItemImg).setVisibility(View.GONE);
                     } else {
                         viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                        Glide.with(mContext).load(item.getImages().get(0)).placeholder(R.drawable.loading).error(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                        Glide.with(mContext).load(item.getImages().get(0)).error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                     }
                     if (GankConfig.WELFARE.equalsIgnoreCase(item.getType())) {
                         viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
                         viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                        Glide.with(mContext).load(item.getUrl()).centerCrop().placeholder(R.drawable.loading).error(R.drawable.ic_launcher).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                        Glide.with(mContext).load(item.getUrl()).centerCrop().error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                     }
                 }
                 viewHolder.findViewById(R.id.cvItemSort).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if("福利".equalsIgnoreCase(item.getType())){
+                        if(GankConfig.WELFARE.equalsIgnoreCase(item.getType())){
                             startActivity(ImageActivity.newIntent(mContext,item.getUrl()));
                         }else{
                             startActivity(WebActivity.newIntent(mContext,item.getDesc(),item.getUrl()));
@@ -207,7 +181,7 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
 
     private synchronized void getSortList(int page, String sort) {
         if (loadState == LOAD_NO_MORE && currentPage != 1) {
-            LogUtil.i(TAG, "没有更多数据");
+            ToastUtil.showToast(mContext,getString(R.string.gank_no_more_data));
             return;
         }
         if (loadState == NOLOAD) {
@@ -243,18 +217,9 @@ public class SortListActivity extends BaseActivity implements View.OnClickListen
                     }
                 });
     }
-
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.llSort) {
-            sortPopWindow.show();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        sortPopWindow = null;
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_sort,menu);
+        return true;
     }
 }

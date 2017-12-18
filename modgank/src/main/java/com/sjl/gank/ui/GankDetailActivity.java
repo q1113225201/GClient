@@ -46,7 +46,6 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
     public static String TRANSFORM = "transform";
     private static String DATE = "date";
     private static String IMAGE_URL = "image_url";
-    private static String IMAGE = "image";
     private String date;
     private String imageUrl;
 
