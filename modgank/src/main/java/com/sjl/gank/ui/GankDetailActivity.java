@@ -140,8 +140,7 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
                 viewHolder.findViewById(R.id.tvContent).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = WebActivity.newIntent(mContext, item.getDesc(), item.getUrl());
-                        startActivity(intent);
+                        startActivity(WebActivity.newIntent(mContext, item.getDesc(), item.getUrl()));
                     }
                 });
             }

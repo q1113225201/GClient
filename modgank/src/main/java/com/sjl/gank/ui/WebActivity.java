@@ -163,7 +163,7 @@ public class WebActivity extends BaseActivity {
         //设置保存表单数据
         webSettings.setSaveFormData(true);
         //设置是否使用viewport
-        webSettings.setUseWideViewPort(false);
+        webSettings.setUseWideViewPort(true);
         //设置WebView标准字体库字体，默认"sans-serif"
         webSettings.setStandardFontFamily("sans-serif");
         //设置WebView固定的字体库字体，默认"monospace"
