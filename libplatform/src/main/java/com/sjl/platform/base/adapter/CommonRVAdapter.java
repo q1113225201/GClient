@@ -107,7 +107,11 @@ public abstract class CommonRVAdapter<T> extends RecyclerView.Adapter {
         int oldLength = this.list == null ? 0 : this.list.size();
         int newLength = list == null ? 0 : list.size();
         this.list = list;
-        notifyItemRangeChanged(0,Math.min(oldLength,newLength));
+        if(oldLength==0){
+            notifyItemRangeInserted(0,newLength);
+        }else {
+            notifyItemRangeChanged(0, Math.min(oldLength, newLength));
+        }
     }
 
     public void addFlush(T item) {
