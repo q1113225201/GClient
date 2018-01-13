@@ -1,21 +1,26 @@
 package com.sjl.gank.ui.tab;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.igalata.bubblepicker.BubblePickerListener;
+import com.igalata.bubblepicker.adapter.BubblePickerAdapter;
+import com.igalata.bubblepicker.model.BubbleGradient;
+import com.igalata.bubblepicker.model.PickerItem;
+import com.igalata.bubblepicker.rendering.BubblePicker;
 import com.sjl.gank.R;
 import com.sjl.gank.config.GankConfig;
 import com.sjl.gank.ui.SortListActivity;
 import com.sjl.platform.base.BaseFragment;
-import com.sjl.platform.base.adapter.CommonRVAdapter;
 
-import java.util.ArrayList;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 /**
@@ -40,37 +45,61 @@ public class SortFragment extends BaseFragment {
         initView();
     }
 
-    private RecyclerView rvSort;
+    private BubblePicker picker;
     private List<String> list;
-    private CommonRVAdapter<String> adapter;
+    private int[] colors = {android.R.color.holo_red_light,android.R.color.holo_green_light,android.R.color.holo_blue_light,
+            android.R.color.holo_blue_light,android.R.color.holo_red_light,android.R.color.holo_green_light,
+            android.R.color.holo_green_light,android.R.color.holo_blue_light,android.R.color.holo_red_light};
+    private BubblePickerAdapter adapter;
 
     private void initView() {
-        rvSort = view.findViewById(R.id.rvSort);
-
+        picker = view.findViewById(R.id.picker);
         initSort();
     }
 
     private void initSort() {
         list = GankConfig.sortList;
-        adapter = new CommonRVAdapter<String>(mContext, list, R.layout.item_menu, R.layout.item_menu_empty) {
+        adapter = new BubblePickerAdapter() {
             @Override
-            protected void onBindNullViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, String item, List<String> list) {
-
+            public int getTotalCount() {
+                return list.size();
             }
 
+            @NotNull
             @Override
-            protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, final String item, List<String> list) {
-                viewHolder.findViewById(R.id.viewDevide).setVisibility(position==0?View.GONE:View.VISIBLE);
-                ((TextView)viewHolder.findViewById(R.id.tvItemName)).setText(item);
-                viewHolder.findViewById(R.id.tvItemName).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(SortListActivity.newIntent(mContext,item));
-                    }
-                });
+            public PickerItem getItem(int i) {
+                PickerItem item = new PickerItem();
+                item.setTitle(list.get(i));
+                item.setTextColor(Color.WHITE);
+                item.setColor(ContextCompat.getColor(getActivity(),colors[i]));
+                return item;
             }
         };
-        rvSort.setAdapter(adapter);
-        rvSort.setLayoutManager(new LinearLayoutManager(mContext));
+        picker.setCenterImmediately(true);
+        picker.setBubbleSize(10);
+        picker.setAdapter(adapter);
+        picker.setListener(new BubblePickerListener() {
+            @Override
+            public void onBubbleSelected(PickerItem pickerItem) {
+                startActivity(SortListActivity.newIntent(mContext,pickerItem.getTitle()));
+            }
+
+            @Override
+            public void onBubbleDeselected(PickerItem pickerItem) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        picker.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        picker.onPause();
     }
 }

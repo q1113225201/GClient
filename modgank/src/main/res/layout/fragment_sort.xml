@@ -5,9 +5,8 @@
     android:orientation="vertical"
     tools:context="com.sjl.gank.ui.tab.SortFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <com.igalata.bubblepicker.rendering.BubblePicker
+        android:id="@+id/picker"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rvSort"></android.support.v7.widget.RecyclerView>
-
+        android:layout_height="match_parent" />
 </LinearLayout>

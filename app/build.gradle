@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
     defaultConfig {
         applicationId "com.sjl.gankapp"
         minSdkVersion 21
