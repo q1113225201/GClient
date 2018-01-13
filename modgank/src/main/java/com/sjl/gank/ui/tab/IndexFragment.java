@@ -26,6 +26,7 @@ import com.sjl.platform.base.BaseFragment;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
 import com.sjl.platform.base.db.DBManager;
 import com.sjl.platform.util.LogUtil;
+import com.sjl.platform.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +117,7 @@ public class IndexFragment extends BaseFragment {
             protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, final GankDataResult item, List<GankDataResult> list) {
                 final ImageView ivItemImg = (ImageView) viewHolder.findViewById(R.id.ivItemImg);
                 final TextView tvItemTime = ((TextView) viewHolder.findViewById(R.id.tvItemTime));
-                Glide.with(mContext).load(item.getUrl()).centerCrop().placeholder(R.drawable.loading).error(R.drawable.ic_launcher).into(ivItemImg);
+                Glide.with(mContext).load(item.getUrl()).error(R.drawable.error).into(ivItemImg);
                 tvItemTime.setText(GankUtil.parseDate(item.getPublishedAt()));
 
                 ivItemImg.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +146,7 @@ public class IndexFragment extends BaseFragment {
 
     private void getGirls(final int page) {
         if (loadState == LOAD_NO_MORE) {
-            LogUtil.i(TAG, "没有更多数据");
+            ToastUtil.showToast(mContext,getString(R.string.gank_no_more_data));
             return;
         }
         if (loadState == NOLOAD) {

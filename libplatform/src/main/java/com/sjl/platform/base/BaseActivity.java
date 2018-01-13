@@ -9,6 +9,8 @@ import android.view.Window;
 
 import com.sjl.platform.util.PermisstionUtil;
 import com.sjl.platform.util.ToastUtil;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 /**
  * BaseActivity
@@ -25,6 +27,8 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         mContext = this;
+        //统计应用启动数据
+        PushAgent.getInstance(mContext).onAppStart();
     }
 
     @Override
@@ -40,6 +44,18 @@ public class BaseActivity extends AppCompatActivity {
                 ToastUtil.showToast(mContext,msg);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override

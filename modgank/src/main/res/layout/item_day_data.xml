@@ -3,20 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingEnd="15sp"
-    android:paddingStart="15sp"
-    android:paddingTop="10sp">
+    android:paddingEnd="@dimen/padding_common"
+    android:paddingStart="@dimen/padding_common"
+    android:paddingTop="@dimen/padding_day_data_item">
 
     <TextView
         android:id="@+id/tvCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_big"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp" />
+        android:paddingTop="@dimen/padding_day_data_content" />
 </LinearLayout>

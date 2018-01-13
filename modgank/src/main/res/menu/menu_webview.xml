@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menuRefresh"
-        android:title="刷新" />
+        android:title="@string/gank_menu_refresh" />
     <item
         android:id="@+id/menuCopy"
-        android:title="复制" />
+        android:title="@string/gank_menu_copy" />
     <item
         android:id="@+id/menuShare"
-        android:title="分享" />
+        android:title="@string/gank_menu_share" />
 </menu>

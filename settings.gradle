@@ -1,1 +1,1 @@
-include ':app', ':libplatform', ':modgank', ':test'
+include ':app', ':libplatform', ':modgank', ':PushSDK'

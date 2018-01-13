@@ -18,5 +18,27 @@
         \ncom.github.bumptech.glide:glide:3.7.0
         \ncom.github.igalata:Bubble-Picker:v0.2.4
     </string>
+    <string name="gank_no_more_data">没有更多数据</string>
+    <string name="gank_girl_title">漂亮妹子</string>
+    <string name="gank_save_success">保存成功</string>
+    <string name="gank_save_failure">保存失败</string>
+    <string name="gank_copy_success">复制成功</string>
+    <string name="gank_tab_index">镇楼</string>
+    <string name="gank_tab_sort">分类</string>
+    <string name="gank_tab_about">关于</string>
+    <string name="gank_menu_open_url">打开链接</string>
+    <string name="gank_menu_save">保存</string>
+    <string name="gank_menu_share">分享</string>
+    <string name="gank_menu_refresh">刷新</string>
+    <string name="gank_menu_copy">复制</string>
+    <string name="gank_menu_all">all</string>
+    <string name="gank_menu_android">Android</string>
+    <string name="gank_menu_ios">iOS</string>
+    <string name="gank_menu_rest">休息视频</string>
+    <string name="gank_menu_welfare">福利</string>
+    <string name="gank_menu_extra">拓展资源</string>
+    <string name="gank_menu_web">前端</string>
+    <string name="gank_menu_recommand">瞎推荐</string>
+    <string name="gank_menu_app">App</string>
 
 </resources>

@@ -46,7 +46,6 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
     public static String TRANSFORM = "transform";
     private static String DATE = "date";
     private static String IMAGE_URL = "image_url";
-    private static String IMAGE = "image";
     private String date;
     private String imageUrl;
 
@@ -141,8 +140,7 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
                 viewHolder.findViewById(R.id.tvContent).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = WebActivity.newIntent(mContext, item.getDesc(), item.getUrl());
-                        startActivity(intent);
+                        startActivity(WebActivity.newIntent(mContext, item.getDesc(), item.getUrl()));
                     }
                 });
             }

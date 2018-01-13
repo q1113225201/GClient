@@ -1,11 +1,16 @@
 <resources>
 
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="padding_common">15dp</dimen>
+    <dimen name="padding_index">5dp</dimen>
+    <dimen name="padding_index2">10dp</dimen>
+    <dimen name="padding_day_data_item">10dp</dimen>
+    <dimen name="padding_day_data_content">5dp</dimen>
     <dimen name="margin_common">20dp</dimen>
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_middle">15sp</dimen>
     <dimen name="text_big">18sp</dimen>
+    <dimen name="progress_height">2dp</dimen>
+    <dimen name="corner">8dp</dimen>
+    <dimen name="corner_width">2dp</dimen>
 
 </resources>

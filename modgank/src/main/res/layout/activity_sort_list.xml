@@ -3,40 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.sjl.gank.ui.SortListActivity">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/gankMainColor"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-        <LinearLayout
-            android:id="@+id/llSort"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvSort"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="标题"
-                android:textColor="@color/gankWhite"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:id="@+id/ivDropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleX="0.5"
-                android:src="@drawable/ic_arrow_drop_down" />
-        </LinearLayout>
-    </android.support.v7.widget.Toolbar>
+    <include layout="@layout/layout_title" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl"
@@ -47,6 +17,6 @@
             android:id="@+id/rvSort"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="15sp"></android.support.v7.widget.RecyclerView>
+            android:paddingBottom="@dimen/padding_common"></android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

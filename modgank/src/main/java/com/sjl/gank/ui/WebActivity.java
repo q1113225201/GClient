@@ -107,7 +107,7 @@ public class WebActivity extends BaseActivity {
                 } else if (id == R.id.menuCopy) {
                     ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                     clipboardManager.setPrimaryClip(ClipData.newPlainText("text", webView.getUrl()));
-                    toast("链接已复制");
+                    toast(getString(R.string.gank_copy_success));
                 } else if (id == R.id.menuShare) {
                     ShareUtil.shareMsg(mContext, webView.getUrl());
                 }
@@ -163,7 +163,7 @@ public class WebActivity extends BaseActivity {
         //设置保存表单数据
         webSettings.setSaveFormData(true);
         //设置是否使用viewport
-        webSettings.setUseWideViewPort(false);
+        webSettings.setUseWideViewPort(true);
         //设置WebView标准字体库字体，默认"sans-serif"
         webSettings.setStandardFontFamily("sans-serif");
         //设置WebView固定的字体库字体，默认"monospace"

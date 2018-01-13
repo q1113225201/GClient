@@ -6,15 +6,15 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_weight">1</item>
         <item name="android:button">@null</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/text_small</item>
         <item name="android:padding">5dp</item>
     </style>
     <style name="TextLink">
-        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textSize">@dimen/text_middle</item>
         <item name="android:autoLink">web</item>
     </style>
     <style name="TextAuth">
-        <item name="android:textSize">@dimen/text_middle</item>
+        <item name="android:textSize">@dimen/text_small</item>
         <item name="android:textColor">@color/gankGray</item>
     </style>
     <style name="TextAboutTip">

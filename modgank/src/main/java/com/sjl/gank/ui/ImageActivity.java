@@ -65,7 +65,7 @@ public class ImageActivity extends BaseActivity {
 
     private void initToolBar() {
         toolBar = findViewById(R.id.toolBar);
-        toolBar.setTitle("漂亮妹子");
+        toolBar.setTitle(R.string.gank_girl_title);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -79,7 +79,7 @@ public class ImageActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.menuSave) {
-                    toast(saveImage() ? "保存成功" + path : "保存失败");
+                    toast(saveImage() ? getString(R.string.gank_save_success) + path : getString(R.string.gank_save_failure));
                 } else if (id == R.id.menuShare) {
                     saveImage();
                     ShareUtil.shareImage(mContext, new File(path));
