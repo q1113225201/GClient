@@ -4,12 +4,12 @@
 ### 首页
 进入首页就是满满的妹子福利，这感觉perfect
 <br/>
-![image](index.png)
+![image](index.jpg)
 ### 分类
 分类界面用了[igalata](https://github.com/igalata/Bubble-Picker)实现的仿iOS的气泡选择控件，挺酷炫的
 <br/>
-![image](sort.png)
+![image](sort.jpg)
 ### 详情
 干货集中营的每日数据页面
 <br/>
-![image](detail.png)
+![image](detail.jpg)
