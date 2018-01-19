@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gankWhite"
     tools:context="com.sjl.gank.ui.tab.AboutFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/gankWhite"
         android:orientation="vertical"
         android:padding="@dimen/padding_common">
 
