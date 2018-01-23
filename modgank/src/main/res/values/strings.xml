@@ -2,7 +2,7 @@
     <string name="app_name">ModGank</string>
     <string name="gank_about_app_tip">关于APP</string>
     <string name="gank_about_app_desc">据说在首页放满妹子福利可以辟邪招来好运，在分类数据中可以选择自己关注的类别进行查看，而本页则是一个简单的介绍。
-       \n简单来说这是一个干货集中营 http://gank.io 的客户端，主要用途就是为了方便查看信息，至于里面的设计和框架都是随便用的，如已经落伍的tab导航（好久没用怀念下）、首页满满的妹子福利（参考集中营里面drakeet大神的APP，后面用到的Toobar之类的也是受其影响，之前都习惯自己写标题栏）、类别选择（就觉得很酷）、Retrofit2（第一次尝试用，一直都没用过( # ▽ # )）。</string>
+       \n简单来说这是一个根据干货集中营 http://gank.io 的开放API实现的客户端APP，主要用途就是为了方便查看信息，至于里面的设计和框架都是随便用的，如已经落伍的tab导航（好久没用怀念下）、首页满满的妹子福利（参考集中营里面drakeet大神的APP，后面用到的Toobar之类的也是受其影响，之前都习惯自己写标题栏）、类别选择（就觉得很酷）、Retrofit2（第一次尝试用，一直都没用过( # ▽ # )）。</string>
     <string name="gank_about_me_tip">关于我</string>
     <string name="gank_about_me_desc">感兴趣的可以交个朋友，相互讨论，共同进步。
         \nGitHub：https://github.com/q1113225201
