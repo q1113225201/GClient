@@ -1,6 +1,6 @@
 # G客户端
 根据[干货集中营](http://gank.io)的网站公开的API实现的一个用于查看信息的客户端APP，部分界面参考了前辈们上传APP。
-
+<br/><br/>[最新版APP下载](https://github.com/q1113225201/GClient/releases/latest)
 ### 首页
 进入首页就是满满的妹子福利，这感觉perfect
 <br/>
