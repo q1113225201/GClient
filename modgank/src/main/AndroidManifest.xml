@@ -3,11 +3,11 @@
     package="com.sjl.gank">
 
     <application>
-        <activity android:name=".ui.GankMainActivity" />
-        <activity android:name=".ui.GankDetailActivity" />
-        <activity android:name=".ui.WebActivity" />
-        <activity android:name=".ui.SortListActivity" />
-        <activity android:name=".ui.ImageActivity"></activity>
+        <activity android:name=".ui.activity.GankMainActivity" />
+        <activity android:name=".ui.activity.GankDetailActivity" />
+        <activity android:name=".ui.activity.WebActivity" />
+        <activity android:name=".ui.activity.SortListActivity" />
+        <activity android:name=".ui.activity.ImageActivity"></activity>
     </application>
 
 </manifest>

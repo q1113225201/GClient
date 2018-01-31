@@ -1,4 +1,4 @@
-package com.sjl.gank.ui;
+package com.sjl.gank.ui.activity;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;

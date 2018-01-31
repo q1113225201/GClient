@@ -1,4 +1,4 @@
-package com.sjl.gank.ui.tab;
+package com.sjl.gank.ui.fragment;
 
 
 import android.os.Bundle;

@@ -1,7 +1,6 @@
-package com.sjl.gank.ui.tab;
+package com.sjl.gank.ui.fragment;
 
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -11,12 +10,11 @@ import android.view.ViewGroup;
 
 import com.igalata.bubblepicker.BubblePickerListener;
 import com.igalata.bubblepicker.adapter.BubblePickerAdapter;
-import com.igalata.bubblepicker.model.BubbleGradient;
 import com.igalata.bubblepicker.model.PickerItem;
 import com.igalata.bubblepicker.rendering.BubblePicker;
 import com.sjl.gank.R;
 import com.sjl.gank.config.GankConfig;
-import com.sjl.gank.ui.SortListActivity;
+import com.sjl.gank.ui.activity.SortListActivity;
 import com.sjl.platform.base.BaseFragment;
 
 import org.jetbrains.annotations.NotNull;

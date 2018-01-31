@@ -1,4 +1,4 @@
-package com.sjl.gank.ui;
+package com.sjl.gank.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;

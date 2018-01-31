@@ -1,4 +1,4 @@
-package com.sjl.gank.ui;
+package com.sjl.gank.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.util.BitmapUtil;
 import com.sjl.platform.util.EncryptUtil;
 import com.sjl.platform.util.ShareUtil;
+import com.sjl.platform.view.PinchImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,12 +55,12 @@ public class ImageActivity extends BaseActivity {
     }
 
     private Toolbar toolBar;
-    private ImageView ivImage;
+    private PinchImageView pivImage;
 
     private void initView() {
         initToolBar();
-        ivImage = findViewById(R.id.ivImage);
-        Glide.with(mContext).load(imageUrl).into(ivImage);
+        pivImage = findViewById(R.id.pivImage);
+        Glide.with(mContext).load(imageUrl).into(pivImage);
     }
 
 
@@ -91,7 +92,7 @@ public class ImageActivity extends BaseActivity {
 
     private boolean saveImage() {
         try {
-            BitmapUtil.save(BitmapUtil.toBitmap(ivImage.getDrawable()), path);
+            BitmapUtil.save(BitmapUtil.toBitmap(pivImage.getDrawable()), path);
             return true;
         } catch (IOException e) {
             e.printStackTrace();

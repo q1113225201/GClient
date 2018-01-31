@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gankBlank"
-    tools:context="com.sjl.gank.ui.ImageActivity">
+    tools:context="com.sjl.gank.ui.activity.ImageActivity">
 
-    <ImageView
-        android:id="@+id/ivImage"
+    <com.sjl.platform.view.PinchImageView
+        android:id="@+id/pivImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true" />

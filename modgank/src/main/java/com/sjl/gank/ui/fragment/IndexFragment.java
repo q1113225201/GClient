@@ -1,4 +1,4 @@
-package com.sjl.gank.ui.tab;
+package com.sjl.gank.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import com.sjl.gank.bean.GankData;
 import com.sjl.gank.bean.GankDataResult;
 import com.sjl.gank.config.GankConfig;
 import com.sjl.gank.service.ServiceClient;
-import com.sjl.gank.ui.GankDetailActivity;
+import com.sjl.gank.ui.activity.GankDetailActivity;
 import com.sjl.gank.util.GankUtil;
 import com.sjl.platform.base.BaseFragment;
 import com.sjl.platform.base.adapter.CommonRVAdapter;

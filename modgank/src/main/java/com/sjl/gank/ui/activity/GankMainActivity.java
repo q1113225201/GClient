@@ -1,4 +1,4 @@
-package com.sjl.gank.ui;
+package com.sjl.gank.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,9 +8,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.sjl.gank.R;
-import com.sjl.gank.ui.tab.AboutFragment;
-import com.sjl.gank.ui.tab.SortFragment;
-import com.sjl.gank.ui.tab.IndexFragment;
+import com.sjl.gank.ui.fragment.AboutFragment;
+import com.sjl.gank.ui.fragment.SortFragment;
+import com.sjl.gank.ui.fragment.IndexFragment;
 import com.sjl.platform.base.BaseFragmentActivity;
 import com.sjl.platform.util.LogUtil;
 

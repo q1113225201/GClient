@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">G客户端</string>
+    <string name="welcome">欢迎使用G客户端</string>
 </resources>
