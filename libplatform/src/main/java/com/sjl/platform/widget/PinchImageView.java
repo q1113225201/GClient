@@ -1,4 +1,4 @@
-package com.sjl.platform.view;
+package com.sjl.platform.widget;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

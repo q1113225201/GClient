@@ -1,5 +1,6 @@
 package com.sjl.platform;
 
+import android.app.Activity;
 import android.app.Application;
 
 import com.sjl.platform.service.PushIntentService;
@@ -7,6 +8,8 @@ import com.sjl.platform.util.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
+
+import java.util.Stack;
 
 /**
  * PlatformInit
@@ -66,5 +69,29 @@ public class PlatformInit {
         LogUtil.init(application, debug);
         MobclickAgent.setDebugMode(debug);
         return platformInit;
+    }
+
+    /**
+     * Activity栈
+     */
+    private static Stack<Activity> activityStack = new Stack<>();
+
+    public static void pushActivity(Activity activity) {
+        activityStack.push(activity);
+    }
+
+    public static void popActivity(Activity activity) {
+        if (activityStack.contains(activity)) {
+            activityStack.remove(activity);
+        }
+    }
+
+    public static void clearActivity() {
+        for (Activity activity : activityStack) {
+            if (activity != null) {
+                activity.finish();
+                activityStack.remove(activity);
+            }
+        }
     }
 }

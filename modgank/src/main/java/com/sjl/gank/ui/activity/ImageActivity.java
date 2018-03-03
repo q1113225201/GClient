@@ -16,7 +16,7 @@ import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.util.BitmapUtil;
 import com.sjl.platform.util.EncryptUtil;
 import com.sjl.platform.util.ShareUtil;
-import com.sjl.platform.view.PinchImageView;
+import com.sjl.platform.widget.PinchImageView;
 
 import java.io.File;
 import java.io.IOException;

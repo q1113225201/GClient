@@ -19,7 +19,7 @@ import com.sjl.gank.R;
 import com.sjl.gank.bean.GankData;
 import com.sjl.gank.bean.GankDataResult;
 import com.sjl.gank.config.GankConfig;
-import com.sjl.gank.service.ServiceClient;
+import com.sjl.gank.http.ServiceClient;
 import com.sjl.gank.ui.activity.GankDetailActivity;
 import com.sjl.gank.util.GankUtil;
 import com.sjl.platform.base.BaseFragment;

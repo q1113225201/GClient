@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.sjl.gank.R;
 import com.sjl.platform.base.BaseFragment;
+import com.sjl.platform.base.MvpView;
+import com.sjl.platform.base.Presenter;
 
 /**
  * 我的Fragment
@@ -17,10 +19,24 @@ import com.sjl.platform.base.BaseFragment;
  */
 public class AboutFragment extends BaseFragment {
     private static final String TAG = "AboutFragment";
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_about, container, false);
-        return view;
+    protected int getContentViewId() {
+        return R.layout.fragment_about;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected MvpView obtainMvpView() {
+        return this;
+    }
+
+    @Override
+    protected Presenter obtainPresenter() {
+        return null;
     }
 }

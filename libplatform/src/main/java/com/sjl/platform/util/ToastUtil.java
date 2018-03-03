@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 /**
@@ -11,6 +12,7 @@ import android.widget.Toast;
  */
 public class ToastUtil {
     private static Context mContext;
+    private static Toast toast;
     private static final int SHOW = 0;
     private static Handler handler = new Handler() {
         @Override
@@ -32,35 +34,29 @@ public class ToastUtil {
      * @param text
      */
     public static void showToast(Context context, String text) {
-        if (!(text == null || text.equals(""))) {
-            Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-//            toast.setGravity(Gravity.CENTER,0,0);
-            toast.show();
+        if(TextUtils.isEmpty(text)){
+            return;
+        }
+        initToast(context);
+        toast.setText(text);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    private static void initToast(Context context) {
+        if (toast==null) {
+            toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
         }
     }
 
     public static void showToastLong(Context context, String text) {
-        if (!(text == null || text.equals(""))) {
-            Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
-//            toast.setGravity(Gravity.CENTER,0,0);
-            toast.show();
+        if(TextUtils.isEmpty(text)){
+            return;
         }
-    }
-
-    /**
-     * 显示提示文本,可自定义方向
-     *
-     * @param context
-     * @param text
-     * @param gravity
-     */
-    public static void showToast(Context context, String text, int gravity) {
-        if (!(text == null || text.equals(""))) {
-            Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-            toast.setGravity(gravity, 0, 0);
-            toast.show();
-            LogUtil.i("toast", text);
-        }
+        initToast(context);
+        toast.setText(text);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
     }
 
     public static void showToast(Context context, int resId) {

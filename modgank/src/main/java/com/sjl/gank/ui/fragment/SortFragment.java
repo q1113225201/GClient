@@ -2,7 +2,6 @@ package com.sjl.gank.ui.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,8 @@ import com.sjl.gank.R;
 import com.sjl.gank.config.GankConfig;
 import com.sjl.gank.ui.activity.SortListActivity;
 import com.sjl.platform.base.BaseFragment;
+import com.sjl.platform.base.MvpView;
+import com.sjl.platform.base.Presenter;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,21 +37,30 @@ public class SortFragment extends BaseFragment {
         return view;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        initView();
-    }
-
     private BubblePicker picker;
     private List<String> list;
-    private int[] colors = {android.R.color.holo_red_light,android.R.color.holo_green_light,android.R.color.holo_blue_light,
-            android.R.color.holo_blue_light,android.R.color.holo_red_light,android.R.color.holo_green_light,
-            android.R.color.holo_green_light,android.R.color.holo_blue_light,android.R.color.holo_red_light};
+    private int[] colors = {android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_blue_light,
+            android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_green_light,
+            android.R.color.holo_green_light, android.R.color.holo_blue_light, android.R.color.holo_red_light};
     private BubblePickerAdapter adapter;
 
-    private void initView() {
+    @Override
+    protected int getContentViewId() {
+        return R.layout.fragment_sort;
+    }
+
+    @Override
+    protected MvpView obtainMvpView() {
+        return this;
+    }
+
+    @Override
+    protected Presenter obtainPresenter() {
+        return null;
+    }
+
+    @Override
+    protected void initView() {
         picker = view.findViewById(R.id.picker);
         initSort();
     }
@@ -69,7 +79,7 @@ public class SortFragment extends BaseFragment {
                 PickerItem item = new PickerItem();
                 item.setTitle(list.get(i));
                 item.setTextColor(Color.WHITE);
-                item.setColor(ContextCompat.getColor(getActivity(),colors[i]));
+                item.setColor(ContextCompat.getColor(getActivity(), colors[i]));
                 return item;
             }
         };
@@ -79,7 +89,7 @@ public class SortFragment extends BaseFragment {
         picker.setListener(new BubblePickerListener() {
             @Override
             public void onBubbleSelected(PickerItem pickerItem) {
-                startActivity(SortListActivity.newIntent(mContext,pickerItem.getTitle()));
+                startActivity(SortListActivity.newIntent(mContext, pickerItem.getTitle()));
             }
 
             @Override

@@ -1,4 +1,4 @@
-package com.sjl.gank.service;
+package com.sjl.gank.http;
 
 import com.sjl.gank.bean.GankData;
 import com.sjl.gank.bean.GankDayData;

@@ -1,4 +1,4 @@
-package com.sjl.gank.view;
+package com.sjl.gank.widget;
 
 import android.app.Activity;
 import android.content.Context;

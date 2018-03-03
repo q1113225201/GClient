@@ -6,7 +6,7 @@
     android:background="@color/gankBlank"
     tools:context="com.sjl.gank.ui.activity.ImageActivity">
 
-    <com.sjl.platform.view.PinchImageView
+    <com.sjl.platform.widget.PinchImageView
         android:id="@+id/pivImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
