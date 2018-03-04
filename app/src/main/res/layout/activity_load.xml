@@ -11,11 +11,21 @@
         android:src="@mipmap/ic_launcher" />
 
     <TextView
+        android:id="@+id/tvVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/gankWhite"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvVersion"
+        android:layout_centerHorizontal="true"
         android:text="@string/welcome"
         android:textColor="@color/gankWhite"
         android:textSize="18sp" />

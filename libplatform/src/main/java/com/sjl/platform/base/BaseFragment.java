@@ -68,10 +68,15 @@ public abstract class BaseFragment<V extends MvpView,P extends Presenter> extend
             ((ViewGroup) view.getParent()).removeView(view);
         }
         mContext = null;
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
         if(mPresenter!=null){
             mPresenter.detachView();
         }
-        super.onDestroyView();
+        super.onDestroy();
     }
 
     @Override

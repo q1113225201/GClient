@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.sjl.gank.R;
 import com.sjl.gank.config.GankConfig;
+import com.sjl.gank.mvp.presenter.ImagePresenter;
+import com.sjl.gank.mvp.view.ImageMvpView;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.util.BitmapUtil;
 import com.sjl.platform.util.EncryptUtil;
@@ -27,7 +29,7 @@ import java.io.IOException;
  * @author SJL
  * @date 2017/12/14
  */
-public class ImageActivity extends BaseActivity {
+public class ImageActivity extends BaseActivity<ImageMvpView,ImagePresenter> implements ImageMvpView {
     private static final String TAG = "ImageActivity";
     private static final String IMAGE_URL = "image_url";
     private String imageUrl;
@@ -45,22 +47,31 @@ public class ImageActivity extends BaseActivity {
         path = GankConfig.PATH_IMAGE + EncryptUtil.encryptMD5(imageUrl) + ".png";
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image);
-
-        parseIntent();
-        initView();
-    }
-
     private Toolbar toolBar;
     private PinchImageView pivImage;
 
-    private void initView() {
+    @Override
+    protected int getContentViewId() {
+        return R.layout.activity_image;
+    }
+
+    @Override
+    protected void initView() {
+        parseIntent();
         initToolBar();
         pivImage = findViewById(R.id.pivImage);
         Glide.with(mContext).load(imageUrl).into(pivImage);
+    }
+
+    @Override
+    protected ImageMvpView obtainMvpView() {
+        return this;
+    }
+
+    @Override
+    protected ImagePresenter obtainPresenter() {
+        mPresenter = new ImagePresenter();
+        return (ImagePresenter) mPresenter;
     }
 
 
@@ -80,7 +91,7 @@ public class ImageActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.menuSave) {
-                    toast(saveImage() ? getString(R.string.gank_save_success) + path : getString(R.string.gank_save_failure));
+                    showToast(saveImage() ? getString(R.string.gank_save_success) + path : getString(R.string.gank_save_failure));
                 } else if (id == R.id.menuShare) {
                     saveImage();
                     ShareUtil.shareImage(mContext, new File(path));
@@ -104,5 +115,10 @@ public class ImageActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_image, menu);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

@@ -1,16 +1,18 @@
 package com.sjl.gank.ui.activity;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.sjl.gank.R;
+import com.sjl.gank.mvp.presenter.GankMainPresenter;
+import com.sjl.gank.mvp.view.GankMainMvpView;
 import com.sjl.gank.ui.fragment.AboutFragment;
-import com.sjl.gank.ui.fragment.SortFragment;
 import com.sjl.gank.ui.fragment.IndexFragment;
+import com.sjl.gank.ui.fragment.SortFragment;
 import com.sjl.platform.base.BaseFragmentActivity;
 import com.sjl.platform.util.LogUtil;
 
@@ -23,7 +25,7 @@ import java.util.List;
  * @author SJL
  * @date 2017/12/14
  */
-public class GankMainActivity extends BaseFragmentActivity {
+public class GankMainActivity extends BaseFragmentActivity<GankMainMvpView, GankMainPresenter> implements GankMainMvpView {
     private static final String TAG = "GankMainActivity";
     RadioGroup rgTab;
     RadioButton rbIndex;
@@ -31,18 +33,16 @@ public class GankMainActivity extends BaseFragmentActivity {
     RadioButton rbMine;
     ViewPager vpContent;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gank_main);
-
-        initView();
-    }
-
     private List<Integer> tabList = new ArrayList<>();
     private List<Fragment> tabContentList = new ArrayList<>();
 
-    private void initView() {
+    @Override
+    protected int getContentViewId() {
+        return R.layout.activity_gank_main;
+    }
+
+    @Override
+    protected void initView() {
         rgTab = findViewById(R.id.rgTab);
         rbIndex = findViewById(R.id.rbIndex);
         rbSort = findViewById(R.id.rbSort);
@@ -70,7 +70,7 @@ public class GankMainActivity extends BaseFragmentActivity {
         rgTab.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                LogUtil.i(TAG,"checkedId="+checkedId);
+                LogUtil.i(TAG, "checkedId=" + checkedId);
                 vpContent.setCurrentItem(tabList.indexOf(checkedId));
             }
         });
@@ -82,7 +82,7 @@ public class GankMainActivity extends BaseFragmentActivity {
 
             @Override
             public void onPageSelected(int position) {
-                LogUtil.i(TAG,"vpContent.getCurrentItem()="+vpContent.getCurrentItem());
+                LogUtil.i(TAG, "vpContent.getCurrentItem()=" + vpContent.getCurrentItem());
                 findViewById(tabList.get(vpContent.getCurrentItem())).performClick();
             }
 
@@ -92,5 +92,21 @@ public class GankMainActivity extends BaseFragmentActivity {
             }
         });
         findViewById(tabList.get(0)).performClick();
+    }
+
+    @Override
+    protected GankMainMvpView obtainMvpView() {
+        return this;
+    }
+
+    @Override
+    protected GankMainPresenter obtainPresenter() {
+        mPresenter = new GankMainPresenter();
+        return (GankMainPresenter) mPresenter;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

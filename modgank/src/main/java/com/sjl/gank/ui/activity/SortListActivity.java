@@ -19,6 +19,9 @@ import com.sjl.gank.bean.GankData;
 import com.sjl.gank.bean.GankDataResult;
 import com.sjl.gank.config.GankConfig;
 import com.sjl.gank.http.ServiceClient;
+import com.sjl.gank.mvp.presenter.SortListPresenter;
+import com.sjl.gank.mvp.presenter.SortPresenter;
+import com.sjl.gank.mvp.view.SortListMvpView;
 import com.sjl.gank.util.GankUtil;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
@@ -37,8 +40,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author SJL
  * @date 2017/12/14
  */
-public class SortListActivity extends BaseActivity{
-    private static final String TAG = "SortListActivity";
+public class SortListActivity extends BaseActivity<SortListMvpView,SortListPresenter> implements SortListMvpView{
     private static final String SORT = "sort";
     private String sort;
 
@@ -59,22 +61,15 @@ public class SortListActivity extends BaseActivity{
     private List<GankDataResult> gankDataResultList;
 
     private int currentPage = 1;
-    private final static int LOADING = 1;
-    private final static int NOLOAD = 2;
-    private final static int LOAD_NO_MORE = 3;
-    private int loadState = NOLOAD;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sort_list);
-
-        parseIntent();
-        initView();
+    protected int getContentViewId() {
+        return R.layout.activity_sort_list;
     }
 
-
-    private void initView() {
+    @Override
+    protected void initView() {
+        parseIntent();
         initToolBar();
         srl = findViewById(R.id.srl);
         rvSort = findViewById(R.id.rvSort);
@@ -84,15 +79,24 @@ public class SortListActivity extends BaseActivity{
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                LogUtil.i(TAG, "onRefresh");
                 currentPage = 1;
-                loadState = NOLOAD;
-                getSortList(currentPage, sort);
+                ((SortListPresenter)mPresenter).getSortList(sort,currentPage);
             }
         });
 
         initSortList();
-        getSortList(currentPage, sort);
+        ((SortListPresenter)mPresenter).getSortList(sort,currentPage);
+    }
+
+    @Override
+    protected SortListMvpView obtainMvpView() {
+        return this;
+    }
+
+    @Override
+    protected SortListPresenter obtainPresenter() {
+        mPresenter = new SortListPresenter();
+        return (SortListPresenter) mPresenter;
     }
 
     private void initToolBar() {
@@ -113,7 +117,7 @@ public class SortListActivity extends BaseActivity{
                 toolBar.setTitle(sort);
                 currentPage = 1;
                 adapter.removeAll();
-                getSortList(currentPage, sort);
+                ((SortListPresenter)mPresenter).getSortList(sort,currentPage);
                 return false;
             }
         });
@@ -172,54 +176,44 @@ public class SortListActivity extends BaseActivity{
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 //                super.onScrolled(recyclerView, dx, dy);
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (layoutManager.findLastVisibleItemPosition() >= adapter.getItemCount() - GankConfig.PAGE_SIZE / 2 && loadState == NOLOAD) {
-                    getSortList(currentPage, sort);
+                if (layoutManager.findLastVisibleItemPosition() >= adapter.getItemCount() - GankConfig.PAGE_SIZE / 2) {
+                    ((SortListPresenter)mPresenter).getSortList(sort,currentPage);
                 }
             }
         });
-    }
-
-    private synchronized void getSortList(int page, String sort) {
-        if (loadState == LOAD_NO_MORE && currentPage != 1) {
-            ToastUtil.showToast(mContext,getString(R.string.gank_no_more_data));
-            return;
-        }
-        if (loadState == NOLOAD) {
-            loadState = LOADING;
-        } else {
-            return;
-        }
-        if(currentPage==1&&!srl.isRefreshing()){
-            srl.setRefreshing(true);
-        }
-        ServiceClient.getGankAPI().getSortDataByPages(sort, GankConfig.PAGE_SIZE, page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<GankData>() {
-                    @Override
-                    public void accept(GankData gankData) throws Exception {
-                        LogUtil.i(TAG, gankData.toString());
-                        if (gankData.getResults().size() == GankConfig.PAGE_SIZE) {
-                            currentPage++;
-                            loadState = NOLOAD;
-                        } else {
-                            loadState = LOAD_NO_MORE;
-                        }
-                        adapter.addList(gankData.getResults());
-                        srl.setRefreshing(false);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        LogUtil.e(TAG, "accept---:" + throwable.getMessage());
-                        loadState = NOLOAD;
-                        srl.setRefreshing(false);
-                    }
-                });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_sort,menu);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void setSortList(List<GankDataResult> list, int page) {
+        if(page==1){
+            adapter.flush(list);
+        }else {
+            adapter.addList(list);
+        }
+        currentPage++;
+    }
+
+    @Override
+    public void autoProgress(final boolean show) {
+//        super.autoProgress(show);
+        srl.post(new Runnable() {
+            @Override
+            public void run() {
+                if (show && srl.isRefreshing()) {
+                    return;
+                }
+                srl.setRefreshing(show);
+            }
+        });
     }
 }

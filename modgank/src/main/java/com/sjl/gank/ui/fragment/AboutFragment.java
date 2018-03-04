@@ -1,15 +1,10 @@
 package com.sjl.gank.ui.fragment;
 
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.sjl.gank.R;
+import com.sjl.gank.mvp.presenter.AboutPresenter;
+import com.sjl.gank.mvp.view.AboutMvpView;
 import com.sjl.platform.base.BaseFragment;
-import com.sjl.platform.base.MvpView;
-import com.sjl.platform.base.Presenter;
 
 /**
  * 我的Fragment
@@ -17,7 +12,7 @@ import com.sjl.platform.base.Presenter;
  * @author SJL
  * @date 2017/11/30
  */
-public class AboutFragment extends BaseFragment {
+public class AboutFragment extends BaseFragment<AboutMvpView, AboutPresenter> implements AboutMvpView {
     private static final String TAG = "AboutFragment";
 
     @Override
@@ -31,12 +26,13 @@ public class AboutFragment extends BaseFragment {
     }
 
     @Override
-    protected MvpView obtainMvpView() {
+    protected AboutMvpView obtainMvpView() {
         return this;
     }
 
     @Override
-    protected Presenter obtainPresenter() {
-        return null;
+    protected AboutPresenter obtainPresenter() {
+        mPresenter = new AboutPresenter();
+        return (AboutPresenter) mPresenter;
     }
 }

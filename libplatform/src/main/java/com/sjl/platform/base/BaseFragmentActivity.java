@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.Window;
 
 import com.sjl.platform.PlatformInit;
@@ -21,9 +22,9 @@ import com.umeng.message.PushAgent;
  * @date 2017/11/29
  */
 
-public abstract class BaseFragmentActivity<V extends MvpView, P extends Presenter> extends FragmentActivity implements MvpView {
+public abstract class BaseFragmentActivity<V extends MvpView, P extends Presenter> extends FragmentActivity implements MvpView,View.OnClickListener {
     protected Context mContext;
-    protected Presenter presenter;
+    protected Presenter mPresenter;
     /**
      * 布局文件
      */
@@ -51,12 +52,13 @@ public abstract class BaseFragmentActivity<V extends MvpView, P extends Presente
         setContentView(getContentViewId());
         PlatformInit.pushActivity(this);
         obtainPresenter();
-        if (presenter != null) {
-            presenter.attachView(obtainMvpView());
+        if (mPresenter != null) {
+            mPresenter.attachView(obtainMvpView());
         }
         mContext = this;
         //统计应用启动数据
         PushAgent.getInstance(mContext).onAppStart();
+        initView();
     }
 
     @Override
@@ -80,8 +82,8 @@ public abstract class BaseFragmentActivity<V extends MvpView, P extends Presente
     @Override
     protected void onDestroy() {
         mContext = null;
-        if (presenter != null) {
-            presenter.detachView();
+        if (mPresenter != null) {
+            mPresenter.detachView();
         }
         PlatformInit.popActivity(this);
         super.onDestroy();

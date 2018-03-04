@@ -21,6 +21,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sjl.gank.R;
+import com.sjl.gank.mvp.presenter.WebPresenter;
+import com.sjl.gank.mvp.view.WebMvpView;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.util.ShareUtil;
 
@@ -30,7 +32,7 @@ import com.sjl.platform.util.ShareUtil;
  * @author SJL
  * @date 2017/12/14
  */
-public class WebActivity extends BaseActivity {
+public class WebActivity extends BaseActivity<WebMvpView,WebPresenter> implements WebMvpView {
     private static final String TAG = "WebActivity";
     public static final String TITLE = "title";
     public static final String URL = "url";
@@ -56,15 +58,13 @@ public class WebActivity extends BaseActivity {
     private WebView webView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web);
-
-        parseIntent();
-        initView();
+    protected int getContentViewId() {
+        return R.layout.activity_web;
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        parseIntent();
         initToolBar();
         tvTtile = findViewById(R.id.tvTitle);
         pbProgress = findViewById(R.id.pbProgress);
@@ -80,6 +80,17 @@ public class WebActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected WebMvpView obtainMvpView() {
+        return this;
+    }
+
+    @Override
+    protected WebPresenter obtainPresenter() {
+        mPresenter = new WebPresenter();
+        return (WebPresenter) mPresenter;
     }
 
     @Override
@@ -107,7 +118,7 @@ public class WebActivity extends BaseActivity {
                 } else if (id == R.id.menuCopy) {
                     ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                     clipboardManager.setPrimaryClip(ClipData.newPlainText("text", webView.getUrl()));
-                    toast(getString(R.string.gank_copy_success));
+                    showToast(getString(R.string.gank_copy_success));
                 } else if (id == R.id.menuShare) {
                     ShareUtil.shareMsg(mContext, webView.getUrl());
                 }
@@ -235,5 +246,10 @@ public class WebActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_webview, menu);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

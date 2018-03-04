@@ -2,7 +2,6 @@ package com.sjl.gank.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,20 +19,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.sjl.gank.R;
 import com.sjl.gank.bean.GankDataResult;
-import com.sjl.gank.bean.GankDayData;
-import com.sjl.gank.bean.GankDayDataResult;
-import com.sjl.gank.http.ServiceClient;
+import com.sjl.gank.mvp.presenter.GankDetailPresenter;
+import com.sjl.gank.mvp.view.GankDetailMvpView;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
-import com.sjl.platform.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * 每日数据页面
@@ -41,7 +33,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author SJL
  * @date 2017/12/14
  */
-public class GankDetailActivity extends BaseActivity implements View.OnClickListener {
+public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDetailPresenter> implements GankDetailMvpView {
     private static final String TAG = "GankDetailActivity";
     public static String TRANSFORM = "transform";
     private static String DATE = "date";
@@ -70,13 +62,12 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
     private List<GankDataResult> list;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gank_detail);
-        initView();
+    protected int getContentViewId() {
+        return R.layout.activity_gank_detail;
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         parseIntent();
         initToolBar();
         tvDate = findViewById(R.id.tvDate);
@@ -88,7 +79,7 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
         Glide.with(mContext).load(imageUrl).into(ivGirl);
         ivGirl.setOnClickListener(this);
         initDayData();
-        getDayData(date);
+        ((GankDetailPresenter) mPresenter).getGankDetail(date);
     }
 
     private void initToolBar() {
@@ -149,55 +140,15 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
         rvDayData.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    /**
-     * 获取指定日期数据
-     *
-     * @param date
-     */
-    private void getDayData(String date) {
-        LogUtil.i(TAG, date);
-        ServiceClient.getGankAPI().getDayData(date)
-                .map(new Function<GankDayData, List<GankDataResult>>() {
-                    @Override
-                    public List<GankDataResult> apply(GankDayData gankDayData) throws Exception {
-                        LogUtil.i(TAG, gankDayData);
-                        //将获取到的数据添加到一个列表中
-                        GankDayDataResult gankDayDataResult = gankDayData.getResults();
-                        List<GankDataResult> results = new ArrayList<>();
-                        if (gankDayDataResult.getAndroid() != null) {
-                            results.addAll(gankDayDataResult.getAndroid());
-                        }
-                        if (gankDayDataResult.getiOS() != null) {
-                            results.addAll(gankDayDataResult.getiOS());
-                        }
-                        if (gankDayDataResult.get前端() != null) {
-                            results.addAll(gankDayDataResult.get前端());
-                        }
-                        if (gankDayDataResult.get拓展资源() != null) {
-                            results.addAll(gankDayDataResult.get拓展资源());
-                        }
-                        if (gankDayDataResult.get瞎推荐() != null) {
-                            results.addAll(gankDayDataResult.get瞎推荐());
-                        }
-                        if (gankDayDataResult.get休息视频() != null) {
-                            results.addAll(gankDayDataResult.get休息视频());
-                        }
-                        return results;
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<GankDataResult>>() {
-                    @Override
-                    public void accept(List<GankDataResult> list) throws Exception {
-                        adapter.flush(list);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        LogUtil.e(TAG, throwable.getMessage());
-                    }
-                });
+    @Override
+    protected GankDetailMvpView obtainMvpView() {
+        return this;
+    }
+
+    @Override
+    protected GankDetailPresenter obtainPresenter() {
+        mPresenter = new GankDetailPresenter();
+        return (GankDetailPresenter) mPresenter;
     }
 
     @Override
@@ -212,5 +163,10 @@ public class GankDetailActivity extends BaseActivity implements View.OnClickList
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detail, menu);
         return true;
+    }
+
+    @Override
+    public void setGankDetail(List<GankDataResult> list) {
+        adapter.flush(list);
     }
 }
