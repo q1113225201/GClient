@@ -28,8 +28,12 @@ public class IndexPresenter extends BasePresenter<IndexMvpView> {
         List<GankDataResult> list = DBManager.getInstance().getList(GankDataResult.class, "", String.format("publishedAt desc limit %d,%d", 0, GankConfig.PAGE_SIZE));
         getMvpView().setGirls(list, -1);
     }
-
+private boolean isLoading = false;
     public void getNetGirls(final int page) {
+        if(isLoading){
+            return;
+        }
+        isLoading=true;
         if (page == 1) {
             getMvpView().autoProgress(true);
         }
@@ -44,11 +48,13 @@ public class IndexPresenter extends BasePresenter<IndexMvpView> {
                         }
                         getMvpView().setGirls(gankData.getResults(), page);
                         getMvpView().autoProgress(false);
+                        isLoading = false;
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         getMvpView().autoProgress(false);
+                        isLoading = false;
                     }
                 });
     }

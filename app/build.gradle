@@ -28,7 +28,18 @@ android {
         versionName "1.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs{
+        debug{
+            storeFile file("$projectDir/gclient.jks")
+            storePassword "gclient"
+            keyAlias "gclient"
+            keyPassword "gclient"
+        }
+    }
     buildTypes {
+        debug{
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

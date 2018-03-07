@@ -20,6 +20,7 @@ import com.sjl.gank.ui.activity.GankDetailActivity;
 import com.sjl.gank.util.GankUtil;
 import com.sjl.platform.base.BaseFragment;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
+import com.sjl.platform.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,9 +84,11 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
                 int[] positions = layoutManager.findLastCompletelyVisibleItemPositions(new int[SPAN_COUNT]);
-                if (positions[positions.length - 1] >= adapter.getItemCount() - GankConfig.PAGE_SIZE / 2) {
+                if (positions[positions.length - 1] >= adapter.getItemCount()-GankConfig.PAGE_SIZE/2) {
                     ((IndexPresenter) mPresenter).getNetGirls(currentPage);
                 }
+                LogUtil.i(TAG,"scroll1="+positions[positions.length - 1]);
+                LogUtil.i(TAG,"scroll2="+adapter.getItemCount());
             }
         });
         rv.setLayoutManager(new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));
