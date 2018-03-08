@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import com.sjl.platform.PlatformInit;
 import com.sjl.platform.util.ToastUtil;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * BaseFragment
  *
@@ -23,6 +26,7 @@ public abstract class BaseFragment<V extends MvpView,P extends Presenter> extend
     protected View view;
     protected Context mContext;
     protected Presenter mPresenter;
+    private Unbinder unbinder;
 
     /**
      * 布局文件
@@ -58,6 +62,7 @@ public abstract class BaseFragment<V extends MvpView,P extends Presenter> extend
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
         view = inflater.inflate(getContentViewId(),container,false);
+        unbinder = ButterKnife.bind(view);
         initView();
         return view;
     }
@@ -73,6 +78,7 @@ public abstract class BaseFragment<V extends MvpView,P extends Presenter> extend
 
     @Override
     public void onDestroy() {
+        unbinder.unbind();
         if(mPresenter!=null){
             mPresenter.detachView();
         }

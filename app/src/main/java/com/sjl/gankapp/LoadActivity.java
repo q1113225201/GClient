@@ -1,6 +1,7 @@
 package com.sjl.gankapp;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
@@ -11,8 +12,11 @@ import com.sjl.gankapp.mvp.view.LoadMvpView;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.util.PermisstionUtil;
 
+import butterknife.BindView;
+
 public class LoadActivity extends BaseActivity<LoadMvpView, LoadPresenter> implements LoadMvpView {
-    private TextView tvVersion;
+    @BindView(R.id.tvVersion)
+    TextView tvVersion;
 
     @Override
     protected int getContentViewId() {
@@ -21,7 +25,6 @@ public class LoadActivity extends BaseActivity<LoadMvpView, LoadPresenter> imple
 
     @Override
     protected void initView() {
-        tvVersion = findViewById(R.id.tvVersion);
         tvVersion.setText(BuildConfig.VERSION_NAME);
         PermisstionUtil.requestPermissions(mContext, PermisstionUtil.STORAGE, 100, "正在请求读写权限", new PermisstionUtil.OnPermissionResult() {
             @Override

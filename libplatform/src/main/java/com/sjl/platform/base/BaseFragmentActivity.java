@@ -15,6 +15,9 @@ import com.sjl.platform.util.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * BaseActivity
  *
@@ -22,9 +25,11 @@ import com.umeng.message.PushAgent;
  * @date 2017/11/29
  */
 
-public abstract class BaseFragmentActivity<V extends MvpView, P extends Presenter> extends FragmentActivity implements MvpView,View.OnClickListener {
+public abstract class BaseFragmentActivity<V extends MvpView, P extends Presenter> extends FragmentActivity implements MvpView, View.OnClickListener {
     protected Context mContext;
     protected Presenter mPresenter;
+    private Unbinder unbinder;
+
     /**
      * 布局文件
      */
@@ -58,6 +63,7 @@ public abstract class BaseFragmentActivity<V extends MvpView, P extends Presente
         mContext = this;
         //统计应用启动数据
         PushAgent.getInstance(mContext).onAppStart();
+        unbinder = ButterKnife.bind(this);
         initView();
     }
 
@@ -82,6 +88,7 @@ public abstract class BaseFragmentActivity<V extends MvpView, P extends Presente
     @Override
     protected void onDestroy() {
         mContext = null;
+        unbinder.unbind();
         if (mPresenter != null) {
             mPresenter.detachView();
         }
