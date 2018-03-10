@@ -1,4 +1,44 @@
 <resources>
     <string name="app_name">G客户端</string>
     <string name="welcome">欢迎使用G客户端</string>
+    <string name="gank_about_app_tip">关于APP</string>
+    <string name="gank_about_app_desc">据说在首页放满妹子福利可以辟邪招来好运，在分类数据中可以选择自己关注的类别进行查看，而本页则是一个简单的介绍。
+       \n简单来说这是一个根据干货集中营 http://gank.io 的开放API实现的客户端APP，主要用途就是为了方便查看信息，至于里面的设计和框架都是随便用的，如已经落伍的tab导航（好久没用怀念下）、首页满满的妹子福利（参考集中营里面drakeet大神的APP，后面用到的Toobar之类的也是受其影响，之前都习惯自己写标题栏）、类别选择（就觉得很酷）、Retrofit2（第一次尝试用，一直都没用过( # ▽ # )）。</string>
+    <string name="gank_about_me_tip">关于我</string>
+    <string name="gank_about_me_desc">感兴趣的可以交个朋友，相互讨论，共同进步。
+        \nGitHub：https://github.com/q1113225201
+        \nCSDN：http://blog.csdn.net/q1113225201</string>
+    <string name="gank_about_lib_tip">关于开源库</string>
+    <string name="gank_about_lib_desc">
+        com.squareup.retrofit2:retrofit:2.3.0
+        \ncom.squareup.retrofit2:converter-gson:2.3.0
+        \ncom.squareup.retrofit2:adapter-rxjava2:2.3.0
+        \ncom.squareup.okhttp3:okhttp:3.9.1
+        \nio.reactivex.rxjava2:rxandroid:2.0.1
+        \nio.reactivex.rxjava2:rxjava:2.1.0
+        \ncom.github.bumptech.glide:glide:3.7.0
+        \ncom.github.igalata:Bubble-Picker:v0.2.4
+    </string>
+    <string name="gank_no_more_data">没有更多数据</string>
+    <string name="gank_girl_title">漂亮妹子</string>
+    <string name="gank_save_success">保存成功</string>
+    <string name="gank_save_failure">保存失败</string>
+    <string name="gank_copy_success">复制成功</string>
+    <string name="gank_tab_index">镇楼</string>
+    <string name="gank_tab_sort">分类</string>
+    <string name="gank_tab_about">关于</string>
+    <string name="gank_menu_open_url">打开链接</string>
+    <string name="gank_menu_save">保存</string>
+    <string name="gank_menu_share">分享</string>
+    <string name="gank_menu_refresh">刷新</string>
+    <string name="gank_menu_copy">复制</string>
+    <string name="gank_menu_all">all</string>
+    <string name="gank_menu_android">Android</string>
+    <string name="gank_menu_ios">iOS</string>
+    <string name="gank_menu_rest">休息视频</string>
+    <string name="gank_menu_welfare">福利</string>
+    <string name="gank_menu_extra">拓展资源</string>
+    <string name="gank_menu_web">前端</string>
+    <string name="gank_menu_recommand">瞎推荐</string>
+    <string name="gank_menu_app">App</string>
 </resources>

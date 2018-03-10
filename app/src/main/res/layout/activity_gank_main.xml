@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sjl.gankapp.ui.activity.GankMainActivity">
+
+    <RadioGroup
+        android:id="@+id/rgTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gankTabBottom"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbIndex"
+            style="@style/GankTabRadioButton"
+            android:drawableTop="@drawable/ic_home"
+            android:text="@string/gank_tab_index"
+            android:textColor="@color/normal_selected_color" />
+
+        <RadioButton
+            android:id="@+id/rbSort"
+            style="@style/GankTabRadioButton"
+            android:drawableTop="@drawable/ic_sort"
+            android:text="@string/gank_tab_sort"
+            android:textColor="@color/normal_selected_color" />
+
+        <RadioButton
+            android:id="@+id/rbMine"
+            style="@style/GankTabRadioButton"
+            android:drawableTop="@drawable/ic_person"
+            android:text="@string/gank_tab_about"
+            android:textColor="@color/normal_selected_color" />
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rgTab"></android.support.v4.view.ViewPager>
+
+</RelativeLayout>

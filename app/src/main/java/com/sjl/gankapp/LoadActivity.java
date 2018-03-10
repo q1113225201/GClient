@@ -1,12 +1,11 @@
 package com.sjl.gankapp;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
-import com.sjl.gank.ui.activity.GankMainActivity;
+import com.sjl.gankapp.ui.activity.GankMainActivity;
 import com.sjl.gankapp.mvp.presenter.LoadPresenter;
 import com.sjl.gankapp.mvp.view.LoadMvpView;
 import com.sjl.platform.base.BaseActivity;
