@@ -25,6 +25,8 @@ import com.sjl.platform.util.LogUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * 首页Fragment
  *
@@ -33,9 +35,11 @@ import java.util.List;
  */
 public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> implements IndexMvpView {
     private static final String TAG = "IndexFragment";
-    private SwipeRefreshLayout srl;
-    private RecyclerView rv;
     private static final int SPAN_COUNT = 2;
+    @BindView(R.id.rv)
+    RecyclerView rv;
+    @BindView(R.id.srl)
+    SwipeRefreshLayout srl;
     private CommonRVAdapter<GankDataResult> adapter;
     private List<GankDataResult> gankDataResultList = new ArrayList<>();
     private int currentPage = 1;
@@ -47,8 +51,6 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
 
     @Override
     protected void initView() {
-        srl = view.findViewById(R.id.srl);
-        rv = view.findViewById(R.id.rv);
         srl.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -84,11 +86,11 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
                 int[] positions = layoutManager.findLastCompletelyVisibleItemPositions(new int[SPAN_COUNT]);
-                if (positions[positions.length - 1] >= adapter.getItemCount()-GankConfig.PAGE_SIZE/2) {
+                if (positions[positions.length - 1] >= adapter.getItemCount() - GankConfig.PAGE_SIZE / 2) {
                     ((IndexPresenter) mPresenter).getNetGirls(currentPage);
                 }
-                LogUtil.i(TAG,"scroll1="+positions[positions.length - 1]);
-                LogUtil.i(TAG,"scroll2="+adapter.getItemCount());
+                LogUtil.i(TAG, "scroll1=" + positions[positions.length - 1]);
+                LogUtil.i(TAG, "scroll2=" + adapter.getItemCount());
             }
         });
         rv.setLayoutManager(new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));

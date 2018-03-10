@@ -25,15 +25,28 @@ import com.sjl.platform.base.adapter.CommonRVAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * 分类列表页面
- * 
+ *
  * @author SJL
  * @date 2017/12/14
  */
-public class SortListActivity extends BaseActivity<SortListMvpView,SortListPresenter> implements SortListMvpView{
+public class SortListActivity extends BaseActivity<SortListMvpView, SortListPresenter> implements SortListMvpView {
     private static final String SORT = "sort";
+    @BindView(R.id.toolBar)
+    Toolbar toolBar;
+    @BindView(R.id.rvSort)
+    RecyclerView rvSort;
+    @BindView(R.id.srl)
+    SwipeRefreshLayout srl;
     private String sort;
+
+    private CommonRVAdapter<GankDataResult> adapter;
+    private List<GankDataResult> gankDataResultList;
+
+    private int currentPage = 1;
 
     public static Intent newIntent(Context context, String sort) {
         Intent intent = new Intent(context, SortListActivity.class);
@@ -44,14 +57,6 @@ public class SortListActivity extends BaseActivity<SortListMvpView,SortListPrese
     private void parseIntent() {
         sort = getIntent().getStringExtra(SORT);
     }
-
-    private Toolbar toolBar;
-    private SwipeRefreshLayout srl;
-    private RecyclerView rvSort;
-    private CommonRVAdapter<GankDataResult> adapter;
-    private List<GankDataResult> gankDataResultList;
-
-    private int currentPage = 1;
 
     @Override
     protected int getContentViewId() {
@@ -71,12 +76,12 @@ public class SortListActivity extends BaseActivity<SortListMvpView,SortListPrese
             @Override
             public void onRefresh() {
                 currentPage = 1;
-                ((SortListPresenter)mPresenter).getSortList(sort,currentPage);
+                ((SortListPresenter) mPresenter).getSortList(sort, currentPage);
             }
         });
 
         initSortList();
-        ((SortListPresenter)mPresenter).getSortList(sort,currentPage);
+        ((SortListPresenter) mPresenter).getSortList(sort, currentPage);
     }
 
     @Override
@@ -91,7 +96,6 @@ public class SortListActivity extends BaseActivity<SortListMvpView,SortListPrese
     }
 
     private void initToolBar() {
-        toolBar = findViewById(R.id.toolBar);
         toolBar.setTitle(sort);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -108,7 +112,7 @@ public class SortListActivity extends BaseActivity<SortListMvpView,SortListPrese
                 toolBar.setTitle(sort);
                 currentPage = 1;
                 adapter.removeAll();
-                ((SortListPresenter)mPresenter).getSortList(sort,currentPage);
+                ((SortListPresenter) mPresenter).getSortList(sort, currentPage);
                 return false;
             }
         });
@@ -151,10 +155,10 @@ public class SortListActivity extends BaseActivity<SortListMvpView,SortListPrese
                 viewHolder.findViewById(R.id.cvItemSort).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(GankConfig.WELFARE.equalsIgnoreCase(item.getType())){
-                            startActivity(ImageActivity.newIntent(mContext,item.getUrl()));
-                        }else{
-                            startActivity(WebActivity.newIntent(mContext,item.getDesc(),item.getUrl()));
+                        if (GankConfig.WELFARE.equalsIgnoreCase(item.getType())) {
+                            startActivity(ImageActivity.newIntent(mContext, item.getUrl()));
+                        } else {
+                            startActivity(WebActivity.newIntent(mContext, item.getDesc(), item.getUrl()));
                         }
                     }
                 });
@@ -168,14 +172,15 @@ public class SortListActivity extends BaseActivity<SortListMvpView,SortListPrese
 //                super.onScrolled(recyclerView, dx, dy);
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 if (layoutManager.findLastVisibleItemPosition() >= adapter.getItemCount() - GankConfig.PAGE_SIZE / 2) {
-                    ((SortListPresenter)mPresenter).getSortList(sort,currentPage);
+                    ((SortListPresenter) mPresenter).getSortList(sort, currentPage);
                 }
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_sort,menu);
+        getMenuInflater().inflate(R.menu.menu_sort, menu);
         return true;
     }
 
@@ -186,9 +191,9 @@ public class SortListActivity extends BaseActivity<SortListMvpView,SortListPrese
 
     @Override
     public void setSortList(List<GankDataResult> list, int page) {
-        if(page==1){
+        if (page == 1) {
             adapter.flush(list);
-        }else {
+        } else {
             adapter.addList(list);
         }
         currentPage++;

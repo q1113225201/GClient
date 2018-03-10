@@ -1,11 +1,12 @@
-package com.sjl.gankapp;
+package com.sjl.gankapp.ui.activity;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
-import com.sjl.gankapp.ui.activity.GankMainActivity;
+import com.sjl.gankapp.BuildConfig;
+import com.sjl.gankapp.R;
 import com.sjl.gankapp.mvp.presenter.LoadPresenter;
 import com.sjl.gankapp.mvp.view.LoadMvpView;
 import com.sjl.platform.base.BaseActivity;
@@ -31,7 +32,7 @@ public class LoadActivity extends BaseActivity<LoadMvpView, LoadPresenter> imple
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(mContext, GankMainActivity.class));
+                        startActivity(new Intent(mContext, MainActivity.class));
                         finish();
                     }
                 }, 2000);

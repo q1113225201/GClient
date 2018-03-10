@@ -62,7 +62,7 @@ public abstract class BaseFragment<V extends MvpView,P extends Presenter> extend
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
         view = inflater.inflate(getContentViewId(),container,false);
-        unbinder = ButterKnife.bind(view);
+        unbinder = ButterKnife.bind(this,view);
         initView();
         return view;
     }
@@ -73,12 +73,12 @@ public abstract class BaseFragment<V extends MvpView,P extends Presenter> extend
             ((ViewGroup) view.getParent()).removeView(view);
         }
         mContext = null;
+        unbinder.unbind();
         super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
-        unbinder.unbind();
         if(mPresenter!=null){
             mPresenter.detachView();
         }

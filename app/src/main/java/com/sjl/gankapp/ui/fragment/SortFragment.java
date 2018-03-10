@@ -18,6 +18,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * 分类Fragment
  *
@@ -25,7 +27,8 @@ import java.util.List;
  * @date 2017/11/30
  */
 public class SortFragment extends BaseFragment<SortMvpView, SortPresenter> implements SortMvpView {
-    private BubblePicker picker;
+    @BindView(R.id.picker)
+    BubblePicker picker;
     private List<String> list;
     private int[] colors = {android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_blue_light,
             android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_green_light,
@@ -39,7 +42,6 @@ public class SortFragment extends BaseFragment<SortMvpView, SortPresenter> imple
 
     @Override
     protected void initView() {
-        picker = view.findViewById(R.id.picker);
         initSort();
     }
 

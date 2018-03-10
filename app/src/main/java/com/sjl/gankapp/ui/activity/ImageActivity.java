@@ -21,15 +21,21 @@ import com.sjl.platform.widget.PinchImageView;
 import java.io.File;
 import java.io.IOException;
 
+import butterknife.BindView;
+
 /**
  * 图片界面
  *
  * @author SJL
  * @date 2017/12/14
  */
-public class ImageActivity extends BaseActivity<ImageMvpView,ImagePresenter> implements ImageMvpView {
+public class ImageActivity extends BaseActivity<ImageMvpView, ImagePresenter> implements ImageMvpView {
     private static final String TAG = "ImageActivity";
     private static final String IMAGE_URL = "image_url";
+    @BindView(R.id.pivImage)
+    PinchImageView pivImage;
+    @BindView(R.id.toolBar)
+    Toolbar toolBar;
     private String imageUrl;
 
     public static Intent newIntent(Context context, String imageUrl) {
@@ -45,9 +51,6 @@ public class ImageActivity extends BaseActivity<ImageMvpView,ImagePresenter> imp
         path = GankConfig.PATH_IMAGE + EncryptUtil.encryptMD5(imageUrl) + ".png";
     }
 
-    private Toolbar toolBar;
-    private PinchImageView pivImage;
-
     @Override
     protected int getContentViewId() {
         return R.layout.activity_image;
@@ -57,7 +60,6 @@ public class ImageActivity extends BaseActivity<ImageMvpView,ImagePresenter> imp
     protected void initView() {
         parseIntent();
         initToolBar();
-        pivImage = findViewById(R.id.pivImage);
         Glide.with(mContext).load(imageUrl).into(pivImage);
     }
 

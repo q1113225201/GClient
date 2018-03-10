@@ -2,6 +2,7 @@ package com.sjl.gankapp.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,8 @@ import com.sjl.platform.base.adapter.CommonRVAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * 每日数据页面
  *
@@ -38,6 +41,19 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
     public static String TRANSFORM = "transform";
     private static String DATE = "date";
     private static String IMAGE_URL = "image_url";
+    @BindView(R.id.ivGirl)
+    ImageView ivGirl;
+    @BindView(R.id.tvDate)
+    TextView tvDate;
+    @BindView(R.id.toolBar)
+    Toolbar toolBar;
+    @BindView(R.id.abl)
+    AppBarLayout abl;
+    @BindView(R.id.rvDayData)
+    RecyclerView rvDayData;
+
+    private CommonRVAdapter<GankDataResult> adapter;
+    private List<GankDataResult> list;
     private String date;
     private String imageUrl;
 
@@ -53,14 +69,6 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
         imageUrl = getIntent().getStringExtra(IMAGE_URL);
     }
 
-    private Toolbar toolBar;
-    private TextView tvDate;
-    private ImageView ivGirl;
-    private RecyclerView rvDayData;
-
-    private CommonRVAdapter<GankDataResult> adapter;
-    private List<GankDataResult> list;
-
     @Override
     protected int getContentViewId() {
         return R.layout.activity_gank_detail;
@@ -70,10 +78,6 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
     protected void initView() {
         parseIntent();
         initToolBar();
-        tvDate = findViewById(R.id.tvDate);
-        ivGirl = findViewById(R.id.ivGirl);
-        rvDayData = findViewById(R.id.rvDayData);
-
         ViewCompat.setTransitionName(tvDate, TRANSFORM);
         tvDate.setText(date);
         Glide.with(mContext).load(imageUrl).into(ivGirl);

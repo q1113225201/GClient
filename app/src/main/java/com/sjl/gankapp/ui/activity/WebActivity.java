@@ -25,16 +25,27 @@ import com.sjl.gankapp.mvp.view.WebMvpView;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.util.ShareUtil;
 
+import butterknife.BindView;
+
 /**
  * 网页
  *
  * @author SJL
  * @date 2017/12/14
  */
-public class WebActivity extends BaseActivity<WebMvpView,WebPresenter> implements WebMvpView {
+public class WebActivity extends BaseActivity<WebMvpView, WebPresenter> implements WebMvpView {
     private static final String TAG = "WebActivity";
     public static final String TITLE = "title";
     public static final String URL = "url";
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
+    @BindView(R.id.toolBar)
+    Toolbar toolBar;
+    @BindView(R.id.pbProgress)
+    ProgressBar pbProgress;
+    @BindView(R.id.llWebView)
+    LinearLayout llWebView;
+    private WebView webView;
     private String title;
     private String url;
 
@@ -50,12 +61,6 @@ public class WebActivity extends BaseActivity<WebMvpView,WebPresenter> implement
         url = getIntent().getStringExtra(URL);
     }
 
-    private Toolbar toolBar;
-    private TextView tvTtile;
-    private ProgressBar pbProgress;
-    private LinearLayout llWebView;
-    private WebView webView;
-
     @Override
     protected int getContentViewId() {
         return R.layout.activity_web;
@@ -65,17 +70,14 @@ public class WebActivity extends BaseActivity<WebMvpView,WebPresenter> implement
     protected void initView() {
         parseIntent();
         initToolBar();
-        tvTtile = findViewById(R.id.tvTitle);
-        pbProgress = findViewById(R.id.pbProgress);
-        llWebView = findViewById(R.id.llWebView);
         initWebView();
 
         setTitle(title);
-        tvTtile.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        tvTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    tvTtile.requestFocus();
+                    tvTitle.requestFocus();
                 }
             }
         });
@@ -95,7 +97,7 @@ public class WebActivity extends BaseActivity<WebMvpView,WebPresenter> implement
     @Override
     public void setTitle(CharSequence title) {
         super.setTitle(title);
-        tvTtile.setText(title);
+        tvTitle.setText(title);
     }
 
     private void initToolBar() {

@@ -19,18 +19,25 @@ import com.sjl.platform.util.LogUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * 首页
  *
  * @author SJL
  * @date 2017/12/14
  */
-public class GankMainActivity extends BaseFragmentActivity<GankMainMvpView, GankMainPresenter> implements GankMainMvpView {
-    private static final String TAG = "GankMainActivity";
-    RadioGroup rgTab;
+public class MainActivity extends BaseFragmentActivity<GankMainMvpView, GankMainPresenter> implements GankMainMvpView {
+    private static final String TAG = "MainActivity";
+    @BindView(R.id.rbIndex)
     RadioButton rbIndex;
+    @BindView(R.id.rbSort)
     RadioButton rbSort;
+    @BindView(R.id.rbMine)
     RadioButton rbMine;
+    @BindView(R.id.rgTab)
+    RadioGroup rgTab;
+    @BindView(R.id.vpContent)
     ViewPager vpContent;
 
     private List<Integer> tabList = new ArrayList<>();
@@ -38,16 +45,11 @@ public class GankMainActivity extends BaseFragmentActivity<GankMainMvpView, Gank
 
     @Override
     protected int getContentViewId() {
-        return R.layout.activity_gank_main;
+        return R.layout.activity_main;
     }
 
     @Override
     protected void initView() {
-        rgTab = findViewById(R.id.rgTab);
-        rbIndex = findViewById(R.id.rbIndex);
-        rbSort = findViewById(R.id.rbSort);
-        rbMine = findViewById(R.id.rbMine);
-        vpContent = findViewById(R.id.vpContent);
         //初始化tab
         tabList.add(R.id.rbIndex);
         tabList.add(R.id.rbSort);
