@@ -121,7 +121,7 @@ public class WebActivity extends BaseActivity<WebMvpView, WebPresenter> implemen
                     clipboardManager.setPrimaryClip(ClipData.newPlainText("text", webView.getUrl()));
                     showToast(getString(R.string.gank_copy_success));
                 } else if (id == R.id.menuShare) {
-                    ShareUtil.shareMsg(mContext, webView.getUrl());
+                    ShareUtil.shareMsg(activity, webView.getUrl());
                 }
                 return false;
             }
@@ -129,7 +129,7 @@ public class WebActivity extends BaseActivity<WebMvpView, WebPresenter> implemen
     }
 
     private void initWebView() {
-        webView = new WebView(mContext);
+        webView = new WebView(activity);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         webView.setLayoutParams(layoutParams);
         webView.setWebChromeClient(new WebChromeClient() {

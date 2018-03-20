@@ -60,7 +60,7 @@ public class ImageActivity extends BaseActivity<ImageMvpView, ImagePresenter> im
     protected void initView() {
         parseIntent();
         initToolBar();
-        Glide.with(mContext).load(imageUrl).into(pivImage);
+        Glide.with(activity).load(imageUrl).into(pivImage);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ImageActivity extends BaseActivity<ImageMvpView, ImagePresenter> im
                     showToast(saveImage() ? getString(R.string.gank_save_success) + path : getString(R.string.gank_save_failure));
                 } else if (id == R.id.menuShare) {
                     saveImage();
-                    ShareUtil.shareImage(mContext, new File(path));
+                    ShareUtil.shareImage(activity, new File(path));
                 }
                 return false;
             }

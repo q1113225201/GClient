@@ -1,6 +1,8 @@
 package com.sjl.gankapp.ui.fragment;
 
 
+import android.view.View;
+
 import com.sjl.gankapp.R;
 import com.sjl.gankapp.mvp.presenter.AboutPresenter;
 import com.sjl.gankapp.mvp.view.AboutMvpView;
@@ -34,5 +36,10 @@ public class AboutFragment extends BaseFragment<AboutMvpView, AboutPresenter> im
     protected AboutPresenter obtainPresenter() {
         mPresenter = new AboutPresenter();
         return (AboutPresenter) mPresenter;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

@@ -120,7 +120,7 @@ public class SortListActivity extends BaseActivity<SortListMvpView, SortListPres
 
     private void initSortList() {
         gankDataResultList = new ArrayList<>();
-        adapter = new CommonRVAdapter<GankDataResult>(mContext, gankDataResultList, R.layout.item_sort, R.layout.item_sort_empty) {
+        adapter = new CommonRVAdapter<GankDataResult>(activity, gankDataResultList, R.layout.item_sort, R.layout.item_sort_empty) {
             @Override
             protected void onBindNullViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, GankDataResult item, List<GankDataResult> list) {
 
@@ -133,7 +133,7 @@ public class SortListActivity extends BaseActivity<SortListMvpView, SortListPres
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
                     ((TextView) viewHolder.findViewById(R.id.tvItemType)).setText(GankUtil.parseDate(item.getPublishedAt()));
                     viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                    Glide.with(mContext).load(item.getUrl()).centerCrop().error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                    Glide.with(activity).load(item.getUrl()).centerCrop().error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                 } else {
                     viewHolder.findViewById(R.id.llItemType).setVisibility(GankConfig.ALL.equalsIgnoreCase(sort) ? View.VISIBLE : View.GONE);
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.VISIBLE);
@@ -144,21 +144,21 @@ public class SortListActivity extends BaseActivity<SortListMvpView, SortListPres
                         viewHolder.findViewById(R.id.llItemImg).setVisibility(View.GONE);
                     } else {
                         viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                        Glide.with(mContext).load(item.getImages().get(0)).error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                        Glide.with(activity).load(item.getImages().get(0)).error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                     }
                     if (GankConfig.WELFARE.equalsIgnoreCase(item.getType())) {
                         viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
                         viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                        Glide.with(mContext).load(item.getUrl()).centerCrop().error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                        Glide.with(activity).load(item.getUrl()).centerCrop().error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                     }
                 }
                 viewHolder.findViewById(R.id.cvItemSort).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (GankConfig.WELFARE.equalsIgnoreCase(item.getType())) {
-                            startActivity(ImageActivity.newIntent(mContext, item.getUrl()));
+                            startActivity(ImageActivity.newIntent(activity, item.getUrl()));
                         } else {
-                            startActivity(WebActivity.newIntent(mContext, item.getDesc(), item.getUrl()));
+                            startActivity(WebActivity.newIntent(activity, item.getDesc(), item.getUrl()));
                         }
                     }
                 });

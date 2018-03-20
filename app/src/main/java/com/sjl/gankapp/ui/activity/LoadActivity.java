@@ -26,13 +26,13 @@ public class LoadActivity extends BaseActivity<LoadMvpView, LoadPresenter> imple
     @Override
     protected void initView() {
         tvVersion.setText(BuildConfig.VERSION_NAME);
-        PermisstionUtil.requestPermissions(mContext, PermisstionUtil.STORAGE, 100, "正在请求读写权限", new PermisstionUtil.OnPermissionResult() {
+        PermisstionUtil.requestPermissions(activity, PermisstionUtil.STORAGE, 100, "正在请求读写权限", new PermisstionUtil.OnPermissionResult() {
             @Override
             public void granted(int requestCode) {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(mContext, MainActivity.class));
+                        startActivity(new Intent(activity, MainActivity.class));
                         finish();
                     }
                 }, 2000);

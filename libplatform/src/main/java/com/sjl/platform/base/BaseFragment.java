@@ -1,6 +1,6 @@
 package com.sjl.platform.base;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,9 +22,9 @@ import butterknife.Unbinder;
  * @date 2017/11/30
  */
 
-public abstract class BaseFragment<V extends MvpView,P extends Presenter> extends Fragment implements MvpView {
+public abstract class BaseFragment<V extends MvpView,P extends Presenter> extends Fragment implements MvpView,View.OnClickListener {
     protected View view;
-    protected Context mContext;
+    protected Activity activity;
     protected Presenter mPresenter;
     private Unbinder unbinder;
 
@@ -60,7 +60,7 @@ public abstract class BaseFragment<V extends MvpView,P extends Presenter> extend
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mContext = getActivity();
+        activity = getActivity();
         view = inflater.inflate(getContentViewId(),container,false);
         unbinder = ButterKnife.bind(this,view);
         initView();
@@ -72,7 +72,7 @@ public abstract class BaseFragment<V extends MvpView,P extends Presenter> extend
         if (view != null) {
             ((ViewGroup) view.getParent()).removeView(view);
         }
-        mContext = null;
+        activity = null;
         unbinder.unbind();
         super.onDestroyView();
     }

@@ -94,7 +94,7 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
             }
         });
         rv.setLayoutManager(new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));
-        adapter = new CommonRVAdapter<GankDataResult>(mContext, gankDataResultList, R.layout.item_girls, R.layout.item_girls_empty) {
+        adapter = new CommonRVAdapter<GankDataResult>(activity, gankDataResultList, R.layout.item_girls, R.layout.item_girls_empty) {
             @Override
             protected void onBindNullViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, GankDataResult item, List<GankDataResult> list) {
 
@@ -104,7 +104,7 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
             protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, final GankDataResult item, List<GankDataResult> list) {
                 final ImageView ivItemImg = (ImageView) viewHolder.findViewById(R.id.ivItemImg);
                 final TextView tvItemTime = ((TextView) viewHolder.findViewById(R.id.tvItemTime));
-                Glide.with(mContext).load(item.getUrl()).error(R.drawable.error).into(ivItemImg);
+                Glide.with(activity).load(item.getUrl()).error(R.drawable.error).into(ivItemImg);
                 tvItemTime.setText(GankUtil.parseDate(item.getPublishedAt()));
 
                 ivItemImg.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +114,7 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
                         try {
                             ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                                     getActivity(), tvItemTime, GankDetailActivity.TRANSFORM);
-                            ActivityCompat.startActivity(mContext, intent, optionsCompat.toBundle());
+                            ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
                         } catch (IllegalArgumentException e) {
                             e.printStackTrace();
                             startActivity(intent);
@@ -150,5 +150,10 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
                 srl.setRefreshing(show);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

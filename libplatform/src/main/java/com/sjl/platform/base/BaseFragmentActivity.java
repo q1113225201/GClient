@@ -1,5 +1,6 @@
 package com.sjl.platform.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,8 +9,10 @@ import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 
 import com.sjl.platform.PlatformInit;
+import com.sjl.platform.R;
 import com.sjl.platform.util.PermisstionUtil;
 import com.sjl.platform.util.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -26,9 +29,10 @@ import butterknife.Unbinder;
  */
 
 public abstract class BaseFragmentActivity<V extends MvpView, P extends Presenter> extends FragmentActivity implements MvpView, View.OnClickListener {
-    protected Context mContext;
+    protected Activity activity;
     protected Presenter mPresenter;
     private Unbinder unbinder;
+    protected InputMethodManager inputMethodManager;
 
     /**
      * 布局文件
@@ -55,16 +59,27 @@ public abstract class BaseFragmentActivity<V extends MvpView, P extends Presente
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getContentViewId());
+        unbinder = ButterKnife.bind(this);
         PlatformInit.pushActivity(this);
+        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         obtainPresenter();
         if (mPresenter != null) {
             mPresenter.attachView(obtainMvpView());
         }
-        mContext = this;
+        activity = this;
         //统计应用启动数据
-        PushAgent.getInstance(mContext).onAppStart();
-        unbinder = ButterKnife.bind(this);
+        PushAgent.getInstance(activity).onAppStart();
         initView();
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
+        if (inputMethodManager != null) {
+            View view = getCurrentFocus();
+            if (null != view)
+                inputMethodManager.hideSoftInputFromInputMethod(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     @Override
@@ -87,7 +102,7 @@ public abstract class BaseFragmentActivity<V extends MvpView, P extends Presente
 
     @Override
     protected void onDestroy() {
-        mContext = null;
+        activity = null;
         unbinder.unbind();
         if (mPresenter != null) {
             mPresenter.detachView();

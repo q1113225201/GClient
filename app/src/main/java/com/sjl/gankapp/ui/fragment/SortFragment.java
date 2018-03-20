@@ -2,6 +2,7 @@ package com.sjl.gankapp.ui.fragment;
 
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 
 import com.igalata.bubblepicker.BubblePickerListener;
 import com.igalata.bubblepicker.adapter.BubblePickerAdapter;
@@ -80,7 +81,7 @@ public class SortFragment extends BaseFragment<SortMvpView, SortPresenter> imple
         picker.setListener(new BubblePickerListener() {
             @Override
             public void onBubbleSelected(PickerItem pickerItem) {
-                startActivity(SortListActivity.newIntent(mContext, pickerItem.getTitle()));
+                startActivity(SortListActivity.newIntent(activity, pickerItem.getTitle()));
             }
 
             @Override
@@ -100,5 +101,10 @@ public class SortFragment extends BaseFragment<SortMvpView, SortPresenter> imple
     public void onPause() {
         super.onPause();
         picker.onPause();
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

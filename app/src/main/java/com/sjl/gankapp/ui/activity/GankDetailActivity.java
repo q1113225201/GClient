@@ -80,7 +80,7 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
         initToolBar();
         ViewCompat.setTransitionName(tvDate, TRANSFORM);
         tvDate.setText(date);
-        Glide.with(mContext).load(imageUrl).into(ivGirl);
+        Glide.with(activity).load(imageUrl).into(ivGirl);
         ivGirl.setOnClickListener(this);
         initDayData();
         ((GankDetailPresenter) mPresenter).getGankDetail(date);
@@ -101,7 +101,7 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.menuOpen) {
-                    startActivity(WebActivity.newIntent(mContext, date, "http://gank.io/" + date));
+                    startActivity(WebActivity.newIntent(activity, date, "http://gank.io/" + date));
                 }
                 return false;
             }
@@ -110,7 +110,7 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
 
     private void initDayData() {
         list = new ArrayList<>();
-        adapter = new CommonRVAdapter<GankDataResult>(mContext, list, R.layout.item_day_data, R.layout.item_day_data_empty) {
+        adapter = new CommonRVAdapter<GankDataResult>(activity, list, R.layout.item_day_data, R.layout.item_day_data_empty) {
             @Override
             protected void onBindNullViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, GankDataResult item, List<GankDataResult> list) {
 
@@ -126,16 +126,16 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
                 }
                 SpannableStringBuilder builder = new SpannableStringBuilder();
                 SpannableString spannableString = new SpannableString(item.getDesc());
-                spannableString.setSpan(new TextAppearanceSpan(mContext, R.style.TextLink), 0, spannableString.length(), 0);
+                spannableString.setSpan(new TextAppearanceSpan(activity, R.style.TextLink), 0, spannableString.length(), 0);
                 builder.append(spannableString);
                 spannableString = new SpannableString(TextUtils.isEmpty(item.getWho()) ? "" : item.getWho());
-                spannableString.setSpan(new TextAppearanceSpan(mContext, R.style.TextAuth), 0, spannableString.length(), 0);
+                spannableString.setSpan(new TextAppearanceSpan(activity, R.style.TextAuth), 0, spannableString.length(), 0);
                 builder.append(spannableString);
                 ((TextView) viewHolder.findViewById(R.id.tvContent)).setText(builder.subSequence(0, builder.length()));
                 viewHolder.findViewById(R.id.tvContent).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(WebActivity.newIntent(mContext, item.getDesc(), item.getUrl()));
+                        startActivity(WebActivity.newIntent(activity, item.getDesc(), item.getUrl()));
                     }
                 });
             }
@@ -159,7 +159,7 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.ivGirl) {
-            startActivity(ImageActivity.newIntent(mContext, imageUrl));
+            startActivity(ImageActivity.newIntent(activity, imageUrl));
         }
     }
 
