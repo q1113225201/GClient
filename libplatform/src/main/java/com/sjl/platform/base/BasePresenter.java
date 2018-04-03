@@ -1,5 +1,8 @@
 package com.sjl.platform.base;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 /**
  * BasePresenter
  *
@@ -22,5 +25,21 @@ public class BasePresenter<T extends MvpView> implements Presenter<T> {
     @Override
     public void detachView() {
         mvpView = null;
+        removeSubscribe();
+    }
+
+    private CompositeDisposable compositeDisposable;
+
+    protected void addSubscribe(Disposable disposable) {
+        if (compositeDisposable == null) {
+            compositeDisposable = new CompositeDisposable();
+        }
+        compositeDisposable.add(disposable);
+    }
+
+    private void removeSubscribe() {
+        if (compositeDisposable != null) {
+            compositeDisposable.dispose();
+        }
     }
 }

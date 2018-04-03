@@ -25,7 +25,7 @@ public class SortListPresenter extends BasePresenter<SortListMvpView> {
         if(page==1) {
             getMvpView().autoProgress(true);
         }
-        ServiceClient.getGankAPI().getSortDataByPages(sort, GankConfig.PAGE_SIZE, page)
+        addSubscribe(ServiceClient.getGankAPI().getSortDataByPages(sort, GankConfig.PAGE_SIZE, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<GankData>() {
@@ -39,6 +39,6 @@ public class SortListPresenter extends BasePresenter<SortListMvpView> {
                     public void accept(Throwable throwable) throws Exception {
                         getMvpView().autoProgress(false);
                     }
-                });
+                }));
     }
 }

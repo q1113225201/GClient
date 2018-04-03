@@ -28,16 +28,18 @@ public class IndexPresenter extends BasePresenter<IndexMvpView> {
         List<GankDataResult> list = DBManager.getInstance().getList(GankDataResult.class, "", String.format("publishedAt desc limit %d,%d", 0, GankConfig.PAGE_SIZE));
         getMvpView().setGirls(list, -1);
     }
-private boolean isLoading = false;
+
+    private boolean isLoading = false;
+
     public void getNetGirls(final int page) {
-        if(isLoading){
+        if (isLoading) {
             return;
         }
-        isLoading=true;
+        isLoading = true;
         if (page == 1) {
             getMvpView().autoProgress(true);
         }
-        ServiceClient.getGankAPI().getSortDataByPages(GankConfig.WELFARE, GankConfig.PAGE_SIZE, page)
+        addSubscribe(ServiceClient.getGankAPI().getSortDataByPages(GankConfig.WELFARE, GankConfig.PAGE_SIZE, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<GankData>() {
@@ -56,7 +58,7 @@ private boolean isLoading = false;
                         getMvpView().autoProgress(false);
                         isLoading = false;
                     }
-                });
+                }));
     }
 
     private void saveGirls(List<GankDataResult> results) {

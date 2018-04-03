@@ -28,10 +28,11 @@ public class GankDetailPresenter extends BasePresenter<GankDetailMvpView> {
 
     /**
      * 获取指定日期数据
+     *
      * @param date
      */
-    public void getGankDetail(String date){
-        ServiceClient.getGankAPI().getDayData(date)
+    public void getGankDetail(String date) {
+        addSubscribe(ServiceClient.getGankAPI().getDayData(date)
                 .map(new Function<GankDayData, List<GankDataResult>>() {
                     @Override
                     public List<GankDataResult> apply(GankDayData gankDayData) throws Exception {
@@ -72,6 +73,6 @@ public class GankDetailPresenter extends BasePresenter<GankDetailMvpView> {
                     public void accept(Throwable throwable) throws Exception {
                         LogUtil.e(TAG, throwable.getMessage());
                     }
-                });
+                }));
     }
 }
