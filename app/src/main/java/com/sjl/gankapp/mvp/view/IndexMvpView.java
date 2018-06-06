@@ -1,6 +1,6 @@
 package com.sjl.gankapp.mvp.view;
 
-import com.sjl.gankapp.bean.GankDataResult;
+import com.sjl.gankapp.model.pojo.GankDataResult;
 import com.sjl.platform.base.MvpView;
 
 import java.util.List;

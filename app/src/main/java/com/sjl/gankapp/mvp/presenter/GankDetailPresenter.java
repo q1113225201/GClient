@@ -1,8 +1,8 @@
 package com.sjl.gankapp.mvp.presenter;
 
-import com.sjl.gankapp.bean.GankDataResult;
-import com.sjl.gankapp.bean.GankDayData;
-import com.sjl.gankapp.bean.GankDayDataResult;
+import com.sjl.gankapp.model.pojo.GankDataResult;
+import com.sjl.gankapp.model.pojo.GankDayData;
+import com.sjl.gankapp.model.pojo.GankDayDataResult;
 import com.sjl.gankapp.http.ServiceClient;
 import com.sjl.gankapp.mvp.view.GankDetailMvpView;
 import com.sjl.platform.base.BasePresenter;

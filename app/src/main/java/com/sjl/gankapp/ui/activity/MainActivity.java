@@ -1,20 +1,28 @@
 package com.sjl.gankapp.ui.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.sjl.gankapp.R;
+import com.sjl.gankapp.model.event.EventClick;
 import com.sjl.gankapp.mvp.presenter.GankMainPresenter;
 import com.sjl.gankapp.mvp.view.GankMainMvpView;
 import com.sjl.gankapp.ui.fragment.AboutFragment;
 import com.sjl.gankapp.ui.fragment.IndexFragment;
 import com.sjl.gankapp.ui.fragment.SortFragment;
+import com.sjl.platform.PlatformInit;
 import com.sjl.platform.base.BaseFragmentActivity;
 import com.sjl.platform.util.LogUtil;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +51,8 @@ public class MainActivity extends BaseFragmentActivity<GankMainMvpView, GankMain
     private List<Integer> tabList = new ArrayList<>();
     private List<Fragment> tabContentList = new ArrayList<>();
 
+    private boolean isAuto = true;
+
     @Override
     protected int getContentViewId() {
         return R.layout.activity_main;
@@ -50,6 +60,7 @@ public class MainActivity extends BaseFragmentActivity<GankMainMvpView, GankMain
 
     @Override
     protected void initView() {
+        PlatformInit.getEventBus().register(this);
         //初始化tab
         tabList.add(R.id.rbIndex);
         tabList.add(R.id.rbSort);
@@ -94,8 +105,12 @@ public class MainActivity extends BaseFragmentActivity<GankMainMvpView, GankMain
             }
         });
         findViewById(tabList.get(0)).performClick();
+        checkVersion(true);
+    }
 
-        ((GankMainPresenter)mPresenter).checkVersion();
+    private void checkVersion(boolean isAuto) {
+        this.isAuto = isAuto;
+        ((GankMainPresenter) mPresenter).checkVersion();
     }
 
     @Override
@@ -112,5 +127,43 @@ public class MainActivity extends BaseFragmentActivity<GankMainMvpView, GankMain
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onCheckVersion(boolean isLatest, final String msg) {
+        if (!isLatest) {
+            new AlertDialog.Builder(activity)
+                    .setTitle("提示")
+                    .setMessage(String.format("最新版本%s,是否更新？", msg))
+                    .setPositiveButton("更新", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("https://github.com/q1113225201/GClient/releases/download/%s/GClient.apk", msg))));
+                        }
+                    })
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create();
+        } else if (!isAuto) {
+            showToast(msg);
+        }
+    }
+
+    @Subscribe
+    public void onClickEvent(EventClick eventClick) {
+        if ("checkVersion".equalsIgnoreCase(eventClick.getType())) {
+            checkVersion(false);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        PlatformInit.getEventBus().unregister(this);
+        super.onDestroy();
     }
 }

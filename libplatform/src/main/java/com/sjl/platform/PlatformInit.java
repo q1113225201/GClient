@@ -5,9 +5,12 @@ import android.app.Application;
 
 import com.sjl.platform.service.PushIntentService;
 import com.sjl.platform.util.LogUtil;
+import com.sjl.platform.util.SPUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Stack;
 
@@ -36,6 +39,7 @@ public class PlatformInit {
 
     private PlatformInit(Application application) {
         PlatformInit.application = application;
+        SPUtil.init(application);
         //日志
         LogUtil.init(application, false);
         initUMeng(application);
@@ -71,10 +75,23 @@ public class PlatformInit {
         return platformInit;
     }
 
+    private static EventBus eventBus;
+
+    public static EventBus getEventBus() {
+        if (eventBus == null) {
+            eventBus = new EventBus();
+        }
+        return eventBus;
+    }
+
     /**
      * Activity栈
      */
     private static Stack<Activity> activityStack = new Stack<>();
+
+    public static Stack<Activity> getActivitys() {
+        return activityStack;
+    }
 
     public static void pushActivity(Activity activity) {
         activityStack.push(activity);
@@ -90,7 +107,6 @@ public class PlatformInit {
         for (Activity activity : activityStack) {
             if (activity != null) {
                 activity.finish();
-                activityStack.remove(activity);
             }
         }
     }

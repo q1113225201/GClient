@@ -4,10 +4,13 @@ package com.sjl.gankapp.ui.fragment;
 import android.view.View;
 import android.widget.TextView;
 
+import com.sjl.gankapp.BuildConfig;
 import com.sjl.gankapp.R;
+import com.sjl.gankapp.model.event.EventClick;
 import com.sjl.gankapp.mvp.presenter.AboutPresenter;
 import com.sjl.gankapp.mvp.view.AboutMvpView;
 import com.sjl.gankapp.ui.activity.InfoActivity;
+import com.sjl.platform.PlatformInit;
 import com.sjl.platform.base.BaseFragment;
 import com.sjl.platform.util.CommonUtil;
 
@@ -22,6 +25,8 @@ import butterknife.OnClick;
  */
 public class AboutFragment extends BaseFragment<AboutMvpView, AboutPresenter> implements AboutMvpView {
     private static final String TAG = "AboutFragment";
+    @BindView(R.id.tvVersion)
+    TextView tvVersion;
     @BindView(R.id.tvCheck)
     TextView tvCheck;
     @BindView(R.id.tvFeedback)
@@ -36,6 +41,7 @@ public class AboutFragment extends BaseFragment<AboutMvpView, AboutPresenter> im
 
     @Override
     protected void initView() {
+        tvVersion.setText(BuildConfig.VERSION_NAME);
     }
 
     @Override
@@ -49,18 +55,18 @@ public class AboutFragment extends BaseFragment<AboutMvpView, AboutPresenter> im
         return (AboutPresenter) mPresenter;
     }
 
-    @OnClick({R.id.tvCheck,R.id.tvFeedback,R.id.tvInfo})
+    @OnClick({R.id.tvCheck, R.id.tvFeedback, R.id.tvInfo})
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tvCheck:
-
+                PlatformInit.getEventBus().post(new EventClick("checkVersion",null));
                 break;
             case R.id.tvFeedback:
 
                 break;
             case R.id.tvInfo:
-                CommonUtil.startActivity(activity,v, InfoActivity.class,null);
+                CommonUtil.startActivity(activity, v, InfoActivity.class, null);
                 break;
         }
     }

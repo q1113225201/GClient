@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sjl.gankapp.R;
-import com.sjl.gankapp.bean.GankDataResult;
+import com.sjl.gankapp.model.pojo.GankDataResult;
 import com.sjl.gankapp.config.GankConfig;
 import com.sjl.gankapp.mvp.presenter.SortListPresenter;
 import com.sjl.gankapp.mvp.view.SortListMvpView;

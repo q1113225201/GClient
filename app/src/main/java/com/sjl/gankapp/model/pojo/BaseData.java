@@ -1,4 +1,4 @@
-package com.sjl.gankapp.bean;
+package com.sjl.gankapp.model.pojo;
 
 import java.util.List;
 

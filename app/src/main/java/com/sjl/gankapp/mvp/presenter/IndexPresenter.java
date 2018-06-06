@@ -1,7 +1,7 @@
 package com.sjl.gankapp.mvp.presenter;
 
-import com.sjl.gankapp.bean.GankData;
-import com.sjl.gankapp.bean.GankDataResult;
+import com.sjl.gankapp.model.pojo.GankData;
+import com.sjl.gankapp.model.pojo.GankDataResult;
 import com.sjl.gankapp.config.GankConfig;
 import com.sjl.gankapp.http.ServiceClient;
 import com.sjl.gankapp.mvp.view.IndexMvpView;

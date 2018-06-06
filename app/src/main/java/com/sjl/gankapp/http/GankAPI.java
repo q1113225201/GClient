@@ -1,13 +1,12 @@
 package com.sjl.gankapp.http;
 
-import com.sjl.gankapp.bean.GankData;
-import com.sjl.gankapp.bean.GankDayData;
-import com.sjl.gankapp.bean.GankWebData;
-import com.sjl.gankapp.bean.HistoryDate;
-import com.sjl.gankapp.bean.SearchData;
+import com.sjl.gankapp.model.pojo.GankData;
+import com.sjl.gankapp.model.pojo.GankDayData;
+import com.sjl.gankapp.model.pojo.GankWebData;
+import com.sjl.gankapp.model.pojo.HistoryDate;
+import com.sjl.gankapp.model.pojo.SearchData;
 
 import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

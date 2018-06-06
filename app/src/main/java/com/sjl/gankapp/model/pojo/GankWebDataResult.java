@@ -1,4 +1,4 @@
-package com.sjl.gankapp.bean;
+package com.sjl.gankapp.model.pojo;
 
 import net.tsz.afinal.annotation.sqlite.Id;
 import net.tsz.afinal.annotation.sqlite.Table;

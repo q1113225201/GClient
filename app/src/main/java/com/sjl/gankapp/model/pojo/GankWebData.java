@@ -1,16 +1,18 @@
-package com.sjl.gankapp.bean;
+package com.sjl.gankapp.model.pojo;
 
 /**
- * HistoryDate
+ * GankWebData
  *
  * @author SJL
  * @date 2017/12/1
  */
 
-public class HistoryDate extends BaseData<String> {
+public class GankWebData extends BaseData<GankWebDataResult> {
+
+
     @Override
     public String toString() {
-        return "HistoryDate{" +
+        return "GankWebData{" +
                 "error=" + error +
                 ", results=" + results +
                 '}';

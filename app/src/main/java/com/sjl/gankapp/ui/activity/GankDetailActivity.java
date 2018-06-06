@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sjl.gankapp.R;
-import com.sjl.gankapp.bean.GankDataResult;
+import com.sjl.gankapp.model.pojo.GankDataResult;
 import com.sjl.gankapp.mvp.presenter.GankDetailPresenter;
 import com.sjl.gankapp.mvp.view.GankDetailMvpView;
 import com.sjl.platform.base.BaseActivity;

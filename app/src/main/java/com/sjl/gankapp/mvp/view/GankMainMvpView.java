@@ -10,4 +10,5 @@ import com.sjl.platform.base.MvpView;
  */
 
 public interface GankMainMvpView extends MvpView {
+    void onCheckVersion(boolean isLatest, String msg);
 }
