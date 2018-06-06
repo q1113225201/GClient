@@ -94,6 +94,8 @@ public class MainActivity extends BaseFragmentActivity<GankMainMvpView, GankMain
             }
         });
         findViewById(tabList.get(0)).performClick();
+
+        ((GankMainPresenter)mPresenter).checkVersion();
     }
 
     @Override

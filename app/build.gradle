@@ -13,24 +13,30 @@ apply plugin: 'io.fabric'
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
-apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
 
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/maven/com.squareup.okhttp3/okhttp/pom.xml'
+        exclude 'META-INF/maven/com.squareup.okhttp3/okhttp/pom.properties'
+        exclude 'META-INF/maven/com.squareup.okio/okio/pom.xml'
+        exclude 'META-INF/maven/com.squareup.okio/okio/pom.properties'
+        exclude 'META-INF/maven/com.google.code.gson/gson/pom.xml'
+        exclude 'META-INF/maven/com.google.code.gson/gson/pom.properties'
     }
     defaultConfig {
         applicationId "com.sjl.gankapp"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 2
         versionName "1.1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
     }
-    signingConfigs{
-        debug{
+    signingConfigs {
+        debug {
             storeFile file("$projectDir/gclient.jks")
             storePassword "gclient"
             keyAlias "gclient"
@@ -38,7 +44,7 @@ android {
         }
     }
     buildTypes {
-        debug{
+        debug {
             signingConfig signingConfigs.debug
         }
         release {
@@ -59,14 +65,14 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':libplatform')
-    api 'com.android.support:cardview-v7:26.1.0'
+    api 'com.android.support:cardview-v7:27.1.1'
     api 'com.github.igalata:Bubble-Picker:v0.2.4'
+    implementation 'com.android.support:multidex:1.0.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
         transitive = true;
     }
+    //bmob-sdk
+    implementation 'cn.bmob.android:bmob-sdk:3.6.1'
 }

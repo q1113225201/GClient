@@ -11,4 +11,7 @@ import com.sjl.platform.base.BasePresenter;
  */
 
 public class GankMainPresenter extends BasePresenter<GankMainMvpView> {
+    public void checkVersion() {
+
+    }
 }

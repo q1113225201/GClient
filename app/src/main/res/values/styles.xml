@@ -8,6 +8,10 @@
     <style name="LoadTheme" parent="AppTheme">
         <item name="android:background">@color/colorPrimary</item>
     </style>
+
+    <style name="Theme.Activity.White" parent="AppTheme">
+        <item name="android:background">@color/gankWhite</item>
+    </style>
     <style name="GankTabRadioButton">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>

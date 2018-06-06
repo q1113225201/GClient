@@ -7,6 +7,7 @@ import com.sjl.gankapp.bean.HistoryDate;
 import com.sjl.gankapp.bean.SearchData;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -101,4 +102,5 @@ public interface GankAPI {
      */
     @GET("day/{date}")
     Observable<GankDayData> getDayData(@Path("date")String date);
+
 }

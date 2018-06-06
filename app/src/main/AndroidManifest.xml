@@ -3,6 +3,7 @@
     package="com.sjl.gankapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -11,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.LoadActivity"
+        <activity
+            android:name=".ui.activity.LoadActivity"
             android:theme="@style/LoadTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,13 +21,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="827dd67267ecf025bba3072bff555e5ef4fdb315" />
-        <activity android:name=".ui.activity.MainActivity" />
+
+        <activity android:name=".ui.activity.MainActivity"/>
         <activity android:name=".ui.activity.GankDetailActivity" />
         <activity android:name=".ui.activity.WebActivity" />
         <activity android:name=".ui.activity.SortListActivity" />
-        <activity android:name=".ui.activity.ImageActivity"></activity>
+        <activity android:name=".ui.activity.ImageActivity" />
+        <activity
+            android:name=".ui.activity.InfoActivity"
+            android:theme="@style/Theme.Activity.White"></activity>
     </application>
+
 </manifest>
