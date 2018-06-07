@@ -87,7 +87,6 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
     }
 
     private void initToolBar() {
-        toolBar = findViewById(R.id.toolBar);
         toolBar.setTitle("");
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

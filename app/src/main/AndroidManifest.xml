@@ -32,8 +32,7 @@
         <activity android:name=".ui.activity.SortListActivity" />
         <activity android:name=".ui.activity.ImageActivity" />
         <activity
-            android:name=".ui.activity.InfoActivity"
-            android:theme="@style/Theme.Activity.White"></activity>
+            android:name=".ui.activity.InfoActivity"></activity>
     </application>
 
 </manifest>

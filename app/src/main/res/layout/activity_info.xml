@@ -1,11 +1,12 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/gankWhite">
 
     <include layout="@layout/layout_title" />
 
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -13,9 +14,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/gankWhite"
             android:orientation="vertical"
+            android:paddingBottom="@dimen/padding_common"
             android:paddingLeft="@dimen/padding_common"
             android:paddingRight="@dimen/padding_common">
 
@@ -46,5 +48,5 @@
                 android:text="@string/gank_about_lib_desc" />
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

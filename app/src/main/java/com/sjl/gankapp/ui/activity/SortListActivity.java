@@ -102,7 +102,7 @@ public class SortListActivity extends BaseActivity<SortListMvpView, SortListPres
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
         toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
