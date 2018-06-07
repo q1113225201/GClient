@@ -3,6 +3,7 @@ package com.sjl.gankapp.http;
 import com.sjl.gankapp.model.pojo.VersionInfo;
 
 import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**
@@ -15,5 +16,7 @@ import retrofit2.http.GET;
 public interface UpdateAPI {
 
     @GET("master/version")
-    Observable<VersionInfo> getVersion();
+    Call<VersionInfo> getVersion();
+    @GET("master/version")
+    Observable<VersionInfo> getVersion1();
 }

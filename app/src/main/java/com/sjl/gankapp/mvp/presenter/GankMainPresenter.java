@@ -22,12 +22,13 @@ public class GankMainPresenter extends BasePresenter<GankMainMvpView> {
      * 检查版本
      */
     public void checkVersion() {
-        addSubscribe(ServiceClient.getUpdateAPI().getVersion()
+        addSubscribe(ServiceClient.getUpdateAPI().getVersion1()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<VersionInfo>() {
                     @Override
                     public void accept(VersionInfo versionInfo) throws Exception {
+                        getMvpView().autoProgress(false);
                         if (BuildConfig.VERSION_CODE < versionInfo.getVersionCode()) {
                             getMvpView().onCheckVersion(false, versionInfo.getVersionName());
                         } else {
@@ -40,7 +41,6 @@ public class GankMainPresenter extends BasePresenter<GankMainMvpView> {
                         getMvpView().autoProgress(false);
                         getMvpView().onCheckVersion(true, "服务异常");
                     }
-                })
-        );
+                }));
     }
 }

@@ -148,7 +148,7 @@ public class MainActivity extends BaseFragmentActivity<GankMainMvpView, GankMain
                             dialog.dismiss();
                         }
                     })
-                    .create();
+                    .create().show();
         } else if (!isAuto) {
             showToast(msg);
         }
