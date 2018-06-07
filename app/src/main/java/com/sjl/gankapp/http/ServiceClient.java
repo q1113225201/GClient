@@ -18,19 +18,31 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceClient {
     private static final String TAG = "ServiceClient";
     private static GankAPI gankAPI;
+    private static UpdateAPI updateAPI;
     private static String gankBaseUrl="http://gank.io/api/";
+    private static String updateBaseUrl="https://raw.githubusercontent.com/q1113225201/GClient/";
     public static GankAPI getGankAPI(){
         if(gankAPI==null){
             synchronized (TAG){
                 if(gankAPI==null){
-                    initGankAPI(gankBaseUrl);
+                    initAPI();
                 }
             }
         }
         return gankAPI;
     }
+    public static UpdateAPI getUpdateAPI(){
+        if(updateAPI==null){
+            synchronized (TAG){
+                if(updateAPI==null){
+                    initAPI();
+                }
+            }
+        }
+        return updateAPI;
+    }
 
-    private static void initGankAPI(String gankBaseUrl) {
+    private static void initAPI() {
         //日志拦截器
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -47,6 +59,13 @@ public class ServiceClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
+        Retrofit updateRetrofit = new Retrofit.Builder()
+                .baseUrl(updateBaseUrl)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
         gankAPI = retrofit.create(GankAPI.class);
+        updateAPI = updateRetrofit.create(UpdateAPI.class);
     }
 }
