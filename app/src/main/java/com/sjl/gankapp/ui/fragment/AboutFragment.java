@@ -9,6 +9,7 @@ import com.sjl.gankapp.R;
 import com.sjl.gankapp.model.event.EventClick;
 import com.sjl.gankapp.mvp.presenter.AboutPresenter;
 import com.sjl.gankapp.mvp.view.AboutMvpView;
+import com.sjl.gankapp.ui.activity.FeedbackActivity;
 import com.sjl.gankapp.ui.activity.InfoActivity;
 import com.sjl.platform.PlatformInit;
 import com.sjl.platform.base.BaseFragment;
@@ -60,10 +61,10 @@ public class AboutFragment extends BaseFragment<AboutMvpView, AboutPresenter> im
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvCheck:
-                PlatformInit.getEventBus().post(new EventClick("checkVersion",null));
+                PlatformInit.getEventBus().post(new EventClick("checkVersion", null));
                 break;
             case R.id.tvFeedback:
-
+                CommonUtil.startActivity(activity, v, FeedbackActivity.class, null);
                 break;
             case R.id.tvInfo:
                 CommonUtil.startActivity(activity, v, InfoActivity.class, null);

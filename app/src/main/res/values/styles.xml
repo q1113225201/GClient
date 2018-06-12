@@ -44,4 +44,10 @@
         <item name="android:textColor">@color/gankGray</item>
         <item name="android:autoLink">web</item>
     </style>
+
+    <style name="ButtonMain" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/button_main</item>
+        <item name="android:textColor">@color/gankWhite</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>
