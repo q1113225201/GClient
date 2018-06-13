@@ -9,13 +9,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolBar">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/gankWhite"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="@dimen/padding_common"
             android:paddingLeft="@dimen/padding_common"
@@ -37,15 +35,6 @@
             <TextView
                 style="@style/TextAboutDesc"
                 android:text="@string/gank_about_me_desc" />
-
-            <TextView
-                style="@style/TextAboutTip"
-                android:text="@string/gank_about_lib_tip" />
-
-            <TextView
-                style="@style/TextAboutDesc"
-                android:autoLink="none"
-                android:text="@string/gank_about_lib_desc" />
 
         </LinearLayout>
     </ScrollView>

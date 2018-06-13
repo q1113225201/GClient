@@ -8,17 +8,6 @@
     <string name="gank_about_me_desc">感兴趣的可以交个朋友，相互讨论，共同进步。
         \nGitHub：https://github.com/q1113225201
         \nCSDN：http://blog.csdn.net/q1113225201</string>
-    <string name="gank_about_lib_tip">关于开源库</string>
-    <string name="gank_about_lib_desc">
-        com.squareup.retrofit2:retrofit:2.3.0
-        \ncom.squareup.retrofit2:converter-gson:2.3.0
-        \ncom.squareup.retrofit2:adapter-rxjava2:2.3.0
-        \ncom.squareup.okhttp3:okhttp:3.9.1
-        \nio.reactivex.rxjava2:rxandroid:2.0.1
-        \nio.reactivex.rxjava2:rxjava:2.1.0
-        \ncom.github.bumptech.glide:glide:3.7.0
-        \ncom.github.igalata:Bubble-Picker:v0.2.4
-    </string>
     <string name="gank_no_more_data">没有更多数据</string>
     <string name="gank_girl_title">漂亮妹子</string>
     <string name="gank_save_success">保存成功</string>
@@ -26,7 +15,7 @@
     <string name="gank_copy_success">复制成功</string>
     <string name="gank_tab_index">镇楼</string>
     <string name="gank_tab_sort">分类</string>
-    <string name="gank_tab_about">关于</string>
+    <string name="gank_tab_info">信息</string>
     <string name="gank_menu_open_url">打开链接</string>
     <string name="gank_menu_save">保存</string>
     <string name="gank_menu_share">分享</string>
@@ -41,5 +30,13 @@
     <string name="gank_menu_web">前端</string>
     <string name="gank_menu_recommand">瞎推荐</string>
     <string name="gank_menu_app">App</string>
-    <string name="gank_info">信息</string>
+    <string name="gank_about">关于</string>
+    <string name="gank_feedback">问题反馈</string>
+    <string name="gank_input_opinion">请输入反馈问题</string>
+    <string name="gank_submit">提交</string>
+    <string name="gank_tip">提示</string>
+    <string name="gank_update_tip">最新版本%s,是否更新？</string>
+    <string name="gank_update">更新</string>
+    <string name="gank_cancel">取消</string>
+    <string name="gank_check_update">检测更新</string>
 </resources>

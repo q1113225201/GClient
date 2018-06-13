@@ -15,7 +15,7 @@ import com.sjl.gankapp.R;
 import com.sjl.gankapp.model.event.EventClick;
 import com.sjl.gankapp.mvp.presenter.GankMainPresenter;
 import com.sjl.gankapp.mvp.view.GankMainMvpView;
-import com.sjl.gankapp.ui.fragment.AboutFragment;
+import com.sjl.gankapp.ui.fragment.InfoFragment;
 import com.sjl.gankapp.ui.fragment.IndexFragment;
 import com.sjl.gankapp.ui.fragment.SortFragment;
 import com.sjl.platform.PlatformInit;
@@ -37,12 +37,6 @@ import butterknife.BindView;
  */
 public class MainActivity extends BaseFragmentActivity<GankMainMvpView, GankMainPresenter> implements GankMainMvpView {
     private static final String TAG = "MainActivity";
-    @BindView(R.id.rbIndex)
-    RadioButton rbIndex;
-    @BindView(R.id.rbSort)
-    RadioButton rbSort;
-    @BindView(R.id.rbMine)
-    RadioButton rbMine;
     @BindView(R.id.rgTab)
     RadioGroup rgTab;
     @BindView(R.id.vpContent)
@@ -64,11 +58,11 @@ public class MainActivity extends BaseFragmentActivity<GankMainMvpView, GankMain
         //初始化tab
         tabList.add(R.id.rbIndex);
         tabList.add(R.id.rbSort);
-        tabList.add(R.id.rbMine);
+        tabList.add(R.id.rbInfo);
 
         tabContentList.add(new IndexFragment());
         tabContentList.add(new SortFragment());
-        tabContentList.add(new AboutFragment());
+        tabContentList.add(new InfoFragment());
         vpContent.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -133,16 +127,16 @@ public class MainActivity extends BaseFragmentActivity<GankMainMvpView, GankMain
     public void onCheckVersion(boolean isLatest, final String msg) {
         if (!isLatest) {
             new AlertDialog.Builder(activity)
-                    .setTitle("提示")
-                    .setMessage(String.format("最新版本%s,是否更新？", msg))
-                    .setPositiveButton("更新", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.gank_tip)
+                    .setMessage(String.format(getString(R.string.gank_update_tip), msg))
+                    .setPositiveButton(R.string.gank_update, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("https://github.com/q1113225201/GClient/releases/download/%s/GClient.apk", msg))));
                         }
                     })
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.gank_cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();

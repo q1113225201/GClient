@@ -28,10 +28,10 @@
             android:textColor="@color/normal_selected_color" />
 
         <RadioButton
-            android:id="@+id/rbMine"
+            android:id="@+id/rbInfo"
             style="@style/GankTabRadioButton"
             android:drawableTop="@drawable/ic_person"
-            android:text="@string/gank_tab_about"
+            android:text="@string/gank_tab_info"
             android:textColor="@color/normal_selected_color" />
     </RadioGroup>
 
