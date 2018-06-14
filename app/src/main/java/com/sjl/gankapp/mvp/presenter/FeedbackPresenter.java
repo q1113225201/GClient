@@ -1,5 +1,6 @@
 package com.sjl.gankapp.mvp.presenter;
 
+import android.app.Activity;
 import android.os.Build;
 
 import com.sjl.gankapp.BuildConfig;
@@ -21,18 +22,24 @@ import cn.bmob.v3.listener.SaveListener;
 public class FeedbackPresenter extends BasePresenter<FeedbackMvpView> {
     private static final String TAG = "FeedbackPresenter";
 
-    public void submitFeedback(String opinion) {
+    public void submitFeedback(Activity activity, String opinion) {
         getMvpView().autoProgress(true);
         Feedback feedback = new Feedback();
         feedback.setOpinion(opinion);
         feedback.setPhone(Build.MODEL);
         feedback.setSdk(Build.VERSION.SDK_INT);
         feedback.setVersion(BuildConfig.VERSION_NAME);
-        feedback.save(new SaveListener<String>() {
+        feedback.save(activity, new SaveListener() {
             @Override
-            public void done(String s, BmobException e) {
+            public void onSuccess() {
                 getMvpView().autoProgress(false);
-                getMvpView().onSubmitFeedback(e == null, e == null ? "提交成功" : "提交失败，" + e.getMessage());
+                getMvpView().onSubmitFeedback(true,"提交成功");
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                getMvpView().autoProgress(false);
+                getMvpView().onSubmitFeedback(false,"提交失败，" + s);
                 LogUtil.i(TAG, s);
             }
         });

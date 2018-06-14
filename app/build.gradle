@@ -25,7 +25,10 @@ android {
         exclude 'META-INF/maven/com.squareup.okio/okio/pom.properties'
         exclude 'META-INF/maven/com.google.code.gson/gson/pom.xml'
         exclude 'META-INF/maven/com.google.code.gson/gson/pom.properties'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
     }
+
     defaultConfig {
         applicationId "com.sjl.gankapp"
         minSdkVersion 21
@@ -60,6 +63,7 @@ android {
                                 '--set-max-idx-number=48000',//每个包内方法数上限
         ]
     }
+
 }
 
 dependencies {
@@ -74,5 +78,5 @@ dependencies {
         transitive = true;
     }
     //bmob-sdk
-    implementation 'cn.bmob.android:bmob-sdk:3.6.1'
+    api 'cn.bmob.android:bmob-sdk:3.4.6'
 }

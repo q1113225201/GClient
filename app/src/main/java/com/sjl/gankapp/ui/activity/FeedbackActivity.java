@@ -66,7 +66,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackMvpView, FeedbackPres
                     showToast(getString(R.string.gank_input_opinion));
                     return;
                 }
-                ((FeedbackPresenter) mPresenter).submitFeedback(opinion);
+                ((FeedbackPresenter) mPresenter).submitFeedback(activity,opinion);
                 break;
         }
     }
