@@ -15,6 +15,7 @@
     <string name="gank_copy_success">复制成功</string>
     <string name="gank_tab_index">镇楼</string>
     <string name="gank_tab_sort">分类</string>
+    <string name="gank_tab_casual">闲读</string>
     <string name="gank_tab_info">信息</string>
     <string name="gank_menu_open_url">打开链接</string>
     <string name="gank_menu_save">保存</string>
@@ -39,4 +40,7 @@
     <string name="gank_update">更新</string>
     <string name="gank_cancel">取消</string>
     <string name="gank_check_update">检测更新</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -25,6 +25,13 @@
             style="@style/GankTabRadioButton"
             android:drawableTop="@drawable/ic_sort"
             android:text="@string/gank_tab_sort"
+            android:visibility="gone"
+            android:textColor="@color/normal_selected_color" />
+        <RadioButton
+            android:id="@+id/rbCasual"
+            style="@style/GankTabRadioButton"
+            android:drawableTop="@drawable/ic_sort"
+            android:text="@string/gank_tab_casual"
             android:textColor="@color/normal_selected_color" />
 
         <RadioButton

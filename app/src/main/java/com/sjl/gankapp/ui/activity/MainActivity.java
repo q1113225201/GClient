@@ -15,6 +15,7 @@ import com.sjl.gankapp.R;
 import com.sjl.gankapp.model.event.EventClick;
 import com.sjl.gankapp.mvp.presenter.GankMainPresenter;
 import com.sjl.gankapp.mvp.view.GankMainMvpView;
+import com.sjl.gankapp.ui.fragment.CasualFragment;
 import com.sjl.gankapp.ui.fragment.InfoFragment;
 import com.sjl.gankapp.ui.fragment.IndexFragment;
 import com.sjl.gankapp.ui.fragment.SortFragment;
@@ -57,11 +58,13 @@ public class MainActivity extends BaseFragmentActivity<GankMainMvpView, GankMain
         PlatformInit.getEventBus().register(this);
         //初始化tab
         tabList.add(R.id.rbIndex);
-        tabList.add(R.id.rbSort);
+//        tabList.add(R.id.rbSort);
+        tabList.add(R.id.rbCasual);
         tabList.add(R.id.rbInfo);
 
         tabContentList.add(new IndexFragment());
-        tabContentList.add(new SortFragment());
+//        tabContentList.add(new SortFragment());
+        tabContentList.add(new CasualFragment());
         tabContentList.add(new InfoFragment());
         vpContent.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

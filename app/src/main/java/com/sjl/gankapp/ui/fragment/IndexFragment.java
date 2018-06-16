@@ -36,8 +36,8 @@ import butterknife.BindView;
 public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> implements IndexMvpView {
     private static final String TAG = "IndexFragment";
     private static final int SPAN_COUNT = 2;
-    @BindView(R.id.rv)
-    RecyclerView rv;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
     private CommonRVAdapter<GankDataResult> adapter;
@@ -81,7 +81,7 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
      * 初始化列表
      */
     private void initList() {
-        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
@@ -93,7 +93,7 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
                 LogUtil.i(TAG, "scroll2=" + adapter.getItemCount());
             }
         });
-        rv.setLayoutManager(new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL));
         adapter = new CommonRVAdapter<GankDataResult>(activity, gankDataResultList, R.layout.item_girls, R.layout.item_girls_empty) {
             @Override
             protected void onBindNullViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, GankDataResult item, List<GankDataResult> list) {
@@ -123,7 +123,7 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
                 });
             }
         };
-        rv.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
