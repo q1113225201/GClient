@@ -1,19 +1,29 @@
 package com.sjl.gankapp.model.treeview;
 
 import com.sjl.gankapp.R;
+import com.sjl.gankapp.model.pojo.CategoryResponse;
 import com.sjl.libtreeview.bean.LayoutItem;
 
- /**
-  * 根节点数据
-  *
-  * @author 林zero
-  * @date 2018/6/16
-  */
+/**
+ * 根节点数据
+ *
+ * @author 林zero
+ * @date 2018/6/16
+ */
 public class RootNode implements LayoutItem {
     private String name;
+    private CategoryResponse.CategoryBean categoryBean;
 
     public RootNode(String name) {
         this.name = name;
+    }
+
+    public CategoryResponse.CategoryBean getCategoryBean() {
+        return categoryBean;
+    }
+
+    public void setCategoryBean(CategoryResponse.CategoryBean categoryBean) {
+        this.categoryBean = categoryBean;
     }
 
     public String getName() {
@@ -31,7 +41,7 @@ public class RootNode implements LayoutItem {
 
     @Override
     public int getToggleId() {
-        return R.id.tvName;
+        return R.id.rlParent;
     }
 
     @Override

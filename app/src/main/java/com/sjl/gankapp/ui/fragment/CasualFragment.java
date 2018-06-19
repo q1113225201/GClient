@@ -10,6 +10,7 @@ import android.view.View;
 import com.sjl.gankapp.R;
 import com.sjl.gankapp.model.pojo.CategoryResponse;
 import com.sjl.gankapp.model.pojo.SmallCategoryResponse;
+import com.sjl.gankapp.model.treeview.LeafNode;
 import com.sjl.gankapp.model.treeview.LeafViewBinder;
 import com.sjl.gankapp.model.treeview.RootNode;
 import com.sjl.gankapp.model.treeview.RootViewBinder;
@@ -59,15 +60,17 @@ public class CasualFragment extends BaseFragment<CasualMvpView, CasualPresenter>
     private void initAdapter() {
         adapter = new TreeViewAdapter(list, Arrays.asList(new RootViewBinder(), new LeafViewBinder())) {
             @Override
-            public void toggleClick(TreeViewBinder.ViewHolder viewHolder, View view, boolean b, TreeNode treeNode) {
-                if (treeNode.getValue() instanceof RootNode) {
-
+            public void toggleClick(TreeViewBinder.ViewHolder viewHolder, View view, boolean isOpen, TreeNode treeNode) {
+                if (isOpen && treeNode.getChildNodes().size() == 0) {
+                    ((CasualPresenter) mPresenter).getSmallCategories(((RootNode) treeNode.getValue()).getCategoryBean().getEn_name(), treeNode);
+                } else {
+                    adapter.lastToggleClickToggle();
                 }
             }
 
             @Override
-            public void toggled(TreeViewBinder.ViewHolder viewHolder, View view, boolean b, TreeNode treeNode) {
-
+            public void toggled(TreeViewBinder.ViewHolder viewHolder, View view, boolean isOpen, TreeNode treeNode) {
+                view.findViewById(R.id.ivNode).setRotation(isOpen ? 90 : 0);
             }
 
             @Override
@@ -77,7 +80,7 @@ public class CasualFragment extends BaseFragment<CasualMvpView, CasualPresenter>
 
             @Override
             public void itemClick(TreeViewBinder.ViewHolder viewHolder, View view, TreeNode treeNode) {
-
+                //跳转闲读列表详情
             }
         };
         recyclerView.setAdapter(adapter);
@@ -111,16 +114,28 @@ public class CasualFragment extends BaseFragment<CasualMvpView, CasualPresenter>
 
     @Override
     public void onGetCategries(CategoryResponse categoryResponse) {
-
+        for (CategoryResponse.CategoryBean categoryBean : categoryResponse.getResults()) {
+            RootNode rootNode = new RootNode(categoryBean.getName());
+            rootNode.setCategoryBean(categoryBean);
+            TreeNode<RootNode> treeNode = new TreeNode(rootNode);
+            list.add(treeNode);
+        }
+        adapter.notifyData(list);
     }
 
     @Override
-    public void onGetSmallCategories(SmallCategoryResponse smallCategoryResponse) {
-
+    public void onGetSmallCategories(SmallCategoryResponse smallCategoryResponse, TreeNode treeNode) {
+        for (SmallCategoryResponse.SmallCategory smallCategory : smallCategoryResponse.getResults()) {
+            LeafNode leafNode = new LeafNode(smallCategory.getTitle());
+            leafNode.setSmallCategory(smallCategory);
+            TreeNode<LeafNode> leafTreeNode = new TreeNode(leafNode);
+            treeNode.addChild(leafTreeNode);
+        }
+        adapter.lastToggleClickToggle();
     }
 
     @Override
     public void onRefresh() {
-
+        ((CasualPresenter) mPresenter).getCategories();
     }
 }

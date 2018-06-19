@@ -2,6 +2,7 @@ package com.sjl.gankapp.mvp.view;
 
 import com.sjl.gankapp.model.pojo.CategoryResponse;
 import com.sjl.gankapp.model.pojo.SmallCategoryResponse;
+import com.sjl.libtreeview.bean.TreeNode;
 import com.sjl.platform.base.MvpView;
 
 /**
@@ -16,5 +17,5 @@ public interface CasualMvpView extends MvpView {
 
     void onGetCategries(CategoryResponse categoryResponse);
 
-    void onGetSmallCategories(SmallCategoryResponse smallCategoryResponse);
+    void onGetSmallCategories(SmallCategoryResponse smallCategoryResponse, TreeNode treeNode);
 }

@@ -22,7 +22,7 @@ public class RootViewBinder extends TreeViewBinder<RootViewBinder.ViewHolder> {
 
     @Override
     public int getToggleId() {
-        return R.id.ivNode;
+        return R.id.rlParent;
     }
 
     @Override
@@ -44,7 +44,6 @@ public class RootViewBinder extends TreeViewBinder<RootViewBinder.ViewHolder> {
     public void bindViewHolder(ViewHolder holder, int position, TreeNode treeNode) {
         ((TextView) holder.findViewById(R.id.tvName)).setText(((RootNode) treeNode.getValue()).getName());
         holder.findViewById(R.id.ivNode).setRotation(treeNode.isExpanded() ? 90 : 0);
-        holder.findViewById(R.id.llParent).setBackgroundColor(holder.itemView.getContext().getResources().getColor(treeNode.isChecked() ? R.color.gankGray : R.color.gankWhite));
     }
 
     class ViewHolder extends TreeViewBinder.ViewHolder {

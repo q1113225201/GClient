@@ -4,7 +4,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sjl.gankapp.R;
+import com.sjl.gankapp.widget.GlideCircleTransform;
 import com.sjl.libtreeview.bean.TreeNode;
 import com.sjl.libtreeview.bean.TreeViewBinder;
 
@@ -43,7 +45,12 @@ public class LeafViewBinder extends TreeViewBinder<LeafViewBinder.ViewHolder> {
     @Override
     public void bindViewHolder(ViewHolder holder, int position, TreeNode treeNode) {
         ((TextView) holder.findViewById(R.id.tvName)).setText(((LeafNode) treeNode.getValue()).getName());
-        holder.findViewById(R.id.llParent).setBackgroundColor(holder.itemView.getContext().getResources().getColor(treeNode.isChecked() ? R.color.gankGray : R.color.gankWhite));
+        Glide.with(holder.itemView.getContext())
+                .load(((LeafNode) treeNode.getValue()).getSmallCategory().getIcon())
+                .placeholder(R.mipmap.ic_launcher_round)
+                .error(R.mipmap.ic_launcher_round)
+                .bitmapTransform(new GlideCircleTransform(holder.itemView.getContext()))
+                .into(((ImageView) holder.findViewById(R.id.ivIcon)));
     }
 
     class ViewHolder extends TreeViewBinder.ViewHolder {

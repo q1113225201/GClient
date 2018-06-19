@@ -4,6 +4,7 @@ import com.sjl.gankapp.http.ServiceClient;
 import com.sjl.gankapp.model.pojo.CategoryResponse;
 import com.sjl.gankapp.model.pojo.SmallCategoryResponse;
 import com.sjl.gankapp.mvp.view.CasualMvpView;
+import com.sjl.libtreeview.bean.TreeNode;
 import com.sjl.platform.base.BasePresenter;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -43,7 +44,7 @@ public class CasualPresenter extends BasePresenter<CasualMvpView> {
     /**
      * 获取闲读大类
      */
-    public void getSmallCategories(String category) {
+    public void getSmallCategories(String category, final TreeNode treeNode) {
         getMvpView().autoProgress(true);
         addSubscribe(ServiceClient.getGankAPI().getSmallCategories(category)
                 .subscribeOn(Schedulers.io())
@@ -52,7 +53,7 @@ public class CasualPresenter extends BasePresenter<CasualMvpView> {
                     @Override
                     public void accept(SmallCategoryResponse smallCategoryResponse) throws Exception {
                         getMvpView().autoProgress(false);
-                        getMvpView().onGetSmallCategories(smallCategoryResponse);
+                        getMvpView().onGetSmallCategories(smallCategoryResponse,treeNode);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
