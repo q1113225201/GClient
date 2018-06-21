@@ -9,7 +9,6 @@ package com.sjl.gankapp.model.pojo;
 
 public class GankWebData extends BaseData<GankWebDataResult> {
 
-
     @Override
     public String toString() {
         return "GankWebData{" +

@@ -9,15 +9,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_tree_node" />
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_tree_arrow"
+        android:layout_marginRight="10dp"/>
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/ivNode"
-        android:layout_weight="1"
-        android:padding="5dp"
+        android:paddingLeft="15dp"
         android:textSize="18sp" />
 </RelativeLayout>

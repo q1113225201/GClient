@@ -34,7 +34,7 @@ public class LeafViewBinder extends TreeViewBinder<LeafViewBinder.ViewHolder> {
 
     @Override
     public int getClickId() {
-        return R.id.tvName;
+        return R.id.rlParent;
     }
 
     @Override

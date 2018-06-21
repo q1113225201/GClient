@@ -5,19 +5,11 @@
     android:layout_height="48dp">
 
     <ImageView
-        android:id="@+id/ivNode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:visibility="invisible"
-        android:src="@drawable/ic_tree_node" />
-
-    <ImageView
         android:id="@+id/ivIcon"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/ivNode"
+        android:layout_marginLeft="15dp"
         android:src="@mipmap/ic_launcher_round" />
 
     <TextView

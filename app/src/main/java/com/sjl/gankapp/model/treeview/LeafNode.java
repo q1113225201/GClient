@@ -51,6 +51,6 @@ public class LeafNode implements LayoutItem {
 
     @Override
     public int getClickId() {
-        return R.id.tvName;
+        return R.id.rlParent;
     }
 }

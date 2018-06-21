@@ -17,6 +17,7 @@
     <color name="gankButtonColor">#63A4F6</color>
     <color name="gankButtonPressColor">#5e9ae6</color>
 
+    <color name="gankBg">#EBEBEB</color>
     <color name="gankGray">#9e9e9e</color>
     <color name="gankDivide">#E7E7E7</color>
 </resources>

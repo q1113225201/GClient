@@ -32,7 +32,8 @@
         <activity android:name=".ui.activity.SortListActivity" />
         <activity android:name=".ui.activity.ImageActivity" />
         <activity android:name=".ui.activity.AboutActivity" />
-        <activity android:name=".ui.activity.FeedbackActivity"></activity>
+        <activity android:name=".ui.activity.FeedbackActivity" />
+        <activity android:name=".ui.activity.CasualListActivity"></activity>
     </application>
 
 </manifest>

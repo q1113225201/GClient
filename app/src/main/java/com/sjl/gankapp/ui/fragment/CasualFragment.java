@@ -16,6 +16,7 @@ import com.sjl.gankapp.model.treeview.RootNode;
 import com.sjl.gankapp.model.treeview.RootViewBinder;
 import com.sjl.gankapp.mvp.presenter.CasualPresenter;
 import com.sjl.gankapp.mvp.view.CasualMvpView;
+import com.sjl.gankapp.ui.activity.CasualListActivity;
 import com.sjl.libtreeview.TreeViewAdapter;
 import com.sjl.libtreeview.bean.TreeNode;
 import com.sjl.libtreeview.bean.TreeViewBinder;
@@ -81,6 +82,7 @@ public class CasualFragment extends BaseFragment<CasualMvpView, CasualPresenter>
             @Override
             public void itemClick(TreeViewBinder.ViewHolder viewHolder, View view, TreeNode treeNode) {
                 //跳转闲读列表详情
+                startActivity(CasualListActivity.newIntent(activity,((LeafNode)treeNode.getValue()).getSmallCategory().getId()));
             }
         };
         recyclerView.setAdapter(adapter);

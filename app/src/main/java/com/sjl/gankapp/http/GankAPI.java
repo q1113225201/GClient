@@ -1,5 +1,6 @@
 package com.sjl.gankapp.http;
 
+import com.sjl.gankapp.model.pojo.CasualDetailResponse;
 import com.sjl.gankapp.model.pojo.CategoryResponse;
 import com.sjl.gankapp.model.pojo.GankData;
 import com.sjl.gankapp.model.pojo.GankDayData;
@@ -88,5 +89,11 @@ public interface GankAPI {
      */
     @GET("xiandu/category/{category}")
     Flowable<SmallCategoryResponse> getSmallCategories(@Path("category") String category);
+
+    /**
+     * 获取闲读数据
+     */
+    @GET("xiandu/data/id/{id}/count/{count}/page/{page}")
+    Flowable<CasualDetailResponse> getCasualList(@Path("id") String id, @Path("count") int count, @Path("page") int page);
 
 }

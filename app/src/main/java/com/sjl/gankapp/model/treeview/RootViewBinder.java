@@ -32,7 +32,7 @@ public class RootViewBinder extends TreeViewBinder<RootViewBinder.ViewHolder> {
 
     @Override
     public int getClickId() {
-        return R.id.tvName;
+        return 0;
     }
 
     @Override
