@@ -2,12 +2,12 @@ package com.sjl.gankapp.ui.activity;
 
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.sjl.gankapp.R;
+import com.sjl.gankapp.model.pojo.AboutInfo;
 import com.sjl.gankapp.mvp.presenter.AboutPresenter;
-import com.sjl.gankapp.mvp.presenter.InfoPresenter;
 import com.sjl.gankapp.mvp.view.AboutMvpView;
-import com.sjl.gankapp.mvp.view.InfoMvpView;
 import com.sjl.platform.base.BaseActivity;
 
 import butterknife.BindView;
@@ -22,6 +22,10 @@ public class AboutActivity extends BaseActivity<AboutMvpView, AboutPresenter> im
 
     @BindView(R.id.toolBar)
     Toolbar toolBar;
+    @BindView(R.id.tvAboutApp)
+    TextView tvAboutApp;
+    @BindView(R.id.tvAboutMe)
+    TextView tvAboutMe;
 
     @Override
     protected int getContentViewId() {
@@ -39,6 +43,8 @@ public class AboutActivity extends BaseActivity<AboutMvpView, AboutPresenter> im
                 onBackPressed();
             }
         });
+
+        ((AboutPresenter) mPresenter).getAboutInfo();
     }
 
     @Override
@@ -55,5 +61,15 @@ public class AboutActivity extends BaseActivity<AboutMvpView, AboutPresenter> im
     @Override
     public void onClick(View view) {
 
+    }
+
+    @Override
+    public void onGetAboutInfo(boolean isSuccess, AboutInfo aboutInfo) {
+        if (!isSuccess) {
+            aboutInfo = new AboutInfo(getResources().getString(R.string.gank_about_app_desc),
+                    getResources().getString(R.string.gank_about_me_desc));
+        }
+        tvAboutApp.setText(aboutInfo.getApp());
+        tvAboutMe.setText(aboutInfo.getMe());
     }
 }

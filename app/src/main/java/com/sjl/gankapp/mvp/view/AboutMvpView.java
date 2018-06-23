@@ -1,5 +1,6 @@
 package com.sjl.gankapp.mvp.view;
 
+import com.sjl.gankapp.model.pojo.AboutInfo;
 import com.sjl.platform.base.MvpView;
 
 /**
@@ -10,4 +11,5 @@ import com.sjl.platform.base.MvpView;
  */
 
 public interface AboutMvpView extends MvpView {
+    void onGetAboutInfo(boolean isSuccess, AboutInfo aboutInfo);
 }

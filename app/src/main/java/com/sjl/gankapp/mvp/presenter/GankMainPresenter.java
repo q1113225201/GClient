@@ -22,7 +22,7 @@ public class GankMainPresenter extends BasePresenter<GankMainMvpView> {
      * 检查版本
      */
     public void checkVersion() {
-        addSubscribe(ServiceClient.getUpdateAPI().getVersion1()
+        addSubscribe(ServiceClient.getUpdateAPI().getVersion()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<VersionInfo>() {

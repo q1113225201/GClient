@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -13,9 +14,13 @@ import com.sjl.gankapp.R;
 import com.sjl.gankapp.config.GankConfig;
 import com.sjl.gankapp.model.pojo.CasualDetailResponse;
 import com.sjl.gankapp.mvp.presenter.CasualListPresenter;
+import com.sjl.gankapp.mvp.presenter.IndexPresenter;
+import com.sjl.gankapp.mvp.presenter.SortListPresenter;
 import com.sjl.gankapp.mvp.view.CasualListMvpView;
+import com.sjl.gankapp.util.GankUtil;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
+import com.sjl.platform.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +47,7 @@ public class CasualListActivity extends BaseActivity<CasualListMvpView, CasualLi
 
     private String id;
     private int currentPage = 1;
+    private String currentDate;
 
     public static Intent newIntent(Context context, String id) {
         Intent intent = new Intent(context, CasualListActivity.class);
@@ -82,11 +88,23 @@ public class CasualListActivity extends BaseActivity<CasualListMvpView, CasualLi
             @Override
             protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, CasualDetailResponse.CasualDetailBean item, List<CasualDetailResponse.CasualDetailBean> list) {
                 ((TextView) viewHolder.findViewById(R.id.tvTitle)).setText(item.getTitle());
-                ((TextView) viewHolder.findViewById(R.id.tvDate)).setText(item.getPublished_at());
+                ((TextView) viewHolder.findViewById(R.id.tvDate)).setText(GankUtil.caluateDate(GankUtil.parseDate(item.getPublished_at()),currentDate));
             }
+
         };
         rvCasual.setAdapter(adapter);
         rvCasual.setLayoutManager(new LinearLayoutManager(activity));
+        rvCasual.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager.findLastVisibleItemPosition() >= adapter.getItemCount() - GankConfig.PAGE_SIZE / 2) {
+                    ((CasualListPresenter) mPresenter).getCasualList(id, GankConfig.PAGE_SIZE, currentPage);
+                }
+            }
+        });
+        currentDate = DateUtil.format(System.currentTimeMillis(),"yyyy/MM/dd");
         onRefresh();
     }
 

@@ -12,6 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="标题"
+        android:textColor="@color/gankBlank"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/tvDate" />
 
@@ -19,6 +20,7 @@
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/gankGray"
         android:text="时间"
         app:layout_constraintRight_toLeftOf="parent" />
 </android.support.constraint.ConstraintLayout>

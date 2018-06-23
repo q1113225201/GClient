@@ -24,6 +24,7 @@
                 android:text="@string/gank_about_app_tip" />
 
             <TextView
+                android:id="@+id/tvAboutApp"
                 style="@style/TextAboutDesc"
                 android:text="@string/gank_about_app_desc" />
 
@@ -33,6 +34,7 @@
                 android:text="@string/gank_about_me_tip" />
 
             <TextView
+                android:id="@+id/tvAboutMe"
                 style="@style/TextAboutDesc"
                 android:text="@string/gank_about_me_desc" />
 
