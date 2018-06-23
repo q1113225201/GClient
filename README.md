@@ -3,6 +3,7 @@
 
 ## 最新版APP下载
 [Release](https://github.com/q1113225201/GClient/releases/latest)
+<br/>
 <a href="https://play.google.com/store/apps/details?id=com.sjl.gankapp" target="_blank"><img src="http://www.android.com/images/brand/get_it_on_play_logo_large.png"/></a>
 
 ### 首页
