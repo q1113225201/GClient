@@ -86,9 +86,15 @@ public class CasualListActivity extends BaseActivity<CasualListMvpView, CasualLi
             }
 
             @Override
-            protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, CasualDetailResponse.CasualDetailBean item, List<CasualDetailResponse.CasualDetailBean> list) {
+            protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, final CasualDetailResponse.CasualDetailBean item, List<CasualDetailResponse.CasualDetailBean> list) {
                 ((TextView) viewHolder.findViewById(R.id.tvTitle)).setText(item.getTitle());
                 ((TextView) viewHolder.findViewById(R.id.tvDate)).setText(GankUtil.caluateDate(GankUtil.parseDate(item.getPublished_at()),currentDate));
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(WebActivity.newIntent(activity, item.getTitle(), item.getUrl()));
+                    }
+                });
             }
 
         };

@@ -68,7 +68,7 @@ public abstract class CommonRVAdapter<T> extends RecyclerView.Adapter {
 
     protected class RVViewHolder extends RecyclerView.ViewHolder {
         private SparseArray<View> viewList;
-        private View itemView;
+        public View itemView;
 
         public RVViewHolder(View itemView) {
             super(itemView);
