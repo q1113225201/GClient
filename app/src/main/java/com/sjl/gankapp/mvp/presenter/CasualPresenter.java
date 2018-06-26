@@ -42,7 +42,7 @@ public class CasualPresenter extends BasePresenter<CasualMvpView> {
                 }));
     }
     /**
-     * 获取闲读大类
+     * 获取闲读小类
      */
     public void getSmallCategories(String category, final TreeNode treeNode) {
         getMvpView().autoProgress(true);

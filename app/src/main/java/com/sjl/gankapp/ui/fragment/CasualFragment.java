@@ -82,7 +82,7 @@ public class CasualFragment extends BaseFragment<CasualMvpView, CasualPresenter>
             @Override
             public void itemClick(TreeViewBinder.ViewHolder viewHolder, View view, TreeNode treeNode) {
                 //跳转闲读列表详情
-                startActivity(CasualListActivity.newIntent(activity,((LeafNode)treeNode.getValue()).getSmallCategory().getId()));
+                startActivity(CasualListActivity.newIntent(activity,((LeafNode)treeNode.getValue()).getSmallCategory()));
             }
         };
         recyclerView.setAdapter(adapter);
