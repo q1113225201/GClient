@@ -50,4 +50,12 @@
         <item name="android:textColor">@color/gankWhite</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="MenuText">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">1dp</item>
+        <item name="android:background">@color/gankWhite</item>
+    </style>
 </resources>

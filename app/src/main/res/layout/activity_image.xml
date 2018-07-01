@@ -4,12 +4,13 @@
     android:layout_height="match_parent"
     android:background="@color/gankBlank">
 
+    <include layout="@layout/layout_title" />
+
     <com.sjl.platform.widget.PinchImageView
         android:id="@+id/pivImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true" />
-
-    <include layout="@layout/layout_title" />
+        android:layout_centerInParent="true"
+        android:scaleType="centerInside" />
 
 </RelativeLayout>

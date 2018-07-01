@@ -12,12 +12,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sjl.gankapp.R;
-import com.sjl.gankapp.model.pojo.GankDataResult;
 import com.sjl.gankapp.config.GankConfig;
+import com.sjl.gankapp.model.pojo.GankDataResult;
 import com.sjl.gankapp.mvp.presenter.IndexPresenter;
 import com.sjl.gankapp.mvp.view.IndexMvpView;
 import com.sjl.gankapp.ui.activity.GankDetailActivity;
+import com.sjl.gankapp.ui.activity.SortListActivity;
 import com.sjl.gankapp.util.GankUtil;
+import com.sjl.gankapp.widget.ExpandMenu;
 import com.sjl.platform.base.BaseFragment;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
 import com.sjl.platform.util.LogUtil;
@@ -36,6 +38,9 @@ import butterknife.BindView;
 public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> implements IndexMvpView {
     private static final String TAG = "IndexFragment";
     private static final int SPAN_COUNT = 2;
+
+    @BindView(R.id.expandMenu)
+    ExpandMenu expandMenu;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.srl)
@@ -58,6 +63,13 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
             public void onRefresh() {
                 currentPage = 1;
                 ((IndexPresenter) mPresenter).getNetGirls(currentPage);
+            }
+        });
+        expandMenu.setOnMenuItemClickListener(new ExpandMenu.OnMenuItemClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(SortListActivity.newIntent(activity, ((TextView) view).getText().toString()));
+                expandMenu.toggle();
             }
         });
         initList();

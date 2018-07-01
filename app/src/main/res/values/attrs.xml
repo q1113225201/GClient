@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--展开菜单-->
+    <declare-styleable name="ExpandMenu">
+        <!--显示位置-->
+        <attr name="menuGravity">
+            <flag name="TOP" value="0" />
+            <flag name="BOTTOM" value="1" />
+            <flag name="LEFT" value="2" />
+            <flag name="RIGHT" value="3" />
+        </attr>
+        <!--背景-->
+        <attr name="menuBackground" format="color|reference" />
+        <!--图片-->
+        <attr name="menuDrawable" format="color|reference" />
+    </declare-styleable>
+</resources>

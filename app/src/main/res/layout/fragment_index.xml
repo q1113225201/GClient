@@ -1,6 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipChildren="false">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl"
@@ -18,7 +20,57 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="@dimen/padding_index"
                 android:paddingRight="@dimen/padding_index"></android.support.v7.widget.RecyclerView>
+
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <com.sjl.gankapp.widget.ExpandMenu
+        android:id="@+id/expandMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="right"
+        app:menuDrawable="@drawable/ic_open_close"
+        app:menuGravity="TOP">
+
+        <TextView
+            style="@style/MenuText"
+            android:text="all" />
+
+        <TextView
+            style="@style/MenuText"
+            android:text="Android" />
+
+        <TextView
+            style="@style/MenuText"
+            android:text="iOS" />
+
+        <TextView
+            style="@style/MenuText"
+            android:text="休息视频" />
+
+        <TextView
+            style="@style/MenuText"
+            android:text="福利" />
+
+        <TextView
+            style="@style/MenuText"
+            android:text="拓展资源" />
+
+        <TextView
+            style="@style/MenuText"
+            android:text="前端" />
+
+        <TextView
+            style="@style/MenuText"
+            android:text="瞎推荐" />
+
+        <TextView
+            style="@style/MenuText"
+            android:text="App" />
+    </com.sjl.gankapp.widget.ExpandMenu>
 </RelativeLayout>
 
