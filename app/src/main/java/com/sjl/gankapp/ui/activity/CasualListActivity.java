@@ -233,6 +233,7 @@ public class CasualListActivity extends BaseActivity<CasualListMvpView, CasualLi
     @Override
     public void onGetCasualList(CasualDetailResponse casualDetailResponse, int page) {
         if (page <= 1) {
+            rvCasual.scrollToPosition(0);
             adapter.flush(casualDetailResponse.getResults());
         } else {
             adapter.addList(casualDetailResponse.getResults());
