@@ -130,16 +130,16 @@ public class MainActivity extends BaseFragmentActivity<GankMainMvpView, GankMain
     public void onCheckVersion(boolean isLatest, final String msg) {
         if (!isLatest) {
             new AlertDialog.Builder(activity)
-                    .setTitle(R.string.gank_tip)
-                    .setMessage(String.format(getString(R.string.gank_update_tip), msg))
-                    .setPositiveButton(R.string.gank_update, new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.tip)
+                    .setMessage(String.format(getString(R.string.update_tip), msg))
+                    .setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("https://github.com/q1113225201/GClient/releases/download/%s/GClient.apk", msg))));
                         }
                     })
-                    .setNegativeButton(R.string.gank_cancel, new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();

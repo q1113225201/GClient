@@ -119,7 +119,7 @@ public class WebActivity extends BaseActivity<WebMvpView, WebPresenter> implemen
                 } else if (id == R.id.menuCopy) {
                     ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                     clipboardManager.setPrimaryClip(ClipData.newPlainText("text", webView.getUrl()));
-                    showToast(getString(R.string.gank_copy_success));
+                    showToast(getString(R.string.copy_success));
                 } else if (id == R.id.menuShare) {
                     ShareUtil.shareMsg(activity, webView.getUrl());
                 }

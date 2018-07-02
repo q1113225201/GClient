@@ -37,7 +37,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/gankNormalColor" />
+                    android:background="@color/normalColor" />
             </LinearLayout>
 
             <LinearLayout
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:paddingBottom="0dp"
-                    android:textColor="@color/gankNormalColor"
+                    android:textColor="@color/normalColor"
                     android:textSize="@dimen/text_middle" />
 
                 <TextView

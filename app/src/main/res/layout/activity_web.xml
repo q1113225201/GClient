@@ -9,7 +9,7 @@
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gankMainColor"
+        android:background="@color/mainColor"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -23,7 +23,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:textColor="@color/gankWhite"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_big" />
     </android.support.v7.widget.Toolbar>
 

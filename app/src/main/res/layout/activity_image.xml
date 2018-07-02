@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gankBlank">
+    android:background="@color/blank">
 
     <include layout="@layout/layout_title" />
 
@@ -10,6 +10,7 @@
         android:id="@+id/pivImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolBar"
         android:layout_centerInParent="true"
         android:scaleType="centerInside" />
 

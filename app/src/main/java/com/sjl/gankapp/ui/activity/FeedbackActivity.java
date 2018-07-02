@@ -33,7 +33,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackMvpView, FeedbackPres
 
     @Override
     protected void initView() {
-        toolBar.setTitle(R.string.gank_feedback);
+        toolBar.setTitle(R.string.feedback);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -63,7 +63,7 @@ public class FeedbackActivity extends BaseActivity<FeedbackMvpView, FeedbackPres
             case R.id.btnSubmit:
                 String opinion = etOpinion.getText().toString().trim();
                 if (TextUtils.isEmpty(opinion)) {
-                    showToast(getString(R.string.gank_input_opinion));
+                    showToast(getString(R.string.input_opinion));
                     return;
                 }
                 ((FeedbackPresenter) mPresenter).submitFeedback(activity,opinion);

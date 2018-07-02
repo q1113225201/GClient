@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menuSave"
-        android:title="@string/gank_menu_save" />
+        android:title="@string/menu_save" />
     <item
         android:id="@+id/menuShare"
-        android:title="@string/gank_menu_share" />
+        android:title="@string/menu_share" />
 </menu>

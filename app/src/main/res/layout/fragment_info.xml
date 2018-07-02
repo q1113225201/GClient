@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvVersion"
         android:layout_marginTop="60dp"
-        android:background="@color/gankWhite"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <TextView
@@ -32,8 +32,8 @@
             android:layout_height="40dp"
             android:gravity="center_vertical"
             android:paddingLeft="15sp"
-            android:text="@string/gank_check_update"
-            android:textColor="@color/gankBlank"
+            android:text="@string/check_update"
+            android:textColor="@color/blank"
             android:textSize="15sp" />
 
         <include layout="@layout/layout_divider" />
@@ -44,8 +44,8 @@
             android:layout_height="40dp"
             android:gravity="center_vertical"
             android:paddingLeft="15sp"
-            android:text="@string/gank_feedback"
-            android:textColor="@color/gankBlank"
+            android:text="@string/feedback"
+            android:textColor="@color/blank"
             android:textSize="15sp" />
 
         <include layout="@layout/layout_divider" />
@@ -56,8 +56,8 @@
             android:layout_height="40dp"
             android:gravity="center_vertical"
             android:paddingLeft="15sp"
-            android:text="@string/gank_about"
-            android:textColor="@color/gankBlank"
+            android:text="@string/about"
+            android:textColor="@color/blank"
             android:textSize="15sp" />
 
     </LinearLayout>

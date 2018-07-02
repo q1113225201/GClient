@@ -18,7 +18,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/gankWhite"
+        android:textColor="@color/white"
         android:textSize="14sp" />
 
     <TextView
@@ -27,6 +27,6 @@
         android:layout_above="@+id/tvVersion"
         android:layout_centerHorizontal="true"
         android:text="@string/welcome"
-        android:textColor="@color/gankWhite"
+        android:textColor="@color/white"
         android:textSize="18sp" />
 </RelativeLayout>

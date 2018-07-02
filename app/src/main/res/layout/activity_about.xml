@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gankWhite">
+    android:background="@color/white">
 
     <include layout="@layout/layout_title" />
 
@@ -21,22 +21,22 @@
 
             <TextView
                 style="@style/TextAboutTip"
-                android:text="@string/gank_about_app_tip" />
+                android:text="@string/about_app_tip" />
 
             <TextView
                 android:id="@+id/tvAboutApp"
                 style="@style/TextAboutDesc"
-                android:text="@string/gank_about_app_desc" />
+                android:text="@string/about_app_desc" />
 
 
             <TextView
                 style="@style/TextAboutTip"
-                android:text="@string/gank_about_me_tip" />
+                android:text="@string/about_me_tip" />
 
             <TextView
                 android:id="@+id/tvAboutMe"
                 style="@style/TextAboutDesc"
-                android:text="@string/gank_about_me_desc" />
+                android:text="@string/about_me_desc" />
 
         </LinearLayout>
     </ScrollView>

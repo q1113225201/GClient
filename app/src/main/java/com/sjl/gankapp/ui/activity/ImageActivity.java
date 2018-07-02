@@ -77,7 +77,7 @@ public class ImageActivity extends BaseActivity<ImageMvpView, ImagePresenter> im
 
     private void initToolBar() {
         toolBar = findViewById(R.id.toolBar);
-        toolBar.setTitle(R.string.gank_girl_title);
+        toolBar.setTitle(R.string.girl_title);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -91,7 +91,7 @@ public class ImageActivity extends BaseActivity<ImageMvpView, ImagePresenter> im
             public boolean onMenuItemClick(MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.menuSave) {
-                    showToast(saveImage() ? getString(R.string.gank_save_success) + path : getString(R.string.gank_save_failure));
+                    showToast(saveImage() ? getString(R.string.save_success) + path : getString(R.string.save_failure));
                 } else if (id == R.id.menuShare) {
                     saveImage();
                     ShareUtil.shareImage(activity, new File(path));

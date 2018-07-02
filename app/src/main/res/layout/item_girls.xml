@@ -11,7 +11,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/gankWhite"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/corner">
 
         <RelativeLayout
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@color/gankBlankTransparent"
+                android:background="@color/blankTransparent"
                 android:gravity="right"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -39,7 +39,7 @@
                     android:id="@+id/tvItemTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/gankWhite"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/text_big" />
             </LinearLayout>
         </RelativeLayout>

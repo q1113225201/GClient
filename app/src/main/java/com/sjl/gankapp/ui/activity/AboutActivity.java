@@ -34,7 +34,7 @@ public class AboutActivity extends BaseActivity<AboutMvpView, AboutPresenter> im
 
     @Override
     protected void initView() {
-        toolBar.setTitle(R.string.gank_about);
+        toolBar.setTitle(R.string.about);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -66,8 +66,8 @@ public class AboutActivity extends BaseActivity<AboutMvpView, AboutPresenter> im
     @Override
     public void onGetAboutInfo(boolean isSuccess, AboutInfo aboutInfo) {
         if (!isSuccess) {
-            aboutInfo = new AboutInfo(getResources().getString(R.string.gank_about_app_desc),
-                    getResources().getString(R.string.gank_about_me_desc));
+            aboutInfo = new AboutInfo(getResources().getString(R.string.about_app_desc),
+                    getResources().getString(R.string.about_me_desc));
         }
         tvAboutApp.setText(aboutInfo.getApp());
         tvAboutMe.setText(aboutInfo.getMe());

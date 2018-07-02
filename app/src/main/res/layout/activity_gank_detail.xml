@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:collapsedTitleGravity="center"
-            app:contentScrim="@color/gankMainColor"
+            app:contentScrim="@color/mainColor"
             app:expandedTitleGravity="left"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -28,7 +28,7 @@
                 android:id="@+id/toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gankTransparentMainColor"
+                android:background="@color/transparentMainColor"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
@@ -40,7 +40,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/margin_common"
                     android:gravity="center_vertical"
-                    android:textColor="@color/gankWhite"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/text_big" />
 
             </android.support.v7.widget.Toolbar>

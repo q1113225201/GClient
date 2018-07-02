@@ -4,20 +4,20 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="gankMainColor">#3385FF</color>
-    <color name="gankTransparentMainColor">#333385FF</color>
-    <color name="gankWhite">#FFFFFF</color>
-    <color name="gankBlank">#000000</color>
-    <color name="gankBlankTransparent">#33000000</color>
-    <color name="gankTabBottom">#F5F5F5</color>
+    <color name="mainColor">#3385FF</color>
+    <color name="transparentMainColor">#333385FF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blank">#000000</color>
+    <color name="blankTransparent">#33000000</color>
+    <color name="tabBottom">#F5F5F5</color>
 
-    <color name="gankNormalColor">#888888</color>
-    <color name="gankSelectedColor">#3385FF</color>
+    <color name="normalColor">#888888</color>
+    <color name="selectedColor">#3385FF</color>
 
-    <color name="gankButtonColor">#63A4F6</color>
-    <color name="gankButtonPressColor">#5e9ae6</color>
+    <color name="buttonColor">#63A4F6</color>
+    <color name="buttonPressColor">#5e9ae6</color>
 
-    <color name="gankBg">#EBEBEB</color>
-    <color name="gankGray">#9e9e9e</color>
-    <color name="gankDivide">#E7E7E7</color>
+    <color name="bgColor">#EBEBEB</color>
+    <color name="grey">#9e9e9e</color>
+    <color name="divide">#E7E7E7</color>
 </resources>

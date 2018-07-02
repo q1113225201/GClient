@@ -10,7 +10,7 @@
     </style>
 
     <style name="Theme.Activity.White" parent="AppTheme">
-        <item name="android:background">@color/gankWhite</item>
+        <item name="android:background">@color/white</item>
     </style>
     <style name="GankTabRadioButton">
         <item name="android:layout_width">0dp</item>
@@ -27,13 +27,13 @@
     </style>
     <style name="TextAuth">
         <item name="android:textSize">@dimen/text_small</item>
-        <item name="android:textColor">@color/gankGray</item>
+        <item name="android:textColor">@color/grey</item>
     </style>
     <style name="TextAboutTip">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_big</item>
-        <item name="android:textColor">@color/gankBlank</item>
+        <item name="android:textColor">@color/blank</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">@dimen/margin_common</item>
     </style>
@@ -41,13 +41,13 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_middle</item>
-        <item name="android:textColor">@color/gankGray</item>
+        <item name="android:textColor">@color/grey</item>
         <item name="android:autoLink">web</item>
     </style>
 
     <style name="ButtonMain" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:background">@drawable/button_main</item>
-        <item name="android:textColor">@color/gankWhite</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -56,6 +56,6 @@
         <item name="android:layout_height">30dp</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginBottom">1dp</item>
-        <item name="android:background">@color/gankWhite</item>
+        <item name="android:background">@color/white</item>
     </style>
 </resources>
