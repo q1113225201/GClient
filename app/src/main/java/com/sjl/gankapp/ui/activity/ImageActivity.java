@@ -1,7 +1,5 @@
 package com.sjl.gankapp.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,7 +7,8 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.sjl.gankapp.R;
-import com.sjl.gankapp.config.GankConfig;
+import com.sjl.gankapp.model.Constant;
+import com.sjl.gankapp.model.GankConfig;
 import com.sjl.gankapp.mvp.presenter.ImagePresenter;
 import com.sjl.gankapp.mvp.view.ImageMvpView;
 import com.sjl.platform.base.BaseActivity;
@@ -31,25 +30,13 @@ import butterknife.BindView;
  */
 public class ImageActivity extends BaseActivity<ImageMvpView, ImagePresenter> implements ImageMvpView {
     private static final String TAG = "ImageActivity";
-    private static final String IMAGE_URL = "image_url";
     @BindView(R.id.pivImage)
     PinchImageView pivImage;
     @BindView(R.id.toolBar)
     Toolbar toolBar;
+
     private String imageUrl;
-
-    public static Intent newIntent(Context context, String imageUrl) {
-        Intent intent = new Intent(context, ImageActivity.class);
-        intent.putExtra(IMAGE_URL, imageUrl);
-        return intent;
-    }
-
     private String path;
-
-    private void parseIntent() {
-        imageUrl = getIntent().getStringExtra(IMAGE_URL);
-        path = GankConfig.PATH_IMAGE + EncryptUtil.encryptMD5(imageUrl) + ".png";
-    }
 
     @Override
     protected int getContentViewId() {
@@ -58,25 +45,13 @@ public class ImageActivity extends BaseActivity<ImageMvpView, ImagePresenter> im
 
     @Override
     protected void initView() {
-        parseIntent();
         initToolBar();
+        imageUrl = getIntent().getStringExtra(Constant.IMAGE_URL);
+        path = GankConfig.PATH_IMAGE + EncryptUtil.encryptMD5(imageUrl) + ".png";
         Glide.with(activity).load(imageUrl).into(pivImage);
     }
 
-    @Override
-    protected ImageMvpView obtainMvpView() {
-        return this;
-    }
-
-    @Override
-    protected ImagePresenter obtainPresenter() {
-        mPresenter = new ImagePresenter();
-        return (ImagePresenter) mPresenter;
-    }
-
-
     private void initToolBar() {
-        toolBar = findViewById(R.id.toolBar);
         toolBar.setTitle(R.string.girl_title);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -99,6 +74,17 @@ public class ImageActivity extends BaseActivity<ImageMvpView, ImagePresenter> im
                 return false;
             }
         });
+    }
+
+    @Override
+    protected ImageMvpView obtainMvpView() {
+        return this;
+    }
+
+    @Override
+    protected ImagePresenter obtainPresenter() {
+        mPresenter = new ImagePresenter();
+        return (ImagePresenter) mPresenter;
     }
 
     private boolean saveImage() {

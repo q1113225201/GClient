@@ -1,7 +1,6 @@
 package com.sjl.gankapp.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -15,7 +14,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sjl.gankapp.R;
-import com.sjl.gankapp.config.GankConfig;
+import com.sjl.gankapp.model.Constant;
+import com.sjl.gankapp.model.GankConfig;
 import com.sjl.gankapp.model.pojo.CasualDetailResponse;
 import com.sjl.gankapp.model.pojo.CategoryResponse;
 import com.sjl.gankapp.model.pojo.SmallCategoryResponse;
@@ -24,7 +24,6 @@ import com.sjl.gankapp.model.treeview.LeafViewBinder;
 import com.sjl.gankapp.model.treeview.RootNode;
 import com.sjl.gankapp.model.treeview.RootViewBinder;
 import com.sjl.gankapp.mvp.presenter.CasualListPresenter;
-import com.sjl.gankapp.mvp.presenter.CasualPresenter;
 import com.sjl.gankapp.mvp.view.CasualListMvpView;
 import com.sjl.gankapp.util.GankUtil;
 import com.sjl.gankapp.widget.GlideCircleTransform;
@@ -33,6 +32,7 @@ import com.sjl.libtreeview.bean.TreeNode;
 import com.sjl.libtreeview.bean.TreeViewBinder;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
+import com.sjl.platform.util.AppUtil;
 import com.sjl.platform.util.DateUtil;
 import com.sjl.platform.util.JsonUtils;
 
@@ -50,7 +50,6 @@ import butterknife.OnClick;
  * @date 2018/6/21
  */
 public class CasualListActivity extends BaseActivity<CasualListMvpView, CasualListPresenter> implements CasualListMvpView, SwipeRefreshLayout.OnRefreshListener {
-    private static final String CASUAL_TYPE = "casual_type";
     @BindView(R.id.toolBar)
     Toolbar toolBar;
     @BindView(R.id.ivIcon)
@@ -75,16 +74,6 @@ public class CasualListActivity extends BaseActivity<CasualListMvpView, CasualLi
     private int currentPage = 1;
     private String currentDate;
 
-    public static Intent newIntent(Context context, SmallCategoryResponse.SmallCategory casualType) {
-        Intent intent = new Intent(context, CasualListActivity.class);
-        intent.putExtra(CASUAL_TYPE, JsonUtils.toJson(casualType));
-        return intent;
-    }
-
-    private void parseIntent() {
-        smallCategory = JsonUtils.toObject(getIntent().getStringExtra(CASUAL_TYPE), SmallCategoryResponse.SmallCategory.class);
-    }
-
     @Override
     protected int getContentViewId() {
         return R.layout.activity_casual_list;
@@ -101,10 +90,22 @@ public class CasualListActivity extends BaseActivity<CasualListMvpView, CasualLi
                 onBackPressed();
             }
         });
-        parseIntent();
+
+        smallCategory = JsonUtils.toObject(getIntent().getStringExtra(Constant.TYPE), SmallCategoryResponse.SmallCategory.class);
+
         srl.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
         srl.setOnRefreshListener(this);
+
+        bottomSheetBehavior = BottomSheetBehavior.from(llBottom);
+        initAdapter();
+        initTreeAdapter();
+        currentDate = DateUtil.format(System.currentTimeMillis(), "yyyy/MM/dd");
+        initSelected(smallCategory);
+        getCasualTypeList();
+    }
+
+    private void initAdapter() {
         adapter = new CommonRVAdapter<CasualDetailResponse.CasualDetailBean>(activity, list, R.layout.item_casual_detail, R.layout.item_casual_detail_empty) {
             @Override
             protected void onBindNullViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, CasualDetailResponse.CasualDetailBean item, List<CasualDetailResponse.CasualDetailBean> list) {
@@ -118,7 +119,10 @@ public class CasualListActivity extends BaseActivity<CasualListMvpView, CasualLi
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(WebActivity.newIntent(activity, item.getTitle(), item.getUrl()));
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constant.TITLE,item.getTitle());
+                        bundle.putString(Constant.URL,item.getUrl());
+                        AppUtil.startActivity(activity,v,WebActivity.class,bundle);
                     }
                 });
             }
@@ -136,12 +140,6 @@ public class CasualListActivity extends BaseActivity<CasualListMvpView, CasualLi
                 }
             }
         });
-
-        bottomSheetBehavior = BottomSheetBehavior.from(llBottom);
-        initAdapter();
-        currentDate = DateUtil.format(System.currentTimeMillis(), "yyyy/MM/dd");
-        initSelected(smallCategory);
-        getCasualTypeList();
     }
 
     private void getCasualTypeList() {
@@ -151,7 +149,7 @@ public class CasualListActivity extends BaseActivity<CasualListMvpView, CasualLi
     private TreeViewAdapter typeAdapter;
     private List<TreeNode> treeNodeList = new ArrayList<>();
 
-    private void initAdapter() {
+    private void initTreeAdapter() {
         typeAdapter = new TreeViewAdapter(treeNodeList, Arrays.asList(new RootViewBinder(), new LeafViewBinder())) {
             @Override
             public void toggleClick(TreeViewBinder.ViewHolder viewHolder, View view, boolean isOpen, TreeNode treeNode) {
@@ -215,7 +213,7 @@ public class CasualListActivity extends BaseActivity<CasualListMvpView, CasualLi
                 if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 } else {
-                    if(treeNodeList.size()==0){
+                    if (treeNodeList.size() == 0) {
                         getCasualTypeList();
                     }
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);

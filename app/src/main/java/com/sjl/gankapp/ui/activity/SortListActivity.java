@@ -1,7 +1,6 @@
 package com.sjl.gankapp.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,13 +13,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sjl.gankapp.R;
+import com.sjl.gankapp.model.Constant;
+import com.sjl.gankapp.model.GankConfig;
 import com.sjl.gankapp.model.pojo.GankDataResult;
-import com.sjl.gankapp.config.GankConfig;
 import com.sjl.gankapp.mvp.presenter.SortListPresenter;
 import com.sjl.gankapp.mvp.view.SortListMvpView;
 import com.sjl.gankapp.util.GankUtil;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
+import com.sjl.platform.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,29 +35,18 @@ import butterknife.BindView;
  * @date 2017/12/14
  */
 public class SortListActivity extends BaseActivity<SortListMvpView, SortListPresenter> implements SortListMvpView {
-    private static final String SORT = "sort";
     @BindView(R.id.toolBar)
     Toolbar toolBar;
     @BindView(R.id.rvSort)
     RecyclerView rvSort;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
-    private String sort;
+    private String type;
 
     private CommonRVAdapter<GankDataResult> adapter;
     private List<GankDataResult> gankDataResultList;
 
     private int currentPage = 1;
-
-    public static Intent newIntent(Context context, String sort) {
-        Intent intent = new Intent(context, SortListActivity.class);
-        intent.putExtra(SORT, sort);
-        return intent;
-    }
-
-    private void parseIntent() {
-        sort = getIntent().getStringExtra(SORT);
-    }
 
     @Override
     protected int getContentViewId() {
@@ -65,8 +55,8 @@ public class SortListActivity extends BaseActivity<SortListMvpView, SortListPres
 
     @Override
     protected void initView() {
-        parseIntent();
         initToolBar();
+        type = getIntent().getStringExtra(Constant.TYPE);
         srl = findViewById(R.id.srl);
         rvSort = findViewById(R.id.rvSort);
 
@@ -76,12 +66,12 @@ public class SortListActivity extends BaseActivity<SortListMvpView, SortListPres
             @Override
             public void onRefresh() {
                 currentPage = 1;
-                ((SortListPresenter) mPresenter).getSortList(sort, currentPage);
+                ((SortListPresenter) mPresenter).getSortList(type, currentPage);
             }
         });
 
         initSortList();
-        ((SortListPresenter) mPresenter).getSortList(sort, currentPage);
+        ((SortListPresenter) mPresenter).getSortList(type, currentPage);
     }
 
     @Override
@@ -96,7 +86,7 @@ public class SortListActivity extends BaseActivity<SortListMvpView, SortListPres
     }
 
     private void initToolBar() {
-        toolBar.setTitle(sort);
+        toolBar.setTitle(type);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -108,11 +98,11 @@ public class SortListActivity extends BaseActivity<SortListMvpView, SortListPres
         toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                sort = item.getTitle().toString();
-                toolBar.setTitle(sort);
+                type = item.getTitle().toString();
+                toolBar.setTitle(type);
                 currentPage = 1;
                 adapter.removeAll();
-                ((SortListPresenter) mPresenter).getSortList(sort, currentPage);
+                ((SortListPresenter) mPresenter).getSortList(type, currentPage);
                 return false;
             }
         });
@@ -128,14 +118,14 @@ public class SortListActivity extends BaseActivity<SortListMvpView, SortListPres
 
             @Override
             protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, final GankDataResult item, List<GankDataResult> list) {
-                if (GankConfig.WELFARE.equalsIgnoreCase(sort)) {
+                if (GankConfig.WELFARE.equalsIgnoreCase(type)) {
                     viewHolder.findViewById(R.id.llItemType).setVisibility(View.VISIBLE);
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
                     ((TextView) viewHolder.findViewById(R.id.tvItemType)).setText(GankUtil.parseDate(item.getPublishedAt()));
                     viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
                     Glide.with(activity).load(item.getUrl()).centerCrop().error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                 } else {
-                    viewHolder.findViewById(R.id.llItemType).setVisibility(GankConfig.ALL.equalsIgnoreCase(sort) ? View.VISIBLE : View.GONE);
+                    viewHolder.findViewById(R.id.llItemType).setVisibility(GankConfig.ALL.equalsIgnoreCase(type) ? View.VISIBLE : View.GONE);
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.VISIBLE);
                     ((TextView) viewHolder.findViewById(R.id.tvItemType)).setText(item.getType());
                     ((TextView) viewHolder.findViewById(R.id.tvItemDesc)).setText(item.getDesc());
@@ -155,10 +145,14 @@ public class SortListActivity extends BaseActivity<SortListMvpView, SortListPres
                 viewHolder.findViewById(R.id.cvItemSort).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Bundle bundle = new Bundle();
                         if (GankConfig.WELFARE.equalsIgnoreCase(item.getType())) {
-                            startActivity(ImageActivity.newIntent(activity, item.getUrl()));
+                            bundle.putString(Constant.IMAGE_URL, item.getUrl());
+                            AppUtil.startActivity(activity, v, ImageActivity.class, bundle);
                         } else {
-                            startActivity(WebActivity.newIntent(activity, item.getDesc(), item.getUrl()));
+                            bundle.putString(Constant.TITLE, item.getDesc());
+                            bundle.putString(Constant.URL, item.getUrl());
+                            AppUtil.startActivity(activity, v, WebActivity.class, bundle);
                         }
                     }
                 });
@@ -172,7 +166,7 @@ public class SortListActivity extends BaseActivity<SortListMvpView, SortListPres
 //                super.onScrolled(recyclerView, dx, dy);
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 if (layoutManager.findLastVisibleItemPosition() >= adapter.getItemCount() - GankConfig.PAGE_SIZE / 2) {
-                    ((SortListPresenter) mPresenter).getSortList(sort, currentPage);
+                    ((SortListPresenter) mPresenter).getSortList(type, currentPage);
                 }
             }
         });

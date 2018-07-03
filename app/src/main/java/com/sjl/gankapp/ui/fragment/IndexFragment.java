@@ -1,7 +1,6 @@
 package com.sjl.gankapp.ui.fragment;
 
-import android.content.Intent;
-import android.support.v4.app.ActivityCompat;
+import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sjl.gankapp.R;
-import com.sjl.gankapp.config.GankConfig;
+import com.sjl.gankapp.model.Constant;
+import com.sjl.gankapp.model.GankConfig;
 import com.sjl.gankapp.model.pojo.GankDataResult;
 import com.sjl.gankapp.mvp.presenter.IndexPresenter;
 import com.sjl.gankapp.mvp.view.IndexMvpView;
@@ -22,6 +22,7 @@ import com.sjl.gankapp.util.GankUtil;
 import com.sjl.gankapp.widget.ExpandMenu;
 import com.sjl.platform.base.BaseFragment;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
+import com.sjl.platform.util.AppUtil;
 import com.sjl.platform.util.LogUtil;
 
 import java.util.ArrayList;
@@ -68,7 +69,9 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
         expandMenu.setOnMenuItemClickListener(new ExpandMenu.OnMenuItemClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(SortListActivity.newIntent(activity, ((TextView) view).getText().toString()));
+                Bundle bundle = new Bundle();
+                bundle.putString(Constant.TYPE, ((TextView) view).getText().toString());
+                AppUtil.startActivity(activity, view, SortListActivity.class, bundle);
                 expandMenu.toggle();
             }
         });
@@ -122,7 +125,13 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
                 ivItemImg.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = GankDetailActivity.newIntent(getContext(), item.getUrl(), GankUtil.parseDate(item.getPublishedAt()));
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constant.IMAGE_URL, item.getUrl());
+                        bundle.putString(Constant.DATE, GankUtil.parseDate(item.getPublishedAt()));
+                        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                activity, tvItemTime, Constant.TRANSFORM);
+                        AppUtil.startActivity(activity, GankDetailActivity.class, bundle, optionsCompat);
+                        /*Intent intent = GankDetailActivity.newIntent(getContext(), item.getUrl(), );
                         try {
                             ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                                     getActivity(), tvItemTime, GankDetailActivity.TRANSFORM);
@@ -130,7 +139,7 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
                         } catch (IllegalArgumentException e) {
                             e.printStackTrace();
                             startActivity(intent);
-                        }
+                        }*/
                     }
                 });
             }

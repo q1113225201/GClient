@@ -2,8 +2,6 @@ package com.sjl.gankapp.ui.activity;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -20,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sjl.gankapp.R;
+import com.sjl.gankapp.model.Constant;
 import com.sjl.gankapp.mvp.presenter.WebPresenter;
 import com.sjl.gankapp.mvp.view.WebMvpView;
 import com.sjl.platform.base.BaseActivity;
@@ -35,8 +34,6 @@ import butterknife.BindView;
  */
 public class WebActivity extends BaseActivity<WebMvpView, WebPresenter> implements WebMvpView {
     private static final String TAG = "WebActivity";
-    public static final String TITLE = "title";
-    public static final String URL = "url";
     @BindView(R.id.tvTitle)
     TextView tvTitle;
     @BindView(R.id.toolBar)
@@ -49,18 +46,6 @@ public class WebActivity extends BaseActivity<WebMvpView, WebPresenter> implemen
     private String title;
     private String url;
 
-    public static Intent newIntent(Context context, String title, String link) {
-        Intent intent = new Intent(context, WebActivity.class);
-        intent.putExtra(TITLE, title);
-        intent.putExtra(URL, link);
-        return intent;
-    }
-
-    private void parseIntent() {
-        title = getIntent().getStringExtra(TITLE);
-        url = getIntent().getStringExtra(URL);
-    }
-
     @Override
     protected int getContentViewId() {
         return R.layout.activity_web;
@@ -68,10 +53,9 @@ public class WebActivity extends BaseActivity<WebMvpView, WebPresenter> implemen
 
     @Override
     protected void initView() {
-        parseIntent();
         initToolBar();
-        initWebView();
-
+        title = getIntent().getStringExtra(Constant.TITLE);
+        url = getIntent().getStringExtra(Constant.URL);
         setTitle(title);
         tvTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -81,6 +65,7 @@ public class WebActivity extends BaseActivity<WebMvpView, WebPresenter> implemen
                 }
             }
         });
+        initWebView();
     }
 
     @Override

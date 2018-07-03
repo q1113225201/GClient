@@ -1,6 +1,7 @@
 package com.sjl.gankapp.ui.fragment;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
@@ -9,11 +10,13 @@ import com.igalata.bubblepicker.adapter.BubblePickerAdapter;
 import com.igalata.bubblepicker.model.PickerItem;
 import com.igalata.bubblepicker.rendering.BubblePicker;
 import com.sjl.gankapp.R;
-import com.sjl.gankapp.config.GankConfig;
+import com.sjl.gankapp.model.Constant;
+import com.sjl.gankapp.model.GankConfig;
 import com.sjl.gankapp.mvp.presenter.SortPresenter;
 import com.sjl.gankapp.mvp.view.SortMvpView;
 import com.sjl.gankapp.ui.activity.SortListActivity;
 import com.sjl.platform.base.BaseFragment;
+import com.sjl.platform.util.AppUtil;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -81,7 +84,9 @@ public class SortFragment extends BaseFragment<SortMvpView, SortPresenter> imple
         picker.setListener(new BubblePickerListener() {
             @Override
             public void onBubbleSelected(PickerItem pickerItem) {
-                startActivity(SortListActivity.newIntent(activity, pickerItem.getTitle()));
+                Bundle bundle = new Bundle();
+                bundle.putString(Constant.TYPE, pickerItem.getTitle());
+                AppUtil.startActivity(activity, picker, SortListActivity.class, bundle);
             }
 
             @Override

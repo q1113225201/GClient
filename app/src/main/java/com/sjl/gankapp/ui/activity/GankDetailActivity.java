@@ -1,7 +1,6 @@
 package com.sjl.gankapp.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,11 +18,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sjl.gankapp.R;
+import com.sjl.gankapp.model.Constant;
 import com.sjl.gankapp.model.pojo.GankDataResult;
 import com.sjl.gankapp.mvp.presenter.GankDetailPresenter;
 import com.sjl.gankapp.mvp.view.GankDetailMvpView;
 import com.sjl.platform.base.BaseActivity;
 import com.sjl.platform.base.adapter.CommonRVAdapter;
+import com.sjl.platform.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +39,6 @@ import butterknife.BindView;
  */
 public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDetailPresenter> implements GankDetailMvpView {
     private static final String TAG = "GankDetailActivity";
-    public static String TRANSFORM = "transform";
-    private static String DATE = "date";
-    private static String IMAGE_URL = "image_url";
     @BindView(R.id.ivGirl)
     ImageView ivGirl;
     @BindView(R.id.tvDate)
@@ -57,18 +55,6 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
     private String date;
     private String imageUrl;
 
-    public static Intent newIntent(Context context, String imageUrl, String date) {
-        Intent intent = new Intent(context, GankDetailActivity.class);
-        intent.putExtra(IMAGE_URL, imageUrl);
-        intent.putExtra(DATE, date);
-        return intent;
-    }
-
-    private void parseIntent() {
-        date = getIntent().getStringExtra(DATE);
-        imageUrl = getIntent().getStringExtra(IMAGE_URL);
-    }
-
     @Override
     protected int getContentViewId() {
         return R.layout.activity_gank_detail;
@@ -76,9 +62,11 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
 
     @Override
     protected void initView() {
-        parseIntent();
         initToolBar();
-        ViewCompat.setTransitionName(tvDate, TRANSFORM);
+        date = getIntent().getStringExtra(Constant.DATE);
+        imageUrl = getIntent().getStringExtra(Constant.IMAGE_URL);
+
+        ViewCompat.setTransitionName(tvDate, Constant.TRANSFORM);
         tvDate.setText(date);
         Glide.with(activity).load(imageUrl).into(ivGirl);
         ivGirl.setOnClickListener(this);
@@ -100,7 +88,10 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.menuOpen) {
-                    startActivity(WebActivity.newIntent(activity, date, "http://gank.io/" + date));
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constant.TITLE,date);
+                    bundle.putString(Constant.URL,"http://gank.io/" + date);
+                    AppUtil.startActivity(activity,toolBar,WebActivity.class,bundle);
                 }
                 return false;
             }
@@ -134,7 +125,10 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
                 viewHolder.findViewById(R.id.tvContent).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(WebActivity.newIntent(activity, item.getDesc(), item.getUrl()));
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constant.TITLE,item.getDesc());
+                        bundle.putString(Constant.URL,item.getUrl());
+                        AppUtil.startActivity(activity,v,WebActivity.class,bundle);
                     }
                 });
             }
@@ -156,9 +150,12 @@ public class GankDetailActivity extends BaseActivity<GankDetailMvpView, GankDeta
 
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.ivGirl) {
-            startActivity(ImageActivity.newIntent(activity, imageUrl));
+        Bundle bundle = new Bundle();
+        switch (v.getId()){
+            case R.id.ivGirl:
+                bundle.putString(Constant.IMAGE_URL,imageUrl);
+                AppUtil.startActivity(activity,v,ImageActivity.class,bundle);
+                break;
         }
     }
 

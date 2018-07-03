@@ -1,4 +1,4 @@
-package com.sjl.gankapp.config;
+package com.sjl.gankapp.model;
 
 import android.content.Context;
 import android.os.Environment;

@@ -7,15 +7,13 @@ import android.widget.TextView;
 import com.sjl.gankapp.BuildConfig;
 import com.sjl.gankapp.R;
 import com.sjl.gankapp.model.event.EventClick;
-import com.sjl.gankapp.mvp.presenter.AboutPresenter;
 import com.sjl.gankapp.mvp.presenter.InfoPresenter;
-import com.sjl.gankapp.mvp.view.AboutMvpView;
 import com.sjl.gankapp.mvp.view.InfoMvpView;
 import com.sjl.gankapp.ui.activity.AboutActivity;
 import com.sjl.gankapp.ui.activity.FeedbackActivity;
 import com.sjl.platform.PlatformInit;
 import com.sjl.platform.base.BaseFragment;
-import com.sjl.platform.util.CommonUtil;
+import com.sjl.platform.util.AppUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -66,10 +64,10 @@ public class InfoFragment extends BaseFragment<InfoMvpView, InfoPresenter> imple
                 PlatformInit.getEventBus().post(new EventClick("checkVersion", null));
                 break;
             case R.id.tvFeedback:
-                CommonUtil.startActivity(activity, v, FeedbackActivity.class, null);
+                AppUtil.startActivity(activity, v, FeedbackActivity.class, null);
                 break;
             case R.id.tvAbout:
-                CommonUtil.startActivity(activity, v, AboutActivity.class, null);
+                AppUtil.startActivity(activity, v, AboutActivity.class, null);
                 break;
         }
     }

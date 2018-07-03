@@ -1,6 +1,7 @@
 package com.sjl.gankapp.ui.fragment;
 
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.sjl.gankapp.R;
+import com.sjl.gankapp.model.Constant;
 import com.sjl.gankapp.model.pojo.CategoryResponse;
 import com.sjl.gankapp.model.pojo.SmallCategoryResponse;
 import com.sjl.gankapp.model.treeview.LeafNode;
@@ -21,6 +23,8 @@ import com.sjl.libtreeview.TreeViewAdapter;
 import com.sjl.libtreeview.bean.TreeNode;
 import com.sjl.libtreeview.bean.TreeViewBinder;
 import com.sjl.platform.base.BaseFragment;
+import com.sjl.platform.util.AppUtil;
+import com.sjl.platform.util.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -82,7 +86,9 @@ public class CasualFragment extends BaseFragment<CasualMvpView, CasualPresenter>
             @Override
             public void itemClick(TreeViewBinder.ViewHolder viewHolder, View view, TreeNode treeNode) {
                 //跳转闲读列表详情
-                startActivity(CasualListActivity.newIntent(activity,((LeafNode)treeNode.getValue()).getSmallCategory()));
+                Bundle bundle = new Bundle();
+                bundle.putString(Constant.TYPE,JsonUtils.toJson(((LeafNode)treeNode.getValue()).getSmallCategory()));
+                AppUtil.startActivity(activity,view,CasualListActivity.class,bundle);
             }
         };
         recyclerView.setAdapter(adapter);
