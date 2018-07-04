@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -118,30 +119,29 @@ public class SortListActivity extends BaseActivity<SortListMvpView, SortListPres
 
             @Override
             protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, final GankDataResult item, List<GankDataResult> list) {
+                String imgUrl = "";
                 if (GankConfig.WELFARE.equalsIgnoreCase(type)) {
-                    viewHolder.findViewById(R.id.llItemType).setVisibility(View.VISIBLE);
+                    viewHolder.findViewById(R.id.llItemType).setVisibility(View.GONE);
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
-                    ((TextView) viewHolder.findViewById(R.id.tvItemType)).setText(GankUtil.parseDate(item.getPublishedAt()));
-                    viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                    Glide.with(activity).load(item.getUrl()).centerCrop().error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                    viewHolder.findViewById(R.id.rlItemImg).setVisibility(View.VISIBLE);
+                    imgUrl = item.getUrl();
                 } else {
                     viewHolder.findViewById(R.id.llItemType).setVisibility(GankConfig.ALL.equalsIgnoreCase(type) ? View.VISIBLE : View.GONE);
                     viewHolder.findViewById(R.id.llItemContent).setVisibility(View.VISIBLE);
                     ((TextView) viewHolder.findViewById(R.id.tvItemType)).setText(item.getType());
                     ((TextView) viewHolder.findViewById(R.id.tvItemDesc)).setText(item.getDesc());
                     ((TextView) viewHolder.findViewById(R.id.tvItemTimeAuth)).setText(String.format("%s\n%s", GankUtil.parseDate(item.getPublishedAt()), item.getWho()));
-                    if (item.getImages() == null || item.getImages().size() == 0) {
-                        viewHolder.findViewById(R.id.llItemImg).setVisibility(View.GONE);
-                    } else {
-                        viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                        Glide.with(activity).load(item.getImages().get(0)).error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                    if (item.getImages() != null && item.getImages().size() > 0) {
+                        imgUrl = item.getImages().get(0);
                     }
                     if (GankConfig.WELFARE.equalsIgnoreCase(item.getType())) {
+                        viewHolder.findViewById(R.id.llItemType).setVisibility(View.GONE);
                         viewHolder.findViewById(R.id.llItemContent).setVisibility(View.GONE);
-                        viewHolder.findViewById(R.id.llItemImg).setVisibility(View.VISIBLE);
-                        Glide.with(activity).load(item.getUrl()).centerCrop().error(R.drawable.error).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
+                        imgUrl = item.getUrl();
                     }
                 }
+                viewHolder.findViewById(R.id.rlItemImg).setVisibility(TextUtils.isEmpty(imgUrl) ? View.GONE : View.VISIBLE);
+                Glide.with(activity).load(imgUrl).error(R.mipmap.ic_logo).into(((ImageView) viewHolder.findViewById(R.id.ivItemImg)));
                 viewHolder.findViewById(R.id.cvItemSort).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

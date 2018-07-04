@@ -10,7 +10,7 @@
             <flag name="RIGHT" value="3" />
         </attr>
         <!--背景-->
-        <attr name="menuBackground" format="color|reference" />
+        <attr name="menuBackgroundTintList" format="color|reference" />
         <!--图片-->
         <attr name="menuDrawable" format="color|reference" />
     </declare-styleable>

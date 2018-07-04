@@ -33,7 +33,8 @@
         android:layout_marginBottom="15dp"
         android:layout_marginRight="15dp"
         android:gravity="right"
-        app:menuDrawable="@drawable/ic_open_close"
+        app:menuDrawable="@drawable/ic_menu_open_close"
+        app:menuBackgroundTintList="@color/bg_fab"
         app:menuGravity="TOP">
 
         <TextView

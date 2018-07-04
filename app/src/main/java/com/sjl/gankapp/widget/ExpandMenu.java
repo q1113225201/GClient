@@ -1,10 +1,10 @@
 package com.sjl.gankapp.widget;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
@@ -37,7 +37,7 @@ public class ExpandMenu extends LinearLayout {
     //菜单图片
     private Drawable menuDrawable;
     //菜单背景色
-    private Drawable menuBackground;
+    private ColorStateList menuBackgroundTintList;
 
     //显示的按钮
     private FloatingActionButton floatingActionButton;
@@ -57,10 +57,6 @@ public class ExpandMenu extends LinearLayout {
 
     public interface OnMenuItemClickListener {
         void onClick(View view);
-    }
-
-    public OnMenuItemClickListener getOnMenuItemClickListener() {
-        return onMenuItemClickListener;
     }
 
     public void setOnMenuItemClickListener(OnMenuItemClickListener onMenuItemClickListener) {
@@ -123,12 +119,11 @@ public class ExpandMenu extends LinearLayout {
         menuLayout.setOrientation(getOrientation());
         //初始化展开按钮
         floatingActionButton = new FloatingActionButton(getContext());
-        floatingActionButton.setBackgroundTintList(ContextCompat.getColorStateList(getContext(),R.drawable.bg_fab));
         if (menuDrawable != null) {
             floatingActionButton.setImageDrawable(menuDrawable);
         }
-        if (menuBackground != null) {
-            floatingActionButton.setBackgroundDrawable(menuBackground);
+        if (menuBackgroundTintList != null) {
+            floatingActionButton.setBackgroundTintList(menuBackgroundTintList);
         }
         //根据位置添加菜单
         if (menuGravity == TOP || menuGravity == LEFT) {
@@ -139,8 +134,9 @@ public class ExpandMenu extends LinearLayout {
             addView(menuLayout);
         }
         //设置菜单容器透明
-        ViewCompat.setAlpha(menuLayout, 0);
-
+//        ViewCompat.setAlpha(menuLayout, 0);
+        menuLayout.setAlpha(0);
+        
         floatingActionButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,7 +174,7 @@ public class ExpandMenu extends LinearLayout {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ExpandMenu);
         menuGravity = typedArray.getInt(R.styleable.ExpandMenu_menuGravity, TOP);
         menuDrawable = typedArray.getDrawable(R.styleable.ExpandMenu_menuDrawable);
-        menuBackground = typedArray.getDrawable(R.styleable.ExpandMenu_menuBackground);
+        menuBackgroundTintList = typedArray.getColorStateList(R.styleable.ExpandMenu_menuBackgroundTintList);
         typedArray.recycle();
     }
 

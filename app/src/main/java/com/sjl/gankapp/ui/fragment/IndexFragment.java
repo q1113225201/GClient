@@ -119,7 +119,7 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
             protected void onBindViewHolder(RecyclerView.Adapter adapter, RVViewHolder viewHolder, int position, final GankDataResult item, List<GankDataResult> list) {
                 final ImageView ivItemImg = (ImageView) viewHolder.findViewById(R.id.ivItemImg);
                 final TextView tvItemTime = ((TextView) viewHolder.findViewById(R.id.tvItemTime));
-                Glide.with(activity).load(item.getUrl()).error(R.drawable.error).into(ivItemImg);
+                Glide.with(activity).load(item.getUrl()).error(R.mipmap.ic_logo).into(ivItemImg);
                 tvItemTime.setText(GankUtil.parseDate(item.getPublishedAt()));
 
                 ivItemImg.setOnClickListener(new View.OnClickListener() {
