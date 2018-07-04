@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
@@ -122,6 +123,7 @@ public class ExpandMenu extends LinearLayout {
         menuLayout.setOrientation(getOrientation());
         //初始化展开按钮
         floatingActionButton = new FloatingActionButton(getContext());
+        floatingActionButton.setBackgroundTintList(ContextCompat.getColorStateList(getContext(),R.drawable.bg_fab));
         if (menuDrawable != null) {
             floatingActionButton.setImageDrawable(menuDrawable);
         }
