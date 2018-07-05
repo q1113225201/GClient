@@ -99,6 +99,7 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                closeExpandMenu();
                 StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
                 int[] positions = layoutManager.findLastCompletelyVisibleItemPositions(new int[SPAN_COUNT]);
                 if (positions[positions.length - 1] >= adapter.getItemCount() - GankConfig.PAGE_SIZE / 2) {
@@ -125,6 +126,7 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
                 ivItemImg.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        closeExpandMenu();
                         Bundle bundle = new Bundle();
                         bundle.putString(Constant.IMAGE_URL, item.getUrl());
                         bundle.putString(Constant.DATE, GankUtil.parseDate(item.getPublishedAt()));
@@ -145,6 +147,12 @@ public class IndexFragment extends BaseFragment<IndexMvpView, IndexPresenter> im
             }
         };
         recyclerView.setAdapter(adapter);
+    }
+
+    private void closeExpandMenu() {
+        if(expandMenu.isExpanded()){
+            expandMenu.closeMenu();
+        }
     }
 
     @Override

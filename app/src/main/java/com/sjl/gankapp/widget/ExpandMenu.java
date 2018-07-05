@@ -146,6 +146,10 @@ public class ExpandMenu extends LinearLayout {
         });
     }
 
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
     /**
      * 切换菜单状态
      */
@@ -159,9 +163,6 @@ public class ExpandMenu extends LinearLayout {
             } else {
                 openMenu();
             }
-            requestFocus();
-            isExpanded = !isExpanded;
-            floatingActionButton.setSelected(isExpanded);
         }
     }
 
@@ -242,6 +243,7 @@ public class ExpandMenu extends LinearLayout {
                     }
                 })
                 .start();
+        toggleData(false);
     }
 
     /**
@@ -269,5 +271,12 @@ public class ExpandMenu extends LinearLayout {
                     }
                 })
                 .start();
+        toggleData(true);
+    }
+
+    private void toggleData(boolean expanded) {
+        requestFocus();
+        isExpanded = !expanded;
+        floatingActionButton.setSelected(isExpanded);
     }
 }
