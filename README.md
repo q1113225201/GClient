@@ -4,7 +4,7 @@
 ## 最新版APP下载
 [Release](https://github.com/q1113225201/GClient/releases/latest)
 
-<a href="https://play.google.com/store/apps/details?id=com.sjl.gankapp" target="_blank"><img src="http://www.android.com/images/brand/get_it_on_play_logo_large.png"/></a>
+<a href="https://play.google.com/store/apps/details?id=com.sjl.gankapp" target="_blank"><img src="images/google.png"/></a>
 
 ### 首页
 进入首页就是满满的妹子福利，这感觉perfect，右下角添加了一个可展开菜单管理干货分类。
