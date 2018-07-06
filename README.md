@@ -9,20 +9,20 @@
 ### 首页
 进入首页就是满满的妹子福利，这感觉perfect，右下角添加了一个可展开菜单管理干货分类。
 
-![image](images/index.png)
+![image](images/index.jpg)
 
 ### 闲读
 闲读是干货集中营新开放的API，这里用了[树形列表](https://github.com/q1113225201/TreeView)展示大小分类。
 
-![image](images/casual.png)
+![image](images/casual.jpg)
 
 ### 闲读列表
 闲读列表和干货分类的列表都是卡片式的，闲读列表最下面用[BottomSheetBehavior](https://developer.android.com/reference/android/support/design/widget/BottomSheetBehavior)实现了可选择分类的菜单。
 
-![image](images/casual_list.png)
+![image](images/casual_list.jpg)
 
 ### 详情
 这是每日干货的列表数据，点击可以查看每条数据信息。
 
-![image](images/detail.png)
+![image](images/detail.jpg)
 
