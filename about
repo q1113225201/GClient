@@ -1,4 +1,4 @@
 {
-    "app":"这是一个根据干货集中营 http://gank.io 的开放API实现的客户端APP，使用Retrofit2+RxJava2+MVP的开发模式，正在不断美化界面、完善功能、优化代码，如果有什么问题欢迎反馈。",
+    "app":"这是一个根据干货集中营 http://gank.io 的开放API实现的客户端APP，使用Retrofit2+RxJava2+MVP的开发模式，当前已经可以查看每日干货、分类干货以及最新的闲读数据，项目正在不断美化界面、完善功能、优化代码，如果有什么问题欢迎反馈。",
     "me":"感兴趣的可以交个朋友，相互讨论，共同进步。\nGitHub：https://github.com/q1113225201\nCSDN：http://blog.csdn.net/q1113225201"
 }
